@@ -11,14 +11,14 @@ import org.hibernate.Transaction;
 
 import database.HibernateUtil;
 
-public class Tests {
+public class HibernateTests {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 
-		Tests tst = new Tests();
+		HibernateTests tst = new HibernateTests();
 
 		/**
 		 * adding records
