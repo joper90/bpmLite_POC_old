@@ -1,4 +1,4 @@
-package engineConnector;
+package com.bpmlite.testclient;
 
 import javax.jms.JMSException;
 import javax.jms.QueueConnection;

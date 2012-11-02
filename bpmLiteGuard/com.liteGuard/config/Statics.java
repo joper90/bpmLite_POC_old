@@ -21,8 +21,8 @@ public class Statics {
 	public static String					jmsServer				= "localhost";
 	public static String					jmsUser					= null;
 	public static String					jmsPassword				= null;
-	public static String					jmsTopicPush			= "BpmLiteTopic"; //Topic to connect to the serverWith
-	public static String					jmsTopicPull			= "BpmGuardTopic"; // Topic to listen on.
+	public static String					jmsTopicPush			= "BpmLiteQueue"; //Topic to connect to the serverWith
+	public static String					jmsTopicPull			= "BpmGuardQueue"; // Topic to listen on.
 	
 	
 	public static void setAlive(boolean b)

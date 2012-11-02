@@ -20,7 +20,7 @@ public class JmsConnector implements  ExceptionListener, MessageListener {
 
 	private String				password	= Statics.jmsPassword;
 
-	private String				topic		= Statics.jmsTopicPull;
+	private String				queue		= Statics.jmsTopicPull;
 
 	private Connection			connection	= null;
 
@@ -29,13 +29,11 @@ public class JmsConnector implements  ExceptionListener, MessageListener {
 	private MessageConsumer		msgConsumer	= null;
 
 	private Destination			destination	= null;
-
-	private boolean				useTopic	= true;
 	
 	public boolean connectAndSpawn() 
 	{
 
-		System.out.println("Connecting to jms : " + serverUrl + " " + userName + " " + topic);
+		System.out.println("Connecting to jms : " + serverUrl + " " + userName + " " + queue);
 
 		try
 		{
@@ -52,17 +50,10 @@ public class JmsConnector implements  ExceptionListener, MessageListener {
 			/* set the exception listener */
 			connection.setExceptionListener(this);
 
-			/* create the destination */
-			if (useTopic)
-			{
-				destination = session.createTopic(topic);
-			}
-			else
-			{
-				destination = session.createQueue(topic);
-			}
+			// create the destination 
+			destination = session.createQueue(queue);	
 
-			System.out.println("Subscribing to destination: " + topic);
+			System.out.println("Subscribing to destination: " + queue);
 
 			/* create the consumer */
 			msgConsumer = session.createConsumer(destination);
@@ -87,7 +78,8 @@ public class JmsConnector implements  ExceptionListener, MessageListener {
 	@Override
 	public void onMessage(Message message) {
 		// TODO Auto-generated method stub
-		System.out.println("Gone a message ");
+		System.out.println("Got a message ... whoot " );
+		JmsReceiveParser jmsRe = new JmsReceiveParser(message);
 	}
 
 	@Override
