@@ -6,7 +6,10 @@ import model.CompleteFormData;
 import model.FormData;
 import model.FormData.FIELD_MODE;
 import model.FormData.FIELD_TYPE;
-import model.WorkItemDetails;
+
+import com.bpmlite.api.WorkItemKeyDetailsDocument;
+import com.bpmlite.api.WorkItemKeyDetailsDocument.WorkItemKeyDetails;
+
 import config.Statics;
 
 public class WorkItemRequestWorker {
@@ -15,31 +18,38 @@ public class WorkItemRequestWorker {
 	//This is from teh server, before it sends out a return to the client for where the 
 	// data is stored, it creates a new form data key
 	
-	public static boolean injectNewKey(String rootKey, WorkItemDetails formData)
+	public static boolean injectNewKey(WorkItemKeyDetailsDocument wItemKeyDetails)
 	{
+		//TODO : add inject key
 		//Add the form Data information to the Database.
 		return true;
 	}
 	
 	public static boolean isValidFormGuid(String formIdGuid, String userKey)
 	{
+		//TODO : add check valid jkey in db
 		//Check if the guid exists in the required table (i.e its been added from teh bpmlite server)
 		return true;
 	}
 	
-	public static WorkItemDetails getWorkItemDetailsFromGuid(String formIdGuid, String userKey)
+	public static WorkItemKeyDetails getWorkItemDetailsFromGuid(String formIdGuid, String userKey)
 	{
-		return new WorkItemDetails();
+		WorkItemKeyDetails wItemDetails = WorkItemKeyDetails.Factory.newInstance();
+		//TODO: Added db connection information
+		//Connect to db and get the details
+		return wItemDetails;
 	}
 	
 	public static boolean removeFormGuidKey(String formIdGuid)
 	{
+		//TODO: remove key from the database.
 		//remove the key from the database
 		return true;
 	}
 		
 	public static CompleteFormData getAllData(String formIdGuid)
 	{
+		//TODO: get all the data from teh databae..
 		//Get data from the database and populate the information.
 		CompleteFormData c = new CompleteFormData();
 		

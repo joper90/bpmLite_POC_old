@@ -11,18 +11,23 @@ public class Statics {
 	public final static String ADMIN ="root";
 	public final static String ADMIN_KEY = "12345";
 	
-	public final static String REST_WORKED = "success";
-	public final static String REST_FAILED = "failed";
+	public final static String EMS_PUSH_WORKED = "success";
+	public final static String EMS_PUSH_FAILED = "failed";
 	
 	public static boolean isAlive = false;
 	
 	// JMS Connection information
 
-	public static String					jmsServer				= "localhost";
-	public static String					jmsUser					= null;
-	public static String					jmsPassword				= null;
-	public static String					jmsTopicPush			= "BpmLiteQueue"; //Topic to connect to the serverWith
-	public static String					jmsTopicPull			= "BpmGuardQueue"; // Topic to listen on.
+	public static String					JMS_SERVER				= "localhost";
+	public static String					JMS_USER				= null;
+	public static String					JMS_PASSWORD				= null;
+	public static String					JMS_TOPIC_PUSH			= "BpmLiteQueue"; //Topic to connect to the serverWith
+	public static String					JMS_TOPIC_PULL			= "BpmGuardQueue"; // Topic to listen on.
+	
+	//JMS Message Parsing
+	public static String WORK_ITEM_KEY_DETAILS 	= "WorkItemKeyDetails";
+	public static String SET_USER_DETAILS 		= "SetUserDetailsRequest";
+	public static String START_CASE_DETAILS		= "StartCaseDetails";
 	
 	
 	public static void setAlive(boolean b)

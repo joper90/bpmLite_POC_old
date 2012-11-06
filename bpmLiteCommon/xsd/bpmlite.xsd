@@ -11,7 +11,100 @@
 				<xs:element name="stepId" type="xs:int"/>
 				<xs:element name="uniqueFormGuid" type="xs:string"/>
 				<xs:element name="userKey" type="xs:string"/>
+				<xs:element name="rootKey" minOccurs="0"/>
+				<xs:element name="fieldDetails" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="fieldId" type="xs:int"/>
+							<xs:element name="isGlobal" type="xs:boolean"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="CompleteWorkItemRequest">
+		<xs:annotation>
+			<xs:documentation>Guard sends to the server when an Item is completed. (close/submit) not cancel</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="processId" type="xs:int"/>
+				<xs:element name="stepId" type="xs:int"/>
+				<xs:element name="action" type="actionModeType"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SetUserDetailsRequest">
+		<xs:annotation>
+			<xs:documentation>Server sending user information to the guard so it can validate the details.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="rootKey" type="xs:string"/>
+				<xs:element name="userDetails" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="userName" type="xs:string"/>
+							<xs:element name="userGuid" type="xs:string"/>
+							<xs:element name="userKey" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="callbackGuidKey" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RequestCallBack">
+		<xs:annotation>
+			<xs:documentation>Sends the request result back to the server, with the guid.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="requestGuid" type="xs:string"/>
+				<xs:element name="worked" type="xs:boolean"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="StartCaseDetails">
+		<xs:annotation>
+			<xs:documentation>Starting a case, puts fieldid, and sets the datafields</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="processId" type="xs:int"/>
+				<xs:element name="fieldDetails" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="fieldId" type="xs:int"/>
+							<xs:element name="isGlobal" type="xs:boolean"/>
+							<xs:element name="initalValue" type="xs:string" minOccurs="0"/>
+							<xs:element name="fieldType" type="fieldModeType"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="callbackGuidKey" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="actionModeType">
+		<xs:annotation>
+			<xs:documentation>List of actions available</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="COMPLETE"/>
+			<xs:enumeration value="CLOSE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="fieldModeType">
+		<xs:annotation>
+			<xs:documentation>List of fieldTypes</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="STRING"/>
+			<xs:enumeration value="INT"/>
+			<xs:enumeration value="DECIMAL"/>
+			<xs:enumeration value="BOOLEAN"/>
+		</xs:restriction>
+	</xs:simpleType>
 </xs:schema>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="8" passed="8">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="1481" started-at="2012-11-06T09:30:54Z" finished-at="2012-11-06T09:30:56Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="1481" started-at="2012-11-06T09:30:54Z" finished-at="2012-11-06T09:30:56Z">
+      <class name="tests.QuickTests">
+        <test-method status="PASS" signature="insertData()[pri:0, instance:tests.QuickTests@68da4b71]" name="insertData" duration-ms="1190" started-at="2012-11-06T09:30:54Z" finished-at="2012-11-06T09:30:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- insertData -->
+        <test-method status="PASS" signature="insertDuplicateData()[pri:0, instance:tests.QuickTests@68da4b71]" name="insertDuplicateData" duration-ms="28" started-at="2012-11-06T09:30:55Z" depends-on-methods="tests.QuickTests.insertData" finished-at="2012-11-06T09:30:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- insertDuplicateData -->
+        <test-method status="PASS" signature="updateData()[pri:0, instance:tests.QuickTests@68da4b71]" name="updateData" duration-ms="82" started-at="2012-11-06T09:30:55Z" depends-on-methods="tests.QuickTests.insertDuplicateData" finished-at="2012-11-06T09:30:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- updateData -->
+        <test-method status="PASS" signature="updateDataNonExisting()[pri:0, instance:tests.QuickTests@68da4b71]" name="updateDataNonExisting" duration-ms="3" started-at="2012-11-06T09:30:55Z" depends-on-methods="tests.QuickTests.updateData" finished-at="2012-11-06T09:30:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- updateDataNonExisting -->
+        <test-method status="PASS" signature="getData()[pri:0, instance:tests.QuickTests@68da4b71]" name="getData" duration-ms="110" started-at="2012-11-06T09:30:55Z" depends-on-methods="tests.QuickTests.updateDataNonExisting" finished-at="2012-11-06T09:30:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getData -->
+        <test-method status="PASS" signature="getDataErrorRecord()[pri:0, instance:tests.QuickTests@68da4b71]" name="getDataErrorRecord" duration-ms="3" started-at="2012-11-06T09:30:55Z" depends-on-methods="tests.QuickTests.getData" finished-at="2012-11-06T09:30:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getDataErrorRecord -->
+        <test-method status="PASS" signature="deleteData()[pri:0, instance:tests.QuickTests@68da4b71]" name="deleteData" duration-ms="37" started-at="2012-11-06T09:30:55Z" depends-on-methods="tests.QuickTests.getDataErrorRecord" finished-at="2012-11-06T09:30:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- deleteData -->
+        <test-method status="PASS" signature="deleteDataAlreadyGone()[pri:0, instance:tests.QuickTests@68da4b71]" name="deleteDataAlreadyGone" duration-ms="3" started-at="2012-11-06T09:30:55Z" depends-on-methods="tests.QuickTests.deleteData" finished-at="2012-11-06T09:30:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- deleteDataAlreadyGone -->
+      </class> <!-- tests.QuickTests -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

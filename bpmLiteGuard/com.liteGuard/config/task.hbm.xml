@@ -5,32 +5,18 @@
  
 <hibernate-mapping>
 
- <class name="model.User" table="users" >
+ <class name="database.ServerInfoModel" table="server_info" >
   <id name="id" type="int" column="id" >
    <generator class="native"/>
   </id>
  
-  <property name="firstName">
-   <column name="first_name" />
+  <property name="value">
+   <column name="value" />
   </property>
-  <property name="lastName">
-   <column name="last_name"/>
+  <property name="data">
+   <column name="data"/>
   </property>
  </class>
  
- <class name="model.Task" table="tasks">
-  <id name="id" type="int" column="id" >
-   <generator class="native"/>
-  </id>
  
-  <property name="userID">
-   <column name="user_id" />
-  </property>  
-  <property name="title">
-   <column name="title" />
-  </property>
-  <property name="description">
-   <column name="description"/>
-  </property>
- </class>
 </hibernate-mapping>

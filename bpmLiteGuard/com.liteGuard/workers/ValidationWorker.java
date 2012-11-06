@@ -1,6 +1,6 @@
 package workers;
 
-import model.ValidateDetails;
+
 
 public class ValidationWorker {
 
@@ -18,10 +18,6 @@ public class ValidationWorker {
 		return (name.equals("root") ? true : false);
 	}
 	
-	public static boolean validateNewUser(String adminKey, ValidateDetails validateDetails)
-	{
-		return true;
-	}
 	
 	public static boolean validateActionType(String actionType)
 	{

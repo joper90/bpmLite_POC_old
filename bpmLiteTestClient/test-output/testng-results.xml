@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="3" passed="3">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="460" started-at="2012-11-04T22:21:37Z" finished-at="2012-11-04T22:21:38Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="460" started-at="2012-11-04T22:21:37Z" finished-at="2012-11-04T22:21:38Z">
+      <class name="com.bpmlite.testclient.EmsTests">
+        <test-method status="PASS" signature="test()[pri:0, instance:com.bpmlite.testclient.EmsTests@7e78fc6]" name="test" duration-ms="424" started-at="2012-11-04T22:21:38Z" finished-at="2012-11-04T22:21:38Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test -->
+        <test-method status="PASS" signature="testSetUsersDetails()[pri:0, instance:com.bpmlite.testclient.EmsTests@7e78fc6]" name="testSetUsersDetails" duration-ms="1" started-at="2012-11-04T22:21:38Z" finished-at="2012-11-04T22:21:38Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetUsersDetails -->
+        <test-method status="PASS" signature="testWorkItemKeyDetails()[pri:0, instance:com.bpmlite.testclient.EmsTests@7e78fc6]" name="testWorkItemKeyDetails" duration-ms="20" started-at="2012-11-04T22:21:38Z" finished-at="2012-11-04T22:21:38Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testWorkItemKeyDetails -->
+      </class> <!-- com.bpmlite.testclient.EmsTests -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

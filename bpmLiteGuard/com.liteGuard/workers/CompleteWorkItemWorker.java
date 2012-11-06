@@ -2,10 +2,15 @@ package workers;
 
 import java.util.ArrayList;
 
+import jmsConnector.QueueJMSMessageSender;
 import model.CompleteFormData;
 import model.FormData;
 import model.ReturnModel;
-import model.WorkItemDetails;
+
+import com.bpmlite.api.ActionModeType;
+import com.bpmlite.api.CompleteWorkItemRequestDocument.CompleteWorkItemRequest;
+import com.bpmlite.api.WorkItemKeyDetailsDocument.WorkItemKeyDetails;
+
 import config.Statics;
 import engineConnector.EngineRestConnector;
 
@@ -17,7 +22,7 @@ public class CompleteWorkItemWorker {
 		if (WorkItemRequestWorker.isValidFormGuid(formIdGuid, userKey))
 		{
 			//Entry exists and matches.
-			WorkItemDetails wItemDetails = WorkItemRequestWorker.getWorkItemDetailsFromGuid(formIdGuid, userKey);
+			WorkItemKeyDetails wItemDetails = WorkItemRequestWorker.getWorkItemDetailsFromGuid(formIdGuid, userKey);
 			
 			// Take a copy of the data from the database for a transaction rollback.					
 			CompleteFormData currentData = WorkItemRequestWorker.getAllData(formIdGuid);
@@ -30,36 +35,55 @@ public class CompleteWorkItemWorker {
 				if (updateFormDataInDatabase(formIdGuid, formData))
 				{
 					//Updated.. so now we need to inform the server of the complete status. WITH THE ACTION
-					if(EngineRestConnector.stepCompleted(wItemDetails.getProcessId(), wItemDetails.getStepId(), action))
+					//EngineRestConnector.stepCompleted(wItemDetails.getProcessId(), wItemDetails.getStepId(), action)
+					//Create new object
+					
+					CompleteWorkItemRequest comp = CompleteWorkItemRequest.Factory.newInstance();
+					comp.setProcessId(wItemDetails.getProcessId());
+					comp.setStepId(wItemDetails.getStepId());
+					
+					//TODO: change this crappy code.. !
+					if (action.equalsIgnoreCase("SUBMIT"))
 					{
-						new ReturnModel(Statics.REST_WORKED,"Step completed sucessfully", false);
+						comp.setAction(ActionModeType.COMPLETE);
+					}
+					else if (action.equalsIgnoreCase("CLOSE"))
+					{
+						comp.setAction(ActionModeType.CLOSE);
+					}
+					
+					QueueJMSMessageSender jmsSender = new QueueJMSMessageSender();
+					
+					if(jmsSender.sendMessageCheck(Statics.JMS_TOPIC_PUSH, comp.xmlText()))
+					{
+						new ReturnModel(Statics.EMS_PUSH_WORKED,"Step completed sucessfully", false);
 					}
 					else
 					{				
 						if (rollbackData(formIdGuid, currentData.getFormData()))
 						{
-							new ReturnModel(Statics.REST_FAILED,"Step not completed.. rolling back", false);
+							new ReturnModel(Statics.EMS_PUSH_FAILED,"Step not completed.. rolling back", false);
 						}
 						else
 						{
-							new ReturnModel(Statics.REST_FAILED,"Step not completed.. rolling back FAILED", false);
+							new ReturnModel(Statics.EMS_PUSH_FAILED,"Step not completed.. rolling back FAILED", false);
 						}
 					}
 					
 				
 				}else
 				{
-					new ReturnModel(Statics.REST_FAILED,"Update form data failed.", false);
+					new ReturnModel(Statics.EMS_PUSH_FAILED,"Update form data failed.", false);
 				}
 			}
 			else
 			{
-				new ReturnModel(Statics.REST_FAILED,"Bpm Server is down..", false);
+				new ReturnModel(Statics.EMS_PUSH_FAILED,"Bpm Server is down..", false);
 			}
 			
 		}
 		
-		return new ReturnModel(Statics.REST_FAILED,"Unknown User / user did not validate correctly.", false);
+		return new ReturnModel(Statics.EMS_PUSH_FAILED,"Unknown User / user did not validate correctly.", false);
 	}
 	
 	

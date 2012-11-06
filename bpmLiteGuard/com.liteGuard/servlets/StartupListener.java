@@ -1,10 +1,14 @@
 package servlets;
 
+import java.util.Date;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import jmsConnector.JmsConnector;
 import config.Statics;
-import engineConnector.JmsConnector;
+import database.ServerInfoModel;
+import database.DAO.BpmGuardDAO;
 
 public class StartupListener  implements ServletContextListener{
 
@@ -12,22 +16,44 @@ public class StartupListener  implements ServletContextListener{
 	
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("JmsConnector distroyed..");
 	}
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
 
-		System.out.println("\n\n====>Starting to init the system...\n\n");
+		System.out.println("\n\n====>Starting to init the system...");
 		Statics.setAlive(true);
 		
-		System.out.println("\n\n====>Starting JMS...\n\n");
+		System.out.println("====>Starting JMS...");
 		jmsConnector = new JmsConnector();
 		jmsConnector.connectAndSpawn();
-		System.out.println("\n\n====>Started JMS...\n\n");
+		System.out.println("====>Started JMS...");
 		
-		System.out.println("\n\n====>End init the system...\n\n");
+		
+		//Init the Hiberate System.
+		System.out.println("====>Starting Hibernate System...");
+		
+		ServerInfoModel sStatus = new ServerInfoModel();
+		sStatus = BpmGuardDAO.instance.getServerInfoDAO().findDataByValue("StartTime");
+		
+		if (sStatus == null)
+		{
+			ServerInfoModel sModel = new ServerInfoModel();
+			sModel.setValue("StartTime");
+			sModel.setData(new Date().toString());
+			BpmGuardDAO.instance.getServerInfoDAO().addServerInfoRecord(sModel);
+		}
+		else //update
+		{
+			sStatus.setData(new Date().toString());
+			BpmGuardDAO.instance.getServerInfoDAO().updateUser(sStatus);
+		}
+		
+		
+		System.out.println("====>Started Hibernate System...");
+		
+		System.out.println("====>End init the system...\n\n");
 		
 	}
 

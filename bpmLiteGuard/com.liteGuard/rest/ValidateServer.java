@@ -10,7 +10,7 @@ import model.Validation;
 import workers.ValidationWorker;
 import config.Statics;
 
-@Path("/validateServer")
+@Path("/validateGuardServer")
 public class ValidateServer {
 
 /*	@Context
@@ -18,6 +18,10 @@ public class ValidateServer {
 	@Context
 	Request request;*/
 
+	
+	/*
+	 * Checks to see if the server is up and running.. i.e the guard is alive.
+	 */
 
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })

@@ -7,7 +7,7 @@ import config.Statics;
 @XmlRootElement
 public class ReturnModel {
 
-	private String result = Statics.REST_FAILED;
+	private String result = Statics.EMS_PUSH_FAILED;
 	private String reason = "Unknown Error..";
 	private boolean worked = false;
 	
