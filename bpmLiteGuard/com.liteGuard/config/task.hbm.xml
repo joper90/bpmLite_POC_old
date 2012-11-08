@@ -19,4 +19,70 @@
  </class>
  
  
+ 
+ 
+  <class name="database.KeyStoreModel" table="key_store" >
+  <id name="id" type="int" column="id" >
+   <generator class="native"/>
+  </id>
+ 
+  <property name="userId">
+   <column name="user_id" />
+  </property>
+  <property name="fieldIds">
+   <column name="field_ids"/>
+  </property>
+    <property name="userGuid">
+   <column name="user_guid"/>
+  </property>
+    <property name="keyCollected">
+   <column name="key_collected"/>
+  </property>
+ </class>
+ 
+ <class name="database.FieldDataModel" table="field_data" >
+  <id name="id" type="int" column="id" >
+   <generator class="native"/>
+  </id>
+ 
+ <property name="processId">
+   <column name="process_id" />
+  </property>
+  <property name="caseId">
+   <column name="case_id" />
+  </property>
+  <property name="name">
+   <column name="name"/>
+  </property>
+    <property name="data">
+   <column name="data"/>
+  </property>
+    <property name="type">
+   <column name="type"/>
+  </property>
+  <property name="fieldId">
+   <column name="field_id"/>
+  </property>
+ </class>
+
+
+   <class name="database.GlobalData" table="global_data" >
+  <id name="id" type="int" column="id" >
+   <generator class="native"/>
+  </id>
+ 
+  <property name="name">
+   <column name="name"/>
+  </property>
+    <property name="data">
+   <column name="data"/>
+  </property>
+    <property name="type">
+   <column name="type"/>
+  </property>
+  <property name="fieldId">
+   <column name="field_id"/>
+  </property>
+ </class>
+
 </hibernate-mapping>

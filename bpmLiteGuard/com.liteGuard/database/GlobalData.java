@@ -1,6 +1,6 @@
 package database;
 
-public class GlobalModel {
+public class GlobalData {
 
 	private Integer	id;
 	private String name;

@@ -66,7 +66,6 @@ public class JmsReceiveParser {
 				/*
 				 * We have a valid start case requets.. so setup inital case details.
 				 */
-				
 				isSuccess = StartCaseRequestWorker.setupInitialDetails(startCaseDoc);
 				postBackResults(isSuccess, startCaseDoc.getStartCaseDetails().getCallbackGuidKey());
 				return isSuccess;

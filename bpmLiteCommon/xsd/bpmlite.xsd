@@ -80,10 +80,12 @@
 							<xs:element name="isGlobal" type="xs:boolean"/>
 							<xs:element name="initalValue" type="xs:string" minOccurs="0"/>
 							<xs:element name="fieldType" type="fieldModeType"/>
+							<xs:element name="name" type="xs:string"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="callbackGuidKey" type="xs:string"/>
+				<xs:element name="caseId" type="xs:int"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

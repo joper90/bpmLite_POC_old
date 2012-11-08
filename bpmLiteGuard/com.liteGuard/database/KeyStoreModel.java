@@ -4,8 +4,9 @@ public class KeyStoreModel {
 
 	private Integer id;
 	private String userId;
-	private String key;
+	private String fieldIds;
 	private String userGuid;
+	private boolean keyCollected;
 	
 	public Integer getId() {
 		return id;
@@ -18,18 +19,24 @@ public class KeyStoreModel {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}	
+	public String getFieldIds() {
+		return fieldIds;
 	}
-	public String getKey() {
-		return key;
-	}
-	public void setKey(String key) {
-		this.key = key;
+	public void setFieldIds(String fieldIds) {
+		this.fieldIds = fieldIds;
 	}
 	public String getUserGuid() {
 		return userGuid;
 	}
 	public void setUserGuid(String userGuid) {
 		this.userGuid = userGuid;
+	}
+	public boolean isKeyCollected() {
+		return keyCollected;
+	}
+	public void setKeyCollected(boolean keyCollected) {
+		this.keyCollected = keyCollected;
 	}
 	
 	

@@ -13,11 +13,12 @@ DROP TABLE IF EXISTS `bpmguard`.`field_data` ;
 
 CREATE  TABLE IF NOT EXISTS `bpmguard`.`field_data` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `process_id` INT NULL ,
-  `name` VARCHAR(45) NULL ,
+  `case_id` INT NOT NULL ,
+  `process_id` INT NOT NULL ,
+  `name` VARCHAR(45) NOT NULL ,
   `data` VARCHAR(45) NULL ,
-  `type` VARCHAR(45) NULL ,
-  `field_id` INT NULL ,
+  `type` VARCHAR(45) NOT NULL ,
+  `field_id` INT NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -44,10 +45,12 @@ DROP TABLE IF EXISTS `bpmguard`.`key_store` ;
 
 CREATE  TABLE IF NOT EXISTS `bpmguard`.`key_store` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `user_id` VARCHAR(45) NULL ,
-  `key` VARCHAR(255) NULL ,
-  `user_guid` VARCHAR(45) NULL ,
-  PRIMARY KEY (`id`) )
+  `user_id` VARCHAR(45) NOT NULL ,
+  `field_ids` VARCHAR(255) NOT NULL ,
+  `user_guid` VARCHAR(45) NOT NULL ,
+  `key_collected` TINYINT(1) NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `user_guid_UNIQUE` (`user_guid` ASC) )
 ENGINE = InnoDB;
 
 

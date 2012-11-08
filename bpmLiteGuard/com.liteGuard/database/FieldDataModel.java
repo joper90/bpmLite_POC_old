@@ -3,7 +3,8 @@ package database;
 public class FieldDataModel {
 
 	private Integer	id;
-	private Integer	processId;
+	private Integer	caseId;
+	private Integer processId;
 	private String name;
 	private String data;
 	private String type;
@@ -15,6 +16,13 @@ public class FieldDataModel {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	public Integer getCaseId() {
+		return caseId;
+	}
+	public void setCaseId(Integer caseId) {
+		this.caseId = caseId;
+	}
+		
 	public Integer getProcessId() {
 		return processId;
 	}
