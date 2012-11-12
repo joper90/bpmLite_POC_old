@@ -109,4 +109,87 @@
 			<xs:enumeration value="BOOLEAN"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:element name="ProcessArtifact">
+		<xs:annotation>
+			<xs:documentation>A process to deploy</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="fields" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="name" type="xs:string"/>
+							<xs:element name="type" type="fieldModeType"/>
+							<xs:element name="initalData" type="xs:string"/>
+							<xs:element name="fieldId" type="xs:int"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="processData">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="steps" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="stepId" type="xs:int"/>
+										<xs:element name="stepName" type="xs:string"/>
+										<xs:element name="stepType"/>
+										<xs:element name="participants" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="userGuid" default="xs:string"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="extendedData" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="name" type="xs:string"/>
+													<xs:element name="value" type="xs:string"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="fieldData" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="fieldId" type="xs:int"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="nextStepId" type="xs:int" maxOccurs="3"/>
+										<xs:element name="previousStepId" type="xs:int" maxOccurs="3"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="processName" type="xs:string"/>
+							<xs:element name="processDescription" type="xs:string"/>
+							<xs:element name="version" type="xs:string"/>
+							<xs:element name="author" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="uniqueGuid" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="stepType">
+		<xs:annotation>
+			<xs:documentation>Steps that can be used in a process</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="USER"/>
+			<xs:enumeration value="JMS"/>
+			<xs:enumeration value="POJO"/>
+			<xs:enumeration value="DATABASE"/>
+			<xs:enumeration value="EMAIL"/>
+			<xs:enumeration value="TIBBR"/>
+			<xs:enumeration value="SPLIT"/>
+			<xs:enumeration value="JOIN"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="OrgModel">
+		<xs:annotation>
+			<xs:documentation>The OrgModel</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 </xs:schema>

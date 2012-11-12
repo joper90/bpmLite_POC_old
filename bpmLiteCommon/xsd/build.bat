@@ -5,6 +5,7 @@
 copy bpmlite-beans.jar ..\..\bpmLiteGuard\libs
 copy bpmlite-beans.jar ..\..\bpmLiteGuard\WebContent\WEB-INF\lib
 copy bpmlite-beans.jar ..\..\bpmLite\libs
+copy bpmlite-beans.jar ..\..\bpmLite\WebContent\WEB-INF\lib
 copy bpmlite-beans.jar ..\..\bpmLiteTestClient\libs
 
 @echo all done.

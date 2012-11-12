@@ -6,10 +6,10 @@
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
-  
-  <listener>
-    <listener-class>servlets.StartupListener</listener-class>
-  </listener>
+
+	<listener>
+		<listener-class>servlets.StartupListener</listener-class>
+	</listener>
   
   <servlet>
     <servlet-name>Jersey REST Service</servlet-name>
