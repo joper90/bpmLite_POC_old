@@ -1,13 +1,11 @@
-package model;
+package guard.models;
 
 import javax.xml.bind.annotation.XmlRootElement;
-
-import config.Statics;
 
 @XmlRootElement
 public class ReturnModel {
 
-	private String result = Statics.EMS_PUSH_FAILED;
+	private String result = "failed";
 	private String reason = "Unknown Error..";
 	private boolean worked = false;
 	

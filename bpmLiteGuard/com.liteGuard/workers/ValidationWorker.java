@@ -1,5 +1,8 @@
 package workers;
 
+import database.ServerInfoModel;
+import database.DAO.BpmGuardDAO;
+
 
 
 public class ValidationWorker {
@@ -9,12 +12,16 @@ public class ValidationWorker {
 	public static boolean isValid(String name, String key)
 	{
 		//To check in the database
-		return true;
+		ServerInfoModel model = BpmGuardDAO.instance.getServerInfoDAO().findDataByValue(name);
+		if (model !=  null)
+		{
+			if (model.getData().equalsIgnoreCase(key)) return true;
+		}
+		return false;
 	}
 	
 	public static boolean isAdmin(String name, String key)
 	{
-		
 		return (name.equals("root") ? true : false);
 	}
 	

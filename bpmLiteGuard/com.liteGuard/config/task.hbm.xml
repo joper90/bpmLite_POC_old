@@ -38,6 +38,21 @@
     <property name="keyCollected">
    <column name="key_collected"/>
   </property>
+      <property name="processId">
+   <column name="process_id"/>
+  </property>
+      <property name="stepId">
+   <column name="step_id"/>
+  </property>
+      <property name="caseId">
+   <column name="case_id"/>
+  </property>
+  <property name="orderList">
+   <column name="order_list"/>
+  </property>
+    <property name="displayOnly">
+   <column name="display_only"/>
+  </property>
  </class>
  
  <class name="database.FieldDataModel" table="field_data" >

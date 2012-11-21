@@ -95,6 +95,7 @@ public class FieldDataDAO {
 		
 		return fInfo;
 	}
+
 	
 	public FieldDataModel[] getAllFieldsByStringOfIds(String listOfIds)
 	{
@@ -110,7 +111,7 @@ public class FieldDataDAO {
 			}
 			else
 			{
-				System.out.println("--> [HIB] fieldDataModel not found id: " + id);
+				System.out.println("--> [HIB] fieldDataModel not found id (May be global): " + id);
 			}
 		}
 		

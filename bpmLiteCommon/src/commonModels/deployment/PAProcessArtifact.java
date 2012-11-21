@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class PAProcessArtifact {
 
 	private String uniqueGuid;
-	private PAFields[] fields;
+	private PAField[] fields;
 	private PAProcessData processData;
 	
 	public String getUniqueGuid() {
@@ -16,10 +16,10 @@ public class PAProcessArtifact {
 	public void setUniqueGuid(String uniqueGuid) {
 		this.uniqueGuid = uniqueGuid;
 	}
-	public PAFields[] getFields() {
+	public PAField[] getFields() {
 		return fields;
 	}
-	public void setFields(PAFields[] fields) {
+	public void setFields(PAField[] fields) {
 		this.fields = fields;
 	}
 	public PAProcessData getProcessData() {

@@ -1,4 +1,4 @@
-package model;
+package guard.models;
 
 import java.util.ArrayList;
 
@@ -12,8 +12,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class CompleteFormData {
 
 	private ArrayList<FormData> formData = new ArrayList<FormData>();
-	private String orderList = "";
+	private String orderList;
 	private boolean isValid = false;
+	
+	
+	//User details needed for posting
+	private String userId;
+	private String requestId;
 	
 	public CompleteFormData()
 	{
@@ -43,7 +48,23 @@ public class CompleteFormData {
 	public void setValid(boolean isValid) {
 		this.isValid = isValid;
 	}
-	
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getRequestId() {
+		return requestId;
+	}
+
+	public void setRequestId(String requestId) {
+		this.requestId = requestId;
+	}
+
 	
 	
 }

@@ -8,11 +8,12 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="processId" type="xs:int"/>
+				<xs:element name="caseId" type="xs:int"/>
 				<xs:element name="stepId" type="xs:int"/>
 				<xs:element name="uniqueFormGuid" type="xs:string"/>
 				<xs:element name="userKey" type="xs:string"/>
-				<xs:element name="rootKey" minOccurs="0"/>
-				<xs:element name="fieldDetails" maxOccurs="unbounded">
+				<xs:element name="rootKey" type="xs:string"/>
+				<xs:element name="keyFieldDetails" maxOccurs="unbounded">
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="fieldId" type="xs:int"/>
@@ -20,6 +21,9 @@
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="displayOnly" type="xs:string" minOccurs="0"/>
+				<xs:element name="orderList" type="xs:string" minOccurs="0"/>
+				<xs:element name="callBackGuid" type="xs:string"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -32,26 +36,6 @@
 				<xs:element name="processId" type="xs:int"/>
 				<xs:element name="stepId" type="xs:int"/>
 				<xs:element name="action" type="actionModeType"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="SetUserDetailsRequest">
-		<xs:annotation>
-			<xs:documentation>Server sending user information to the guard so it can validate the details.</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="rootKey" type="xs:string"/>
-				<xs:element name="userDetails" maxOccurs="unbounded">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element name="userName" type="xs:string"/>
-							<xs:element name="userGuid" type="xs:string"/>
-							<xs:element name="userKey" type="xs:string"/>
-						</xs:sequence>
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="callbackGuidKey" type="xs:string"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -133,11 +117,11 @@
 									<xs:sequence>
 										<xs:element name="stepId" type="xs:int"/>
 										<xs:element name="stepName" type="xs:string"/>
-										<xs:element name="stepType"/>
+										<xs:element name="stepType" type="stepType"/>
 										<xs:element name="participants" maxOccurs="unbounded">
 											<xs:complexType>
 												<xs:sequence>
-													<xs:element name="userGuid" default="xs:string"/>
+													<xs:element name="userGuid" type="xs:string"/>
 												</xs:sequence>
 											</xs:complexType>
 										</xs:element>

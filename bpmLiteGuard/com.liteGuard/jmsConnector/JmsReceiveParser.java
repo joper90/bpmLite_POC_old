@@ -5,14 +5,11 @@ import javax.jms.Message;
 
 import org.apache.xmlbeans.XmlException;
 
-import workers.SetUserDetailsWorker;
 import workers.StartCaseRequestWorker;
-import workers.ValidationWorker;
 import workers.WorkItemRequestWorker;
 
 import com.bpmlite.api.RequestCallBackDocument;
 import com.bpmlite.api.RequestCallBackDocument.RequestCallBack;
-import com.bpmlite.api.SetUserDetailsRequestDocument;
 import com.bpmlite.api.StartCaseDetailsDocument;
 import com.bpmlite.api.WorkItemKeyDetailsDocument;
 
@@ -21,6 +18,17 @@ import config.Statics;
 public class JmsReceiveParser {
 
 
+	/*
+	 * 
+	 * 
+	 * This currently recives and parses for
+	 * Work_item_key_details. -> add a unquie key for openign forms from the guard.
+	 * Set_user_details.. adds a new user
+	 * Start_case adds a new case. from bpmLite
+	 * 
+	 * 
+	 */
+	
 	
 	public JmsReceiveParser()
 	{
@@ -44,19 +52,7 @@ public class JmsReceiveParser {
 				 * / We have a valid set of details do now we can send to update the database
 				 */
 				isSuccess = WorkItemRequestWorker.injectNewKey(wDetailsDoc);
-				//This is a fire and forget, not need to return here..
-				return isSuccess;
-			}
-			else if (textRecived.contains(Statics.SET_USER_DETAILS))
-			{
-				SetUserDetailsRequestDocument setUserDetailsDoc = SetUserDetailsRequestDocument.Factory.parse(textRecived);
-				System.out.println("--> [JMS] Valid SetUserDetailsRequest JMS arrived..");
-				/*
-				 * we now have a valid user add request, so lets attempt to add all.
-				 */
-				
-				isSuccess = SetUserDetailsWorker.validateNewUserData(setUserDetailsDoc);
-				postBackResults(isSuccess, setUserDetailsDoc.getSetUserDetailsRequest().getCallbackGuidKey());
+				postBackResults(isSuccess, wDetailsDoc.getWorkItemKeyDetails().getCallBackGuid());
 				return isSuccess;
 			}
 			else if (textRecived.contains(Statics.START_CASE_DETAILS))
@@ -90,14 +86,21 @@ public class JmsReceiveParser {
 	
 	private void postBackResults(boolean worked, String callbackGuid)
 	{
-		RequestCallBackDocument rCallback = RequestCallBackDocument.Factory.newInstance();
-		RequestCallBack addNewRequestCallBack = rCallback.addNewRequestCallBack();
-		addNewRequestCallBack.setRequestGuid(callbackGuid);
-		addNewRequestCallBack.setWorked(worked);
-		
-		QueueJMSMessageSender qSender = new QueueJMSMessageSender();
-		boolean sendWorked = qSender.sendMessageCheck(Statics.JMS_TOPIC_PUSH, rCallback.xmlText());
-		System.out.println("Send to bpmLite results " + sendWorked);
+		if (!Statics.TEST_MODE)
+		{
+			RequestCallBackDocument rCallback = RequestCallBackDocument.Factory.newInstance();
+			RequestCallBack addNewRequestCallBack = rCallback.addNewRequestCallBack();
+			addNewRequestCallBack.setRequestGuid(callbackGuid);
+			addNewRequestCallBack.setWorked(worked);
+			
+			QueueJMSMessageSender qSender = new QueueJMSMessageSender();
+			boolean sendWorked = qSender.sendMessageCheck(Statics.JMS_TOPIC_PUSH, rCallback.xmlText());
+			System.out.println("Send to bpmLite results " + sendWorked);
+		}
+		else
+		{
+			System.out.println("---->TEST MODE not sending callback <---");
+		}
 		
 	}
 }

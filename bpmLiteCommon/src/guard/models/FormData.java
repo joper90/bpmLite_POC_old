@@ -1,4 +1,4 @@
-package model;
+package guard.models;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -6,12 +6,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class FormData {
 
 	public enum FIELD_TYPE { STRING,INTEGER,DECIMAL,BOOLEAN};
-	public enum FIELD_MODE { IN, OUT, INOUT};
+	public enum FIELD_MODE { EDIT,DISPLAY};
 	
 	private String fieldName = "";
 	private String fieldData = "";
 	private FIELD_TYPE fieldType = FIELD_TYPE.STRING;
-	private FIELD_MODE fieldMode = FIELD_MODE.INOUT;
+	private FIELD_MODE fieldMode = FIELD_MODE.EDIT;
 	
 	public FormData()
 	{

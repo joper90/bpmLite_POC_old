@@ -1,4 +1,4 @@
-package model;
+package guard.models;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

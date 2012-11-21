@@ -49,6 +49,11 @@ CREATE  TABLE IF NOT EXISTS `bpmguard`.`key_store` (
   `field_ids` VARCHAR(255) NOT NULL ,
   `user_guid` VARCHAR(45) NOT NULL ,
   `key_collected` TINYINT(1) NOT NULL ,
+  `process_id` INT NOT NULL ,
+  `step_id` INT NOT NULL ,
+  `case_id` INT NOT NULL ,
+  `order_list` VARCHAR(255) NULL ,
+  `display_only_ids` VARCHAR(225) NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `user_guid_UNIQUE` (`user_guid` ASC) )
 ENGINE = InnoDB;

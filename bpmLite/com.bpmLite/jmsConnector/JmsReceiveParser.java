@@ -3,6 +3,9 @@ package jmsConnector;
 import javax.jms.JMSException;
 import javax.jms.Message;
 
+import com.bpmlite.api.RequestCallBackDocument;
+import com.bpmlite.api.RequestCallBackDocument.RequestCallBack;
+
 import config.Statics;
 
 public class JmsReceiveParser {

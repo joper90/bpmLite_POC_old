@@ -3,9 +3,6 @@ package workers;
 import java.util.ArrayList;
 
 import jmsConnector.QueueJMSMessageSender;
-import model.CompleteFormData;
-import model.FormData;
-import model.ReturnModel;
 
 import com.bpmlite.api.ActionModeType;
 import com.bpmlite.api.CompleteWorkItemRequestDocument.CompleteWorkItemRequest;
@@ -13,6 +10,9 @@ import com.bpmlite.api.WorkItemKeyDetailsDocument.WorkItemKeyDetails;
 
 import config.Statics;
 import engineConnector.EngineRestConnector;
+import guard.models.CompleteFormData;
+import guard.models.FormData;
+import guard.models.ReturnModel;
 
 public class CompleteWorkItemWorker {
 
@@ -34,14 +34,11 @@ public class CompleteWorkItemWorker {
 				//Now commit the data..
 				if (updateFormDataInDatabase(formIdGuid, formData))
 				{
-					//Updated.. so now we need to inform the server of the complete status. WITH THE ACTION
-					//EngineRestConnector.stepCompleted(wItemDetails.getProcessId(), wItemDetails.getStepId(), action)
-					//Create new object
 					
 					CompleteWorkItemRequest comp = CompleteWorkItemRequest.Factory.newInstance();
 					comp.setProcessId(wItemDetails.getProcessId());
 					comp.setStepId(wItemDetails.getStepId());
-					
+			
 					//TODO: change this crappy code.. !
 					if (action.equalsIgnoreCase("SUBMIT"))
 					{
@@ -108,7 +105,6 @@ public class CompleteWorkItemWorker {
 		}
 		
 		return rollbackData(formIdGuid, formDataAsArray);
-
 	}
-	
+		
 }

@@ -44,7 +44,7 @@ private boolean errorCreated = false;
 		return true;
 	}
 	
-	public KeyStoreModel findDataByGuid(String value)
+	public KeyStoreModel findDataByGuid(String guid)
 	{
 		this.errorCreated =false;
 		KeyStoreModel keyInfo = null;
@@ -52,7 +52,7 @@ private boolean errorCreated = false;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			trns = session.beginTransaction();
-			List<KeyStoreModel> sInfoList = session.createQuery("from KeyStoreModel where userGuid = :value").setString("value", value).list();
+			List<KeyStoreModel> sInfoList = session.createQuery("from KeyStoreModel where userGuid = :value").setString("value", guid).list();
 			
 			if (sInfoList.size() == 1)
 			{
@@ -74,7 +74,7 @@ private boolean errorCreated = false;
 		return keyInfo;
 	}
 	
-	public KeyStoreModel findDataByGuidAndUserId(String userGuid, String userId)
+	public KeyStoreModel findDataByGuidAndUserId(String requestId, String userId)
 	{
 		this.errorCreated =false;
 		KeyStoreModel keyInfo = null;
@@ -82,7 +82,7 @@ private boolean errorCreated = false;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			trns = session.beginTransaction();
-			List<KeyStoreModel> sInfoList = session.createQuery("from KeyStoreModel where userGuid = :value and userId = :userid").setString("value", userGuid).setString("userid", userId).list();
+			List<KeyStoreModel> sInfoList = session.createQuery("from KeyStoreModel where userGuid = :value and userId = :userid").setString("value", requestId).setString("userid", userId).list();
 			
 			if (sInfoList.size() == 1)
 			{

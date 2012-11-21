@@ -1,5 +1,7 @@
 package rest;
 
+import guard.models.CompleteFormData;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -7,8 +9,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import workers.WorkItemRequestWorker;
-
-import model.CompleteFormData;
 
 @Path("/getFormData")
 public class GetFormData {
@@ -18,17 +18,21 @@ public class GetFormData {
 	
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public CompleteFormData checkServerApp(@QueryParam("userKey") String userKey, @QueryParam("formId") String formIdGuid ) {
+	public CompleteFormData checkServerApp(@QueryParam("userId") String userId, @QueryParam("requestId") String requestId ) {
 		
 		CompleteFormData data = new CompleteFormData();
 		//Check if the user key is valid.
 		
 		
 		//Check if the guid is valid.
-		if (WorkItemRequestWorker.isValidFormGuid(formIdGuid, userKey))
+		if (WorkItemRequestWorker.isValidFormGuid(requestId, userId))
 		{
 			//WE have a valid guid, with a valid user key.
-			data = WorkItemRequestWorker.getAllData(formIdGuid);
+			data = WorkItemRequestWorker.getAllData(requestId);
+			data.setValid(true);
+			data.setUserId(userId);
+			data.setRequestId(requestId);
+
 		}
 		
 		return data;

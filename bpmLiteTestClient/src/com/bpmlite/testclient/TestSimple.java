@@ -14,6 +14,8 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 public class TestSimple {
 
+	private static String formData = "";
+	
 	/**
 	 * @param args
 	 */
@@ -21,7 +23,6 @@ public class TestSimple {
 
 		TestHello();
 		TestRootKeyValidation();
-		TestSetUserDetails();
 		TestGetFormData();
 	  
 
@@ -53,10 +54,10 @@ public class TestSimple {
 		ClientConfig config = new DefaultClientConfig();
 	    Client client = Client.create(config);
 	    WebResource service = client.resource(getBaseURI());
-	    System.out.println(service.path("rest").path("validateServer").queryParam("key", "12345").accept(MediaType.APPLICATION_JSON).get(String.class));
+	    System.out.println(service.path("rest").path("validateGuardServer").queryParam("key", "12345").accept(MediaType.APPLICATION_JSON).get(String.class));
 	}
 	
-	public static void TestSetUserDetails()
+/*	public static void TestSetUserDetails()
 	{
 		String json = "{\"userGuid\":\"12345ABC\",\"userKey\":\"12345\",\"userName\":\"joeh\"}";
 		ClientConfig config = new DefaultClientConfig();
@@ -66,14 +67,20 @@ public class TestSimple {
 	    String response = service.path("rest").path("setUserDetails").queryParam("rootKey","12345").type(MediaType.APPLICATION_JSON).post(String.class, json);
 	    System.out.println("Ret: " + response);
 	    
-	}
+	} */
 	
 	public static void TestGetFormData()
 	{
 		ClientConfig config = new DefaultClientConfig();
 	    Client client = Client.create(config);
 	    WebResource service = client.resource(getBaseURI());
-	    System.out.println(service.path("rest").path("getFormData").queryParam("userKey", "12345").queryParam("formId", "22222").accept(MediaType.APPLICATION_JSON).get(String.class));
+	    formData =  service.path("rest").path("getFormData").queryParam("userId", "UserKey1234").queryParam("requestId", "Guid1234ABC").accept(MediaType.APPLICATION_JSON).get(String.class);
+	    System.out.println(formData);
+	}
+	
+	public static void ConvertFormDataToJsonObject()
+	{
+		
 	}
 
 }

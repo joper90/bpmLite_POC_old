@@ -15,8 +15,5 @@ public class DeployProcessWorker {
 
 
 
-	private static ProcessArtifactDocument convertToBean(PAProcessArtifact toConvert)
-	{
-		return null;
-	}
+
 }

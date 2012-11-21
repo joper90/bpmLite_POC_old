@@ -9,7 +9,7 @@ public class PAProcessData {
 	private String version;
 	private String author;
 	
-	private PASteps[] steps;	
+	private PAStep[] steps;	
 	
 	
 	public String getProcessName() {
@@ -36,10 +36,10 @@ public class PAProcessData {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public PASteps[] getSteps() {
+	public PAStep[] getSteps() {
 		return steps;
 	}
-	public void setSteps(PASteps[] steps) {
+	public void setSteps(PAStep[] steps) {
 		this.steps = steps;
 	}
 	

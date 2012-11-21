@@ -26,7 +26,6 @@ public class Statics {
 	
 	//JMS Message Parsing
 	public static String WORK_ITEM_KEY_DETAILS 	= "WorkItemKeyDetails";
-	public static String SET_USER_DETAILS 		= "SetUserDetailsRequest";
 	public static String START_CASE_DETAILS		= "StartCaseDetails";
 	
 	

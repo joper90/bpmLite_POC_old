@@ -1,16 +1,21 @@
 package workers;
 
-import java.util.ArrayList;
+import guard.models.CompleteFormData;
+import guard.models.FormData;
+import guard.models.FormData.FIELD_MODE;
+import guard.models.FormData.FIELD_TYPE;
 
-import model.CompleteFormData;
-import model.FormData;
-import model.FormData.FIELD_MODE;
-import model.FormData.FIELD_TYPE;
+import java.util.ArrayList;
 
 import com.bpmlite.api.WorkItemKeyDetailsDocument;
 import com.bpmlite.api.WorkItemKeyDetailsDocument.WorkItemKeyDetails;
+import com.bpmlite.api.WorkItemKeyDetailsDocument.WorkItemKeyDetails.KeyFieldDetails;
 
 import config.Statics;
+import database.FieldDataModel;
+import database.GlobalData;
+import database.KeyStoreModel;
+import database.DAO.BpmGuardDAO;
 
 public class WorkItemRequestWorker {
 
@@ -20,61 +25,170 @@ public class WorkItemRequestWorker {
 	
 	public static boolean injectNewKey(WorkItemKeyDetailsDocument wItemKeyDetails)
 	{
-		//TODO : add inject key
+		//First check the root key
+		if (!ValidationWorker.isValid(Statics.ADMIN,wItemKeyDetails.getWorkItemKeyDetails().getRootKey()))
+		{
+			System.out.println("Incorrect admin key supplied... cannot inject new key");
+			return false;
+		}
+		
 		//Add the form Data information to the Database.
-		return true;
+		KeyStoreModel keyStore = new KeyStoreModel();
+		keyStore.setKeyCollected(false);
+		keyStore.setCaseId(wItemKeyDetails.getWorkItemKeyDetails().getCaseId());
+		keyStore.setProcessId(wItemKeyDetails.getWorkItemKeyDetails().getProcessId());
+		keyStore.setUserGuid(wItemKeyDetails.getWorkItemKeyDetails().getUniqueFormGuid()); // the u
+		keyStore.setUserId(wItemKeyDetails.getWorkItemKeyDetails().getUserKey()); //The user to setup the infor for
+		keyStore.setStepId(wItemKeyDetails.getWorkItemKeyDetails().getStepId());
+		if (wItemKeyDetails.getWorkItemKeyDetails().isSetDisplayOnly())
+		{
+			keyStore.setDisplayOnly(wItemKeyDetails.getWorkItemKeyDetails().getDisplayOnly());
+		}
+		if (wItemKeyDetails.getWorkItemKeyDetails().isSetOrderList())
+		{
+			keyStore.setOrderList(wItemKeyDetails.getWorkItemKeyDetails().getOrderList());
+		}
+		
+		//Now deal with fields.
+		//Get field list
+		KeyFieldDetails[] fieldDetailsArray = wItemKeyDetails.getWorkItemKeyDetails().getKeyFieldDetailsArray();
+		StringBuffer fieldIdList = new StringBuffer();
+		for (KeyFieldDetails fDetails : fieldDetailsArray)
+		{
+			fieldIdList.append(fDetails.getFieldId());
+			fieldIdList.append(",");
+		}
+		keyStore.setFieldIds(fieldIdList.toString()); // , Still has the last , added on.. 
+			
+		
+		return BpmGuardDAO.instance.getKeyStoreDAO().addKeyStoreRecord(keyStore);
+		
 	}
 	
-	public static boolean isValidFormGuid(String formIdGuid, String userKey)
+	public static boolean isValidFormGuid(String requestId, String userId)
 	{
-		//TODO : add check valid jkey in db
 		//Check if the guid exists in the required table (i.e its been added from teh bpmlite server)
-		return true;
+		KeyStoreModel model = BpmGuardDAO.instance.getKeyStoreDAO().findDataByGuidAndUserId(requestId, userId);
+		if (model != null) return true;
+		return false;
 	}
 	
 	public static WorkItemKeyDetails getWorkItemDetailsFromGuid(String formIdGuid, String userKey)
 	{
 		WorkItemKeyDetails wItemDetails = WorkItemKeyDetails.Factory.newInstance();
-		//TODO: Added db connection information
 		//Connect to db and get the details
+		KeyStoreModel model = BpmGuardDAO.instance.getKeyStoreDAO().findDataByGuidAndUserId(formIdGuid, userKey);
+		
+		
+		wItemDetails.setProcessId(model.getProcessId());
+		wItemDetails.setStepId(model.getStepId());
+		wItemDetails.setUniqueFormGuid(formIdGuid);
+		wItemDetails.setStepId(model.getStepId());
+		
+		//Now get the field information.
+		
+		
+		FieldDataModel[] fields = BpmGuardDAO.instance.getFieldDataDAO().getAllFieldsByStringOfIds(model.getFieldIds());
+		GlobalData[] global = BpmGuardDAO.instance.getGlobalDataDAO().getAllFieldsByStringOfIds(model.getFieldIds());
+		KeyFieldDetails[] fDetailsArray = new KeyFieldDetails[fields.length + global.length];
+		int pCount = 0;
+		for (FieldDataModel fd : fields)
+		{
+			KeyFieldDetails fDetail = KeyFieldDetails.Factory.newInstance();
+			fDetail.setFieldId(fd.getFieldId());
+			fDetail.setIsGlobal(false);
+			fDetailsArray[pCount++] = fDetail;
+		}
+		for (GlobalData gd : global)
+		{
+			KeyFieldDetails fDetail = KeyFieldDetails.Factory.newInstance();
+			fDetail.setFieldId(gd.getFieldId());
+			fDetail.setIsGlobal(true);
+			fDetailsArray[pCount++] = fDetail;
+		}
+		
+		wItemDetails.setKeyFieldDetailsArray(fDetailsArray);
 		return wItemDetails;
 	}
 	
 	public static boolean removeFormGuidKey(String formIdGuid)
 	{
-		//TODO: remove key from the database.
-		//remove the key from the database
-		return true;
+		return BpmGuardDAO.instance.getKeyStoreDAO().deleteRecordByGuid(formIdGuid);
 	}
 		
 	public static CompleteFormData getAllData(String formIdGuid)
 	{
-		//TODO: get all the data from teh databae..
 		//Get data from the database and populate the information.
-		CompleteFormData c = new CompleteFormData();
-		
-		if (Statics.TEST_MODE)
-		{
-			c.setOrderList("DummyOrderList");
-			c.setValid(true);
-			
+		CompleteFormData completFormData = new CompleteFormData();
+		//Get the keyStore info from the database.
+		KeyStoreModel keyModel = BpmGuardDAO.instance.getKeyStoreDAO().findDataByGuid(formIdGuid);				
+		//add not null here.
+	
+			completFormData.setOrderList(keyModel.getOrderList());
 			ArrayList<FormData> formData = new ArrayList<FormData>();
 			
-			for (int a = 1 ; a < 4 ; a++)
+			//Get field Data and Global Data now.
+			FieldDataModel[] fields = BpmGuardDAO.instance.getFieldDataDAO().getAllFieldsByStringOfIds(keyModel.getFieldIds());
+			GlobalData[] globals = BpmGuardDAO.instance.getGlobalDataDAO().getAllFieldsByStringOfIds(keyModel.getFieldIds());
+			
+			for (FieldDataModel f : fields)
 			{
-				FormData f = new FormData();
-				f.setFieldMode(FIELD_MODE.INOUT);
-				f.setFieldName("DummyTest:" + a);
-				f.setFieldType(FIELD_TYPE.STRING);
-				f.setFieldData("This is a test field string " + a);
+				FormData fAdd = new FormData();
+				fAdd.setFieldMode(getFieldMode(f.getFieldId(), keyModel.getDisplayOnly()));
+				fAdd.setFieldName(f.getName());
+				fAdd.setFieldData(f.getData());
 				
-				formData.add(f);
+				FIELD_TYPE eType = FIELD_TYPE.STRING;
+				for (FIELD_TYPE fType : FIELD_TYPE.values())
+				{
+					if (fType.toString().equalsIgnoreCase(f.getType()))
+					{
+						eType = fType;
+					}
+				}
+				
+				fAdd.setFieldType(eType);
+				formData.add(fAdd);
 			}
 			
+			for (GlobalData d : globals)
+			{
+				FormData gAdd = new FormData();
+				gAdd.setFieldMode(getFieldMode(d.getFieldId(), keyModel.getDisplayOnly()));
+				gAdd.setFieldName(d.getName());
+				gAdd.setFieldData(d.getData());
+				
+				FIELD_TYPE eType = FIELD_TYPE.STRING;
+				for (FIELD_TYPE fType : FIELD_TYPE.values())
+				{
+					if (fType.toString().equalsIgnoreCase(d.getType()))
+					{
+						eType = fType;
+					}
+				}
+				
+				gAdd.setFieldType(eType);
+				formData.add(gAdd);
+			}
 			
-			c.setFormData(formData);
+		completFormData.setFormData(formData);
+
+		return completFormData;
+	}
+	
+	private static FormData.FIELD_MODE getFieldMode(int idCheck, String listOfDisplayOnly)
+	{
+		String[] displayIds = listOfDisplayOnly.split(",");
+
+		for (String s : displayIds)
+		{
+			int checkMe = new Integer(s);
+			if (checkMe == idCheck)
+			{
+				return FIELD_MODE.DISPLAY;
+			}
 		}
 		
-		return c;
+		return FIELD_MODE.EDIT;
 	}
 }

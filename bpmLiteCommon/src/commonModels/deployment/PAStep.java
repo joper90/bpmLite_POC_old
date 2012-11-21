@@ -2,7 +2,7 @@ package commonModels.deployment;
 
 import java.util.HashMap;
 
-public class PASteps {
+public class PAStep {
 
 	private int	stepId;
 	private String stepName;

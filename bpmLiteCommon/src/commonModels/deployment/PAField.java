@@ -1,7 +1,7 @@
 package commonModels.deployment;
 
 
-public class PAFields {
+public class PAField {
 
 	private String name;
 	private String type;

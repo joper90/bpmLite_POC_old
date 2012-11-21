@@ -5,10 +5,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import commonModels.deployment.PAFields;
+import commonModels.deployment.PAField;
 import commonModels.deployment.PAProcessArtifact;
 import commonModels.deployment.PAProcessData;
-import commonModels.deployment.PASteps;
+import commonModels.deployment.PAStep;
 
 @Path("/hello")
 public class Hello {
@@ -41,25 +41,25 @@ public class Hello {
 	public PAProcessArtifact sayJsonHello() {
 		
 		//Test get for PA
-		PAFields paFields = new PAFields();
+		PAField paFields = new PAField();
 		paFields.setFieldId(1);
 		paFields.setInitalData("One");
 		paFields.setName("FieldOne");
 		paFields.setType("STRING");
 		
-		PAFields paFields1 = new PAFields();
+		PAField paFields1 = new PAField();
 		paFields1.setFieldId(2);
 		paFields1.setInitalData("Two");
 		paFields1.setName("FieldTWO");
 		paFields1.setType("STRING");
 		
-		PAFields paFields2 = new PAFields();
+		PAField paFields2 = new PAField();
 		paFields2.setFieldId(3);
 		paFields2.setInitalData("Three");
 		paFields2.setName("3");
 		paFields2.setType("INT");
 		
-		PAFields[] data = new PAFields[3];
+		PAField[] data = new PAField[3];
 		data[0] = paFields;
 		data[1] = paFields1;
 		data[2] = paFields2;
@@ -67,7 +67,7 @@ public class Hello {
 		
 		
 		
-		PASteps stepOne = new PASteps();
+		PAStep stepOne = new PAStep();
 		stepOne.setStepId(1);
 		stepOne.setStepName("User Task One");
 		stepOne.setStepName("USERTASK");
@@ -76,7 +76,7 @@ public class Hello {
 		stepOne.setNextStepId(new int[]{2});
 		stepOne.setParticipants(new String[] {"Joe","GVS"});
 
-		PASteps stepTwo = new PASteps();
+		PAStep stepTwo = new PAStep();
 		stepTwo.setStepId(2);
 		stepTwo.setStepName("User Task Two");
 		stepTwo.setStepName("USERTASK");
@@ -85,7 +85,7 @@ public class Hello {
 		stepTwo.setNextStepId(new int[]{3});
 		stepTwo.setParticipants(new String[] {"Joe","GVS","Mike"});
 
-		PASteps[] stepData = new PASteps[2];
+		PAStep[] stepData = new PAStep[2];
 		stepData[0] = stepOne;
 		stepData[1] = stepTwo;
 		
