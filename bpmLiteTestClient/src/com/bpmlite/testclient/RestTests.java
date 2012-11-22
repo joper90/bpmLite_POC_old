@@ -97,9 +97,9 @@ public class RestTests {
 	    WebResource service = client.resource(getBaseURI());
 	    //public ReturnModel setDetailsWithJsonString(@QueryParam("userId") String userId, @QueryParam("requestId") String requestId,  @QueryParam("action") String action, @QueryParam("workItemData") String workItemData)
 	    ClientResponse  response = service.path("rest").path("completeWorkItem")
-	    										.queryParam("userId","12345")
+	    										.queryParam("userId","UserKey1234")
 	    										.queryParam("requestId","Guid1234ABC")
-	    										.queryParam("action","COMPLETE")
+	    										.queryParam("action","SUBMIT")
 	    										.type(MediaType.APPLICATION_JSON)
 	    										.post(ClientResponse.class, fData);
 	    
