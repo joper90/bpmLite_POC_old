@@ -7,6 +7,8 @@ import javax.jms.QueueSender;
 import javax.jms.QueueSession;
 import javax.naming.NamingException;
 
+import config.Statics;
+
 public class QueueJMSMessageSender
 {
 
@@ -31,14 +33,23 @@ public class QueueJMSMessageSender
 	 */
 	public boolean sendMessageCheck(String queueName, String messageToSend)
 	{
-		try {
-			sendMessage(queueName, messageToSend);
+		if (Statics.TEST_MODE)
+		{
 			return true;
-		} catch (NamingException e) {
-			// TODO Correctly handle the error.. i.e log out
-			e.printStackTrace();
 		}
-		return false;
+		else
+		{
+			try {
+				sendMessage(queueName, messageToSend);
+				return true;
+			} catch (NamingException e) {
+				// TODO Correctly handle the error.. i.e log out
+				e.printStackTrace();
+			}
+			return false;
+		}
+		
+		
 	}
 	
 	public void sendMessage(String queueName, String messageToSend) throws NamingException

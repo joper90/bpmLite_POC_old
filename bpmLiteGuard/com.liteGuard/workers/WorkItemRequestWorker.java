@@ -12,6 +12,7 @@ import com.bpmlite.api.WorkItemKeyDetailsDocument.WorkItemKeyDetails;
 import com.bpmlite.api.WorkItemKeyDetailsDocument.WorkItemKeyDetails.KeyFieldDetails;
 
 import config.Statics;
+import config.Statics.GUID_KEY_MODE;
 import database.FieldDataModel;
 import database.GlobalData;
 import database.KeyStoreModel;
@@ -34,7 +35,7 @@ public class WorkItemRequestWorker {
 		
 		//Add the form Data information to the Database.
 		KeyStoreModel keyStore = new KeyStoreModel();
-		keyStore.setKeyCollected(false);
+		keyStore.setKeyState(GUID_KEY_MODE.INJECTED.toString());
 		keyStore.setCaseId(wItemKeyDetails.getWorkItemKeyDetails().getCaseId());
 		keyStore.setProcessId(wItemKeyDetails.getWorkItemKeyDetails().getProcessId());
 		keyStore.setUserGuid(wItemKeyDetails.getWorkItemKeyDetails().getUniqueFormGuid()); // the u
@@ -172,6 +173,8 @@ public class WorkItemRequestWorker {
 			}
 			
 		completFormData.setFormData(formData);
+		
+		//mark the key as used.
 
 		return completFormData;
 	}

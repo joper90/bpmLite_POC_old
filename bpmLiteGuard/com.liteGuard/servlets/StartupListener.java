@@ -51,7 +51,6 @@ public class StartupListener  implements ServletContextListener{
 		}
 		System.out.println("====>[HIB] Start time added...");
 		
-		//TODO: add the rootkey.
 		sStatus = BpmGuardDAO.instance.getServerInfoDAO().findDataByValue(Statics.ADMIN);
 		if (sStatus == null)
 		{

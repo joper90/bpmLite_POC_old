@@ -58,29 +58,29 @@ public class CompleteWorkItemWorker {
 					
 					if(jmsSender.sendMessageCheck(Statics.JMS_TOPIC_PUSH, comp.xmlText()))
 					{
-						new ReturnModel(Statics.EMS_PUSH_WORKED,"Step completed sucessfully", false);
+						return new ReturnModel(Statics.EMS_PUSH_WORKED,"Step completed sucessfully", false);
 					}
 					else
 					{				
 						if (rollbackData(requestId  , currentData.getFormData()))
 						{
-							new ReturnModel(Statics.EMS_PUSH_FAILED,"Step not completed.. rolling back", false);
+							return new ReturnModel(Statics.EMS_PUSH_FAILED,"Step not completed.. rolling back", false);
 						}
 						else
 						{
-							new ReturnModel(Statics.EMS_PUSH_FAILED,"Step not completed.. rolling back FAILED", false);
+							return new ReturnModel(Statics.EMS_PUSH_FAILED,"Step not completed.. rolling back FAILED", false);
 						}
 					}
 					
 				
 				}else
 				{
-					new ReturnModel(Statics.EMS_PUSH_FAILED,"Update form data failed.", false);
+					return new ReturnModel(Statics.EMS_PUSH_FAILED,"Update form data failed.", false);
 				}
 			}
 			else
 			{
-				new ReturnModel(Statics.EMS_PUSH_FAILED,"Bpm Server is down..", false);
+				return new ReturnModel(Statics.EMS_PUSH_FAILED,"Bpm Server is down..", false);
 			}
 			
 		}

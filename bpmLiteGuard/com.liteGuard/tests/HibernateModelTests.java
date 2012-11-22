@@ -3,6 +3,8 @@ package tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import config.Statics.GUID_KEY_MODE;
+
 import database.FieldDataModel;
 import database.GlobalData;
 import database.KeyStoreModel;
@@ -118,7 +120,12 @@ public class HibernateModelTests {
 		kStore.setUserId("123User");
 		kStore.setFieldIds("1,2,3,4,5");
 		kStore.setUserGuid("ABC123");
-		kStore.setKeyCollected(false);
+		kStore.setProcessId(1);
+		kStore.setStepId(1);
+		kStore.setCaseId(101);
+		
+		
+		kStore.setKeyState(GUID_KEY_MODE.INJECTED.toString());
 		
 		KeyStoreDAO db = new KeyStoreDAO();
 		boolean s = db.addKeyStoreRecord(kStore);
@@ -148,12 +155,29 @@ public class HibernateModelTests {
 	public void getFieldsAndMarkAsUsed()
 	{
 		KeyStoreDAO db = new KeyStoreDAO();
-		KeyStoreModel kStore = db.getFieldsAndMarkAsUsed("ABC123","123User");
-		System.out.println("Found record :" + kStore.isKeyCollected());
-		Assert.assertEquals(kStore.isKeyCollected(), true);
+		KeyStoreModel kStore = db.findDataByGuidAndUserId("ABC123","123User");
+		System.out.println("Found record :" + kStore.getKeyState().toString());
+		Assert.assertEquals(kStore.getKeyState().toString(), GUID_KEY_MODE.INJECTED.toString());
 	}
 	
-	@Test (dependsOnMethods = {"getDataByGuidAndUserId"})
+	@Test (dependsOnMethods = {"getFieldsAndMarkAsUsed"})
+	public void updateKeyStatus()
+	{
+		KeyStoreDAO db = new KeyStoreDAO();
+		db.updateKeyStoreStatus("ABC123","123User",GUID_KEY_MODE.TAKEN);
+		
+		KeyStoreModel kStore = db.findDataByGuidAndUserId("ABC123","123User");
+		System.out.println("Found record :" + kStore.getKeyState().toString());
+		Assert.assertEquals(kStore.getKeyState().toString(), GUID_KEY_MODE.TAKEN.toString());
+		
+		db.updateKeyStoreStatus("ABC123","123User",GUID_KEY_MODE.ACTIONED);
+		kStore = db.findDataByGuidAndUserId("ABC123","123User");
+		System.out.println("Found record :" + kStore.getKeyState().toString());
+		Assert.assertEquals(kStore.getKeyState().toString(), GUID_KEY_MODE.ACTIONED.toString());
+		
+	}
+	
+	@Test (dependsOnMethods = {"updateKeyStatus"})
 	public void checkIfMarked()
 	{
 		KeyStoreDAO db = new KeyStoreDAO();
@@ -162,7 +186,7 @@ public class HibernateModelTests {
 		Assert.assertEquals(b, true);
 	}
 	
-	@Test (dependsOnMethods = {"getDataByGuidAndUserId"})
+	@Test (dependsOnMethods = {"checkIfMarked"})
 	public void deleteByGuid()
 	{
 		KeyStoreDAO db = new KeyStoreDAO();

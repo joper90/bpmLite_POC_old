@@ -31,60 +31,62 @@ div.shootout {padding:2em;border:3px #4854A8 solid}
 <body>
 <table cellspacing="0" cellpadding="0" class="result">
 <tr><th>Test</th><th class="numi">Methods<br/>Passed</th><th class="numi">Scenarios<br/>Passed</th><th class="numi"># skipped</th><th class="numi"># failed</th><th class="numi">Total<br/>Time</th><th class="numi">Included<br/>Groups</th><th class="numi">Excluded<br/>Groups</th></tr>
-<tr><td style="text-align:left;padding-right:2em">Default test</td><td class="numi">24</td><td class="numi">24</td><td class="numi">0</td><td class="numi">0</td><td class="numi">2.1 seconds</td><td class="numi"></td><td class="numi"></td></tr>
+<tr><td style="text-align:left;padding-right:2em">Default test</td><td class="numi">25</td><td class="numi">25</td><td class="numi">0</td><td class="numi">0</td><td class="numi">2.4 seconds</td><td class="numi"></td><td class="numi"></td></tr>
 </table>
 <table cellspacing="0" cellpadding="0" class="passed" id="summary">
 <tr><th>Class</th><th>Method</th><th># of<br/>Scenarios</th><th>Start</th><th>Time<br/>(ms)</th></tr>
 <tr><th colspan="4">Default test &#8212; passed</th></tr>
-<tr class="passedodd"><td rowspan="24">tests.HibernateModelTests</td><td><a href="#m1"><b>insertData</b>  </a></td><td class="numi">1</td><td>1352378645653</td><td class="numi">1227</td></tr><tr class="passedodd"><td><a href="#m2"><b>insertDuplicateData</b>  </a></td><td class="numi">1</td><td>1352378646883</td><td class="numi">63</td></tr><tr class="passedodd"><td><a href="#m3"><b>updateData</b>  </a></td><td class="numi">1</td><td>1352378646948</td><td class="numi">45</td></tr><tr class="passedodd"><td><a href="#m4"><b>updateDataNonExisting</b>  </a></td><td class="numi">1</td><td>1352378646994</td><td class="numi">5</td></tr><tr class="passedodd"><td><a href="#m5"><b>getData</b>  </a></td><td class="numi">1</td><td>1352378647001</td><td class="numi">112</td></tr><tr class="passedodd"><td><a href="#m6"><b>getDataErrorRecord</b>  </a></td><td class="numi">1</td><td>1352378647114</td><td class="numi">3</td></tr><tr class="passedodd"><td><a href="#m7"><b>deleteData</b>  </a></td><td class="numi">1</td><td>1352378647118</td><td class="numi">33</td></tr><tr class="passedodd"><td><a href="#m8"><b>deleteDataAlreadyGone</b>  </a></td><td class="numi">1</td><td>1352378647152</td><td class="numi">2</td></tr><tr class="passedodd"><td><a href="#m9"><b>insertKeyStore</b>  </a></td><td class="numi">1</td><td>1352378647155</td><td class="numi">38</td></tr><tr class="passedodd"><td><a href="#m10"><b>getDataByGuid</b>  </a></td><td class="numi">1</td><td>1352378647194</td><td class="numi">25</td></tr><tr class="passedodd"><td><a href="#m11"><b>getDataByGuidAndUserId</b>  </a></td><td class="numi">1</td><td>1352378647220</td><td class="numi">7</td></tr><tr class="passedodd"><td><a href="#m12"><b>getFieldsAndMarkAsUsed</b>  </a></td><td class="numi">1</td><td>1352378647228</td><td class="numi">39</td></tr><tr class="passedodd"><td><a href="#m13"><b>checkIfMarked</b>  </a></td><td class="numi">1</td><td>1352378647269</td><td class="numi">9</td></tr><tr class="passedodd"><td><a href="#m14"><b>deleteByGuid</b>  </a></td><td class="numi">1</td><td>1352378647279</td><td class="numi">39</td></tr><tr class="passedodd"><td><a href="#m15"><b>insertFieldData</b>  </a></td><td class="numi">1</td><td>1352378647319</td><td class="numi">44</td></tr><tr class="passedodd"><td><a href="#m16"><b>updateFieldValue</b>  </a></td><td class="numi">1</td><td>1352378647365</td><td class="numi">36</td></tr><tr class="passedodd"><td><a href="#m17"><b>getFieldValue</b>  </a></td><td class="numi">1</td><td>1352378647402</td><td class="numi">6</td></tr><tr class="passedodd"><td><a href="#m18"><b>getListOfIds</b>  </a></td><td class="numi">1</td><td>1352378647409</td><td class="numi">76</td></tr><tr class="passedodd"><td><a href="#m19"><b>deleteByCaseId</b>  </a></td><td class="numi">1</td><td>1352378647486</td><td class="numi">40</td></tr><tr class="passedodd"><td><a href="#m20"><b>insertGlobalData</b>  </a></td><td class="numi">1</td><td>1352378647527</td><td class="numi">32</td></tr><tr class="passedodd"><td><a href="#m21"><b>updateGlobalData</b>  </a></td><td class="numi">1</td><td>1352378647561</td><td class="numi">32</td></tr><tr class="passedodd"><td><a href="#m22"><b>getGlobalData</b>  </a></td><td class="numi">1</td><td>1352378647594</td><td class="numi">6</td></tr><tr class="passedodd"><td><a href="#m23"><b>getGlobalDataByIds</b>  </a></td><td class="numi">1</td><td>1352378647601</td><td class="numi">75</td></tr><tr class="passedodd"><td><a href="#m24"><b>deleteGlobalRecords</b>  </a></td><td class="numi">1</td><td>1352378647677</td><td class="numi">99</td></tr>
+<tr class="passedodd"><td rowspan="25">tests.HibernateModelTests</td><td><a href="#m1"><b>insertData</b>  </a></td><td class="numi">1</td><td>1353600121520</td><td class="numi">1498</td></tr><tr class="passedodd"><td><a href="#m2"><b>insertDuplicateData</b>  </a></td><td class="numi">1</td><td>1353600123021</td><td class="numi">35</td></tr><tr class="passedodd"><td><a href="#m3"><b>updateData</b>  </a></td><td class="numi">1</td><td>1353600123058</td><td class="numi">40</td></tr><tr class="passedodd"><td><a href="#m4"><b>updateDataNonExisting</b>  </a></td><td class="numi">1</td><td>1353600123100</td><td class="numi">4</td></tr><tr class="passedodd"><td><a href="#m5"><b>getData</b>  </a></td><td class="numi">1</td><td>1353600123106</td><td class="numi">127</td></tr><tr class="passedodd"><td><a href="#m6"><b>getDataErrorRecord</b>  </a></td><td class="numi">1</td><td>1353600123235</td><td class="numi">4</td></tr><tr class="passedodd"><td><a href="#m7"><b>deleteData</b>  </a></td><td class="numi">1</td><td>1353600123240</td><td class="numi">33</td></tr><tr class="passedodd"><td><a href="#m8"><b>deleteDataAlreadyGone</b>  </a></td><td class="numi">1</td><td>1353600123274</td><td class="numi">2</td></tr><tr class="passedodd"><td><a href="#m9"><b>insertKeyStore</b>  </a></td><td class="numi">1</td><td>1353600123278</td><td class="numi">28</td></tr><tr class="passedodd"><td><a href="#m10"><b>getDataByGuid</b>  </a></td><td class="numi">1</td><td>1353600123308</td><td class="numi">9</td></tr><tr class="passedodd"><td><a href="#m11"><b>getDataByGuidAndUserId</b>  </a></td><td class="numi">1</td><td>1353600123319</td><td class="numi">12</td></tr><tr class="passedodd"><td><a href="#m12"><b>getFieldsAndMarkAsUsed</b>  </a></td><td class="numi">1</td><td>1353600123332</td><td class="numi">4</td></tr><tr class="passedodd"><td><a href="#m13"><b>updateKeyStatus</b>  </a></td><td class="numi">1</td><td>1353600123338</td><td class="numi">82</td></tr><tr class="passedodd"><td><a href="#m14"><b>checkIfMarked</b>  </a></td><td class="numi">1</td><td>1353600123421</td><td class="numi">7</td></tr><tr class="passedodd"><td><a href="#m15"><b>deleteByGuid</b>  </a></td><td class="numi">1</td><td>1353600123429</td><td class="numi">27</td></tr><tr class="passedodd"><td><a href="#m16"><b>insertFieldData</b>  </a></td><td class="numi">1</td><td>1353600123457</td><td class="numi">24</td></tr><tr class="passedodd"><td><a href="#m17"><b>updateFieldValue</b>  </a></td><td class="numi">1</td><td>1353600123483</td><td class="numi">23</td></tr><tr class="passedodd"><td><a href="#m18"><b>getFieldValue</b>  </a></td><td class="numi">1</td><td>1353600123508</td><td class="numi">7</td></tr><tr class="passedodd"><td><a href="#m19"><b>getListOfIds</b>  </a></td><td class="numi">1</td><td>1353600123516</td><td class="numi">66</td></tr><tr class="passedodd"><td><a href="#m20"><b>deleteByCaseId</b>  </a></td><td class="numi">1</td><td>1353600123583</td><td class="numi">32</td></tr><tr class="passedodd"><td><a href="#m21"><b>insertGlobalData</b>  </a></td><td class="numi">1</td><td>1353600123617</td><td class="numi">23</td></tr><tr class="passedodd"><td><a href="#m22"><b>updateGlobalData</b>  </a></td><td class="numi">1</td><td>1353600123641</td><td class="numi">24</td></tr><tr class="passedodd"><td><a href="#m23"><b>getGlobalData</b>  </a></td><td class="numi">1</td><td>1353600123666</td><td class="numi">7</td></tr><tr class="passedodd"><td><a href="#m24"><b>getGlobalDataByIds</b>  </a></td><td class="numi">1</td><td>1353600123674</td><td class="numi">140</td></tr><tr class="passedodd"><td><a href="#m25"><b>deleteGlobalRecords</b>  </a></td><td class="numi">1</td><td>1353600123815</td><td class="numi">83</td></tr>
 </table>
 <h1>Default test</h1>
-<h2 id="m1">tests.HibernateModelTests:deleteData</h2>
+<h2 id="m1">tests.HibernateModelTests:deleteGlobalRecords</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m2">tests.HibernateModelTests:deleteGlobalRecords</h2>
+<h2 id="m2">tests.HibernateModelTests:getDataErrorRecord</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m3">tests.HibernateModelTests:getFieldsAndMarkAsUsed</h2>
+<h2 id="m3">tests.HibernateModelTests:insertKeyStore</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m4">tests.HibernateModelTests:getListOfIds</h2>
+<h2 id="m4">tests.HibernateModelTests:getGlobalData</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m5">tests.HibernateModelTests:insertData</h2>
+<h2 id="m5">tests.HibernateModelTests:checkIfMarked</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m6">tests.HibernateModelTests:getDataErrorRecord</h2>
+<h2 id="m6">tests.HibernateModelTests:getData</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m7">tests.HibernateModelTests:deleteByGuid</h2>
+<h2 id="m7">tests.HibernateModelTests:getDataByGuid</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m8">tests.HibernateModelTests:getFieldValue</h2>
+<h2 id="m8">tests.HibernateModelTests:updateDataNonExisting</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m9">tests.HibernateModelTests:deleteDataAlreadyGone</h2>
+<h2 id="m9">tests.HibernateModelTests:insertData</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m10">tests.HibernateModelTests:updateData</h2>
+<h2 id="m10">tests.HibernateModelTests:updateFieldValue</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m11">tests.HibernateModelTests:updateGlobalData</h2>
+<h2 id="m11">tests.HibernateModelTests:getDataByGuidAndUserId</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m12">tests.HibernateModelTests:getDataByGuid</h2>
+<h2 id="m12">tests.HibernateModelTests:getListOfIds</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m13">tests.HibernateModelTests:updateDataNonExisting</h2>
+<h2 id="m13">tests.HibernateModelTests:getFieldsAndMarkAsUsed</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m14">tests.HibernateModelTests:getDataByGuidAndUserId</h2>
+<h2 id="m14">tests.HibernateModelTests:deleteByGuid</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m15">tests.HibernateModelTests:getData</h2>
+<h2 id="m15">tests.HibernateModelTests:insertFieldData</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m16">tests.HibernateModelTests:getGlobalDataByIds</h2>
+<h2 id="m16">tests.HibernateModelTests:deleteByCaseId</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m17">tests.HibernateModelTests:updateFieldValue</h2>
+<h2 id="m17">tests.HibernateModelTests:insertGlobalData</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m18">tests.HibernateModelTests:insertGlobalData</h2>
+<h2 id="m18">tests.HibernateModelTests:getFieldValue</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m19">tests.HibernateModelTests:deleteByCaseId</h2>
+<h2 id="m19">tests.HibernateModelTests:updateGlobalData</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m20">tests.HibernateModelTests:insertDuplicateData</h2>
+<h2 id="m20">tests.HibernateModelTests:deleteData</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m21">tests.HibernateModelTests:insertFieldData</h2>
+<h2 id="m21">tests.HibernateModelTests:getGlobalDataByIds</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m22">tests.HibernateModelTests:insertKeyStore</h2>
+<h2 id="m22">tests.HibernateModelTests:deleteDataAlreadyGone</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m23">tests.HibernateModelTests:checkIfMarked</h2>
+<h2 id="m23">tests.HibernateModelTests:updateKeyStatus</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<h2 id="m24">tests.HibernateModelTests:getGlobalData</h2>
+<h2 id="m24">tests.HibernateModelTests:insertDuplicateData</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m25">tests.HibernateModelTests:updateData</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
 </body></html>

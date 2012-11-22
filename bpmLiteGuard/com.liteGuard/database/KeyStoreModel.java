@@ -6,7 +6,7 @@ public class KeyStoreModel {
 	private String userId;
 	private String fieldIds;
 	private String userGuid;
-	private boolean keyCollected;
+	private String keyState;
 	private Integer processId;
 	private Integer stepId;
 	private Integer caseId;
@@ -37,11 +37,11 @@ public class KeyStoreModel {
 	public void setUserGuid(String userGuid) {
 		this.userGuid = userGuid;
 	}
-	public boolean isKeyCollected() {
-		return keyCollected;
+	public String getKeyState() {
+		return keyState;
 	}
-	public void setKeyCollected(boolean keyCollected) {
-		this.keyCollected = keyCollected;
+	public void setKeyState(String keyState) {
+		this.keyState = keyState;
 	}
 	public Integer getProcessId() {
 		return processId;

@@ -35,8 +35,8 @@
     <property name="userGuid">
    <column name="user_guid"/>
   </property>
-    <property name="keyCollected">
-   <column name="key_collected"/>
+    <property name="keyState">
+   <column name="key_state"/>
   </property>
       <property name="processId">
    <column name="process_id"/>

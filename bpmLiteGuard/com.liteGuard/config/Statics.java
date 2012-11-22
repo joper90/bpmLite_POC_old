@@ -14,6 +14,8 @@ public class Statics {
 	public final static String EMS_PUSH_WORKED = "success";
 	public final static String EMS_PUSH_FAILED = "failed";
 	
+	public static enum GUID_KEY_MODE  {INJECTED,TAKEN,ACTIONED};
+	
 	public static boolean isAlive = false;
 	
 	// JMS Connection information
