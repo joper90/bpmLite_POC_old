@@ -108,7 +108,7 @@ private boolean errorCreated = false;
 		return keyInfo;
 	}
 	
-	public KeyStoreModel updateKeyStoreStatus(String userGuid, String userId, Statics.GUID_KEY_MODE newMode)
+	public KeyStoreModel updateKeyStoreStatus(String requestId, String userId, Statics.GUID_KEY_MODE newMode)
 	{
 		this.errorCreated =false;
 		KeyStoreModel keyInfo = null;
@@ -116,7 +116,7 @@ private boolean errorCreated = false;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			trns = session.beginTransaction();
-			List<KeyStoreModel> sInfoList = session.createQuery("from KeyStoreModel where userGuid = :userguid and userId = :userid").setString("userguid", userGuid).setString("userid", userId).list();
+			List<KeyStoreModel> sInfoList = session.createQuery("from KeyStoreModel where userGuid = :userguid and userId = :userid").setString("userguid", requestId).setString("userid", userId).list();
 			
 			if (sInfoList.size() == 1)
 			{

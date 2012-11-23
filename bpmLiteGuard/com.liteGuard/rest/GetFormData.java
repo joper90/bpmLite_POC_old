@@ -8,6 +8,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import config.Statics.GUID_KEY_MODE;
+
+import database.DAO.BpmGuardDAO;
+
 import workers.WorkItemRequestWorker;
 
 @Path("/getFormData")
@@ -32,6 +36,9 @@ public class GetFormData {
 			data.setValid(true);
 			data.setUserId(userId);
 			data.setRequestId(requestId);
+			
+			//Mark the form as taken now
+			BpmGuardDAO.instance.getKeyStoreDAO().updateKeyStoreStatus(userId, requestId, GUID_KEY_MODE.TAKEN);
 
 		}
 		

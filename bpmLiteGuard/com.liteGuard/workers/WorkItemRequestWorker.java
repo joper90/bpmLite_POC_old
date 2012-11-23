@@ -89,8 +89,8 @@ public class WorkItemRequestWorker {
 		//Now get the field information.
 		
 		
-		FieldDataModel[] fields = BpmGuardDAO.instance.getFieldDataDAO().getAllFieldsByStringOfIds(model.getFieldIds());
-		GlobalData[] global = BpmGuardDAO.instance.getGlobalDataDAO().getAllFieldsByStringOfIds(model.getFieldIds());
+		FieldDataModel[] fields = BpmGuardDAO.instance.getFieldDataDAO().getAllFieldsByStringOfIds(model);
+		GlobalData[] global = BpmGuardDAO.instance.getGlobalDataDAO().getAllGlobalFieldsByStringOfIds(model);
 		KeyFieldDetails[] fDetailsArray = new KeyFieldDetails[fields.length + global.length];
 		int pCount = 0;
 		for (FieldDataModel fd : fields)
@@ -129,8 +129,8 @@ public class WorkItemRequestWorker {
 			ArrayList<FormData> formData = new ArrayList<FormData>();
 			
 			//Get field Data and Global Data now.
-			FieldDataModel[] fields = BpmGuardDAO.instance.getFieldDataDAO().getAllFieldsByStringOfIds(keyModel.getFieldIds());
-			GlobalData[] globals = BpmGuardDAO.instance.getGlobalDataDAO().getAllFieldsByStringOfIds(keyModel.getFieldIds());
+			FieldDataModel[] fields = BpmGuardDAO.instance.getFieldDataDAO().getAllFieldsByStringOfIds(keyModel);
+			GlobalData[] globals = BpmGuardDAO.instance.getGlobalDataDAO().getAllGlobalFieldsByStringOfIds(keyModel);
 			
 			for (FieldDataModel f : fields)
 			{
@@ -174,8 +174,6 @@ public class WorkItemRequestWorker {
 			
 		completFormData.setFormData(formData);
 		
-		//mark the key as used.
-
 		return completFormData;
 	}
 	

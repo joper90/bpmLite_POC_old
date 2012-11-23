@@ -118,11 +118,11 @@ public class HibernateModelTests {
 	{
 		KeyStoreModel kStore = new KeyStoreModel();
 		kStore.setUserId("123User");
-		kStore.setFieldIds("1,2,3,4,5");
+		kStore.setFieldIds("123,124,125");
 		kStore.setUserGuid("ABC123");
 		kStore.setProcessId(1);
 		kStore.setStepId(1);
-		kStore.setCaseId(101);
+		kStore.setCaseId(111);
 		
 		
 		kStore.setKeyState(GUID_KEY_MODE.INJECTED.toString());
@@ -185,17 +185,8 @@ public class HibernateModelTests {
 		System.out.println("Found record :" + b);
 		Assert.assertEquals(b, true);
 	}
-	
-	@Test (dependsOnMethods = {"checkIfMarked"})
-	public void deleteByGuid()
-	{
-		KeyStoreDAO db = new KeyStoreDAO();
-		boolean b = db.deleteRecordByGuid("ABC123");
-		System.out.println("Found deleted :" + b);
-		Assert.assertEquals(b, true);
-	} 
-	
-	@Test(dependsOnMethods = {"deleteByGuid"})
+		
+	@Test(dependsOnMethods = {"checkIfMarked"})
 	public void insertFieldData()
 	{
 		FieldDataModel fModel = new FieldDataModel();
@@ -234,7 +225,7 @@ public class HibernateModelTests {
 	{
 		FieldDataModel fModel = null;
 		FieldDataDAO d = new FieldDataDAO();
-		fModel = d.getFieldById(123);
+		fModel = d.getFieldById(1,111,123); //process,case,field
 		System.out.println("Found fieldId record:" + fModel.getName());
 	}
 	
@@ -266,9 +257,14 @@ public class HibernateModelTests {
 		System.out.println("Added Record : " + s);
 		
 		
+		//need a keystore now.
+		KeyStoreDAO db = new KeyStoreDAO();
+		KeyStoreModel kStore = db.findDataByGuidAndUserId("ABC123","123User");
+		
+		
 		//All fields added so now get the lsit of the data back again..
 		
-		FieldDataModel[] fModelArray= d.getAllFieldsByStringOfIds("123,124,125");
+		FieldDataModel[] fModelArray= d.getAllFieldsByStringOfIds(kStore);
 		
 		System.out.println("Got back count: " + fModelArray.length);
 		Assert.assertEquals(fModelArray.length, 3);
@@ -278,7 +274,7 @@ public class HibernateModelTests {
 	public void deleteByCaseId()
 	{
 		FieldDataDAO d = new FieldDataDAO();
-		boolean b = d.deleteAllDataByProcessId(111);
+		boolean b = d.deleteAllDataByCaseId(111);
 		System.out.println("Deteled all records : " + b);
 		Assert.assertEquals(b, true);
 	}
@@ -313,8 +309,11 @@ public class HibernateModelTests {
 	@Test (dependsOnMethods = {"updateGlobalData"})
 	public void getGlobalData()
 	{
-		GlobalDataDAO db = new GlobalDataDAO();
-		GlobalData g = db.getFieldById(123);
+		KeyStoreDAO db = new KeyStoreDAO();
+		KeyStoreModel kStore = db.findDataByGuidAndUserId("ABC123","123User");
+		
+		GlobalDataDAO dbg = new GlobalDataDAO();
+		GlobalData g = dbg.getGlobalFieldById(123);
 		Assert.assertNotNull(g);
 		System.out.println("Got data : " + g.getName());
 	}
@@ -340,7 +339,11 @@ public class HibernateModelTests {
 		b = db.insertFieldData(g);
 		System.out.println("Inserted entry : " + b);
 		
-		GlobalData[] ret = db.getAllFieldsByStringOfIds("123,124,125");
+		KeyStoreDAO dbk = new KeyStoreDAO();
+		KeyStoreModel kStore = dbk.findDataByGuidAndUserId("ABC123","123User");
+		kStore.setFieldIds("123,124,125");
+		
+		GlobalData[] ret = db.getAllGlobalFieldsByStringOfIds(kStore);
 		System.out.println("Array Return size : " + ret.length);
 		
 		Assert.assertEquals(ret.length, 3);	
@@ -356,6 +359,15 @@ public class HibernateModelTests {
 		System.out.println("All deleted : " + b);
 		Assert.assertEquals(b, true);
 	}
+	
+	@Test (dependsOnMethods = {"deleteGlobalRecords"})
+	public void deleteByGuid()
+	{
+		KeyStoreDAO db = new KeyStoreDAO();
+		boolean b = db.deleteRecordByGuid("ABC123");
+		System.out.println("Found deleted :" + b);
+		Assert.assertEquals(b, true);
+	} 
 
 	
 	

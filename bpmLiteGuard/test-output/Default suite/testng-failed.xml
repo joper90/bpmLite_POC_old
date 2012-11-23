@@ -5,30 +5,29 @@
     <classes>
       <class name="tests.HibernateModelTests">
         <methods>
+          <include name="getFieldsAndMarkAsUsed"/>
           <include name="getData"/>
           <include name="insertFieldData"/>
-          <include name="deleteData"/>
+          <include name="updateFieldValue"/>
           <include name="updateGlobalData"/>
+          <include name="deleteData"/>
           <include name="getListOfIds"/>
           <include name="deleteByGuid"/>
-          <include name="getGlobalDataByIds"/>
-          <include name="getDataErrorRecord"/>
-          <include name="deleteByCaseId"/>
-          <include name="checkIfMarked"/>
-          <include name="updateData"/>
-          <include name="insertKeyStore"/>
-          <include name="updateKeyStatus"/>
-          <include name="getFieldsAndMarkAsUsed"/>
-          <include name="updateFieldValue"/>
           <include name="getGlobalData"/>
+          <include name="getGlobalDataByIds"/>
           <include name="updateDataNonExisting"/>
           <include name="getDataByGuid"/>
           <include name="deleteGlobalRecords"/>
+          <include name="deleteByCaseId"/>
+          <include name="getDataErrorRecord"/>
+          <include name="checkIfMarked"/>
           <include name="insertDuplicateData"/>
           <include name="getFieldValue"/>
           <include name="deleteDataAlreadyGone"/>
-          <include name="getDataByGuidAndUserId"/>
           <include name="insertData"/>
+          <include name="updateData"/>
+          <include name="insertKeyStore"/>
+          <include name="updateKeyStatus"/>
           <include name="insertGlobalData"/>
         </methods>
       </class> <!-- tests.HibernateModelTests -->

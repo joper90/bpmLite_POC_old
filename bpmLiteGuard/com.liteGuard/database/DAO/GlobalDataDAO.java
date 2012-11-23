@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import database.FieldDataModel;
 import database.GlobalData;
 import database.HibernateUtil;
+import database.KeyStoreModel;
 
 public class GlobalDataDAO {
 	private boolean errorCreated = false;
@@ -66,7 +67,7 @@ public class GlobalDataDAO {
 		return true;
 	}
 	
-	public GlobalData getFieldById(int fieldId)
+	public GlobalData getGlobalFieldById(int fieldId)
 	{
 		this.errorCreated =false;
 		GlobalData fInfo = null;
@@ -74,7 +75,10 @@ public class GlobalDataDAO {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			trns = session.beginTransaction();
-			List<GlobalData> sInfoList = session.createQuery("from GlobalData where fieldId = :value").setInteger("value", fieldId).list();
+			@SuppressWarnings("unchecked")
+			List<GlobalData> sInfoList = session.createQuery("from GlobalData where fieldId = :value")
+										.setInteger("value", fieldId)
+										.list();
 			
 			if (sInfoList.size() == 1)
 			{
@@ -96,14 +100,14 @@ public class GlobalDataDAO {
 		return fInfo;
 	}
 	
-	public GlobalData[] getAllFieldsByStringOfIds(String listOfIds)
+	public GlobalData[] getAllGlobalFieldsByStringOfIds(KeyStoreModel keyStoreModel)
 	{
 		ArrayList<GlobalData> dModelList = new ArrayList<GlobalData>();
 		//First get a list of ids.
-		String[] ids = listOfIds.split(",");
+		String[] ids = keyStoreModel.getFieldIds().split(",");
 		for (String id : ids)
 		{
-			GlobalData fTemp = getFieldById(new Integer(id));
+			GlobalData fTemp = getGlobalFieldById(new Integer(id));
 			if (fTemp != null)
 			{
 				dModelList.add(fTemp);

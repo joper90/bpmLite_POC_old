@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 
 import database.FieldDataModel;
 import database.HibernateUtil;
+import database.KeyStoreModel;
 
 public class FieldDataDAO {
 
@@ -66,7 +67,7 @@ public class FieldDataDAO {
 		return true;
 	}
 	
-	public FieldDataModel getFieldById(int fieldId)
+	public FieldDataModel getFieldById(int processId, int caseId, int fieldId)
 	{
 		this.errorCreated =false;
 		FieldDataModel fInfo = null;
@@ -74,7 +75,12 @@ public class FieldDataDAO {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			trns = session.beginTransaction();
-			List<FieldDataModel> sInfoList = session.createQuery("from FieldDataModel where fieldId = :value").setInteger("value", fieldId).list();
+			@SuppressWarnings("unchecked")
+			List<FieldDataModel> sInfoList = session.createQuery("from FieldDataModel where processId = :processid and caseId = :caseid and fieldId = :value")
+											.setInteger("processid", processId)
+											.setInteger("value", fieldId)
+											.setInteger("caseid", caseId)
+											.list();
 			
 			if (sInfoList.size() == 1)
 			{
@@ -97,14 +103,16 @@ public class FieldDataDAO {
 	}
 
 	
-	public FieldDataModel[] getAllFieldsByStringOfIds(String listOfIds)
+	public FieldDataModel[] getAllFieldsByStringOfIds(KeyStoreModel keyStoreModel)
 	{
 		ArrayList<FieldDataModel> dModelList = new ArrayList<FieldDataModel>();
 		//First get a list of ids.
-		String[] ids = listOfIds.split(",");
+		String[] ids = keyStoreModel.getFieldIds().split(",");
 		for (String id : ids)
 		{
-			FieldDataModel fTemp = getFieldById(new Integer(id));
+			FieldDataModel fTemp = getFieldById(new Integer(keyStoreModel.getProcessId()), 
+												new Integer(keyStoreModel.getCaseId()), 
+												new Integer(id));
 			if (fTemp != null)
 			{
 				dModelList.add(fTemp);
@@ -124,7 +132,7 @@ public class FieldDataDAO {
 		return ret;
 	}
 	
-	public boolean deleteAllDataByProcessId(int caseId)
+	public boolean deleteAllDataByCaseId(int caseId)
 	{
 		this.errorCreated =false;
 		Transaction trns = null;
