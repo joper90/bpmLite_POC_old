@@ -1,5 +1,7 @@
 package database;
 
+
+
 public class GlobalData {
 
 	private Integer	id;

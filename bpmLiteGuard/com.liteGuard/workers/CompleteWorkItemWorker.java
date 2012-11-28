@@ -1,20 +1,25 @@
 package workers;
 
-import java.util.ArrayList;
+import guard.models.CompleteFormData;
+import guard.models.FormData;
+import guard.models.FormData.FIELD_TYPE;
+import guard.models.ReturnModel;
 
+import java.util.ArrayList;
 
 import jmsConnector.QueueJMSMessageSender;
 
 import com.bpmlite.api.ActionModeType;
 import com.bpmlite.api.CompleteWorkItemRequestDocument.CompleteWorkItemRequest;
 import com.bpmlite.api.WorkItemKeyDetailsDocument.WorkItemKeyDetails;
-import com.google.gson.Gson;
 
 import config.Statics;
+import config.Statics.GUID_KEY_MODE;
+import database.FieldDataModel;
+import database.GlobalData;
+import database.KeyStoreModel;
+import database.DAO.BpmGuardDAO;
 import engineConnector.EngineRestConnector;
-import guard.models.CompleteFormData;
-import guard.models.FormData;
-import guard.models.ReturnModel;
 
 public class CompleteWorkItemWorker {
 
@@ -24,6 +29,14 @@ public class CompleteWorkItemWorker {
 		//Fist check the user key.
 		if (WorkItemRequestWorker.isValidFormGuid(requestId, userId))
 		{
+			
+			//check the status (needs to be taken, but not actioned).. 
+			GUID_KEY_MODE keyState = BpmGuardDAO.instance.getKeyStoreDAO().getKeyState(requestId);
+			if (keyState != GUID_KEY_MODE.TAKEN)
+			{
+				return new ReturnModel(Statics.EMS_PUSH_FAILED,"Incorrect key state", false);
+			}
+			
 			//Entry exists and matches.
 			WorkItemKeyDetails wItemDetails = WorkItemRequestWorker.getWorkItemDetailsFromGuid(requestId, userId);
 			
@@ -44,7 +57,6 @@ public class CompleteWorkItemWorker {
 					comp.setProcessId(wItemDetails.getProcessId());
 					comp.setStepId(wItemDetails.getStepId());
 			
-					//TODO: change this crappy code.. !
 					if (action.equalsIgnoreCase("SUBMIT"))
 					{
 						comp.setAction(ActionModeType.COMPLETE);
@@ -89,28 +101,166 @@ public class CompleteWorkItemWorker {
 	}
 	
 	
-	private static boolean updateFormDataInDatabase(String formIdGuid, FormData[] formData)
-	{
-		//TODO: code to update teh database.
+	private static boolean updateFormDataInDatabase(String requestId, FormData[] formData)
+	{		
+		KeyStoreModel keyStore = BpmGuardDAO.instance.getKeyStoreDAO().findDataByGuid(requestId);
 		
-		return true;
-	}
-	
-	private static boolean rollbackData(String formIdGuid, FormData[] formData)
-	{
-		//TODO: code to replace the new code.
-		return true;
-	}
-	
-	private static boolean rollbackData(String formIdGuid, ArrayList<FormData> formData)
-	{
-		FormData[] formDataAsArray = new FormData[formData.size()];
-		for (int count = 0; count< formData.size(); count++)
+		String[] fIds = keyStore.getFieldIds().split(",");
+		ArrayList<Integer> fIdsInt = new ArrayList<Integer>();
+		for (String f : fIds)
 		{
-			formDataAsArray[count] = formData.get(count);
+			fIdsInt.add(new Integer(f));
 		}
 		
-		return rollbackData(formIdGuid, formDataAsArray);
-	}
+		String[] displayOnly = keyStore.getDisplayOnly().split(",");
+		ArrayList<Integer> dInt = new ArrayList<Integer>();
+		for (String d : displayOnly)
+		{
+			dInt.add(new Integer(d));
+		}
 		
+		
+		for (FormData f : formData)
+		{
+			if (fIdsInt.contains(f.getFieldId()))
+			{
+				//Check if readOnly
+				if (dInt.contains(f.getFieldId()))
+				{
+					System.out.println("[COMPLETE] --> displayfield only");
+				}
+				else
+				{
+					//we contain the object
+					if (f.isGlobal())
+					{
+						//Get a copy of the current data.
+						GlobalData globalFieldById = BpmGuardDAO.instance.getGlobalDataDAO().getGlobalFieldById(f.getFieldId());
+						
+						//Check for type is correct.
+						if (isTypeCorrect(globalFieldById.getData(), globalFieldById.getType(), globalFieldById.getFieldId()))
+						{
+							globalFieldById.setData(f.getFieldData());
+							BpmGuardDAO.instance.getGlobalDataDAO().updateField(globalFieldById);
+							System.out.println("[COMPLETE] --> GLOBAL UPDATED :" +f.getFieldId());
+						}
+						else
+						{
+							System.out.println("[COMPLETE] --> GLOBAL IGNORED.. incorrect field type??? :" +f.getFieldId());
+						}
+							
+					}
+					else
+					{
+						//Get current fieldId
+						FieldDataModel fieldById = BpmGuardDAO.instance.getFieldDataDAO().getFieldById(keyStore.getProcessId(),
+																										keyStore.getCaseId(), 
+																										f.getFieldId());
+						
+						//Check the type is correct
+						
+						if (isTypeCorrect(fieldById.getData(), fieldById.getType(), fieldById.getFieldId()))
+						{
+							fieldById.setData(f.getFieldData());
+							BpmGuardDAO.instance.getFieldDataDAO().updateField(fieldById);
+							System.out.println("[COMPLETE] --> FIELD UPDATED :" +f.getFieldId());
+						}
+						else
+						{
+							System.out.println("[COMPLETE] --> FIELD IGNORED.. incorrect field type??? :" +f.getFieldId());
+						}
+					}
+				}
+			}else
+			{
+				System.out.println("[COMPLETE] --> invalid field Id passed in..");
+			}
+		}
+		return true;
+	}
+	
+	private static boolean rollbackData(String requestId, FormData[] formData)
+	{
+		//Actually call the normal update code with older values...
+		System.out.println("[COMPLETE] -------------------> ROLLING BACK TRANSACTIONS <-----------------");
+		return updateFormDataInDatabase(requestId, formData);
+		
+	}
+	
+	private static boolean rollbackData(String requestId, ArrayList<FormData> formData)
+	{
+		FormData[] fDataArray = new FormData[formData.size()];
+		formData.toArray(fDataArray);
+		
+		return rollbackData(requestId, fDataArray);
+	}
+	
+	private static boolean isTypeCorrect(String fieldValue, String type, Integer fieldId)
+	{
+		//Convert type to the enum.
+		FIELD_TYPE fType;
+		for (FIELD_TYPE f : FIELD_TYPE.values())
+		{
+			if (f.toString().equalsIgnoreCase(type))
+			{
+				fType = f;
+				
+				switch (fType)
+				{
+				case STRING:
+							//Bound to be correct.. as we get passed in a string.
+							break;
+				case INTEGER:
+							//First check for a . to check its not a decimal
+							if (fieldValue.contains("."))
+							{
+								//prob a decimal.. but falut as rounding will take place.
+								return false;
+							}
+							else
+							{
+								try
+								{
+									Integer.parseInt(fieldValue);
+								}catch (Exception e)
+								{
+									return false;
+								}
+							}
+							break;
+
+				case DECIMAL:
+							//Try and convert to a float.
+							try
+							{
+								Float.parseFloat(fieldValue);
+							}catch (Exception e)
+							{
+								return false;
+							}
+							break;
+				case BOOLEAN:
+							//check for a true/false;
+							if (fieldValue.equalsIgnoreCase("true") || fieldValue.equalsIgnoreCase("false"))
+							{
+								//ok..but change this.. or adding logging
+							}else
+							{
+								if (fieldValue.equalsIgnoreCase("0") || fieldValue.equalsIgnoreCase("1"))
+								{
+									//also valid
+								}else
+								{
+									return false;
+								}
+							}
+							break;
+				}
+				
+			}
+		}
+		System.out.println("[COMPLETE] --> INCORRECT Type for :" + fieldId + " " +fieldValue+" " +type);
+		return false;
+	}
+			
 }

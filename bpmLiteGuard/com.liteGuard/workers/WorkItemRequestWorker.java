@@ -149,6 +149,8 @@ public class WorkItemRequestWorker {
 				}
 				
 				fAdd.setFieldType(eType);
+				fAdd.setGlobal(false);
+				fAdd.setFieldId(f.getFieldId());
 				formData.add(fAdd);
 			}
 			
@@ -169,6 +171,8 @@ public class WorkItemRequestWorker {
 				}
 				
 				gAdd.setFieldType(eType);
+				gAdd.setGlobal(true);
+				gAdd.setFieldId(d.getFieldId());
 				formData.add(gAdd);
 			}
 			

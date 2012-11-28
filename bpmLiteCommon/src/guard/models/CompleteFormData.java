@@ -14,6 +14,7 @@ public class CompleteFormData {
 	private ArrayList<FormData> formData = new ArrayList<FormData>();
 	private String orderList;
 	private boolean isValid = false;
+	private boolean keyTaken = false;
 	
 	
 	//User details needed for posting
@@ -63,6 +64,14 @@ public class CompleteFormData {
 
 	public void setRequestId(String requestId) {
 		this.requestId = requestId;
+	}
+
+	public boolean isKeyTaken() {
+		return keyTaken;
+	}
+
+	public void setKeyTaken(boolean keyTaken) {
+		this.keyTaken = keyTaken;
 	}
 
 	

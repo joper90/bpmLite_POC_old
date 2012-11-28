@@ -2,108 +2,108 @@
 <testng-results skipped="0" failed="0" total="25" passed="25">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="3048" started-at="2012-11-23T09:34:36Z" finished-at="2012-11-23T09:34:39Z">
+  <suite name="Default suite" duration-ms="2974" started-at="2012-11-26T19:56:40Z" finished-at="2012-11-26T19:56:43Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="3048" started-at="2012-11-23T09:34:36Z" finished-at="2012-11-23T09:34:39Z">
+    <test name="Default test" duration-ms="2974" started-at="2012-11-26T19:56:40Z" finished-at="2012-11-26T19:56:43Z">
       <class name="tests.HibernateModelTests">
-        <test-method status="PASS" signature="insertData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="insertData" duration-ms="1590" started-at="2012-11-23T09:34:36Z" finished-at="2012-11-23T09:34:37Z">
+        <test-method status="PASS" signature="insertData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="insertData" duration-ms="1654" started-at="2012-11-26T19:56:40Z" finished-at="2012-11-26T19:56:41Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- insertData -->
-        <test-method status="PASS" signature="insertDuplicateData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="insertDuplicateData" duration-ms="34" started-at="2012-11-23T09:34:37Z" depends-on-methods="tests.HibernateModelTests.insertData" finished-at="2012-11-23T09:34:37Z">
+        <test-method status="PASS" signature="insertDuplicateData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="insertDuplicateData" duration-ms="51" started-at="2012-11-26T19:56:41Z" depends-on-methods="tests.HibernateModelTests.insertData" finished-at="2012-11-26T19:56:41Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- insertDuplicateData -->
-        <test-method status="PASS" signature="updateData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="updateData" duration-ms="40" started-at="2012-11-23T09:34:37Z" depends-on-methods="tests.HibernateModelTests.insertDuplicateData" finished-at="2012-11-23T09:34:37Z">
+        <test-method status="PASS" signature="updateData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="updateData" duration-ms="40" started-at="2012-11-26T19:56:41Z" depends-on-methods="tests.HibernateModelTests.insertDuplicateData" finished-at="2012-11-26T19:56:41Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- updateData -->
-        <test-method status="PASS" signature="updateDataNonExisting()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="updateDataNonExisting" duration-ms="2" started-at="2012-11-23T09:34:37Z" depends-on-methods="tests.HibernateModelTests.updateData" finished-at="2012-11-23T09:34:37Z">
+        <test-method status="PASS" signature="updateDataNonExisting()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="updateDataNonExisting" duration-ms="3" started-at="2012-11-26T19:56:41Z" depends-on-methods="tests.HibernateModelTests.updateData" finished-at="2012-11-26T19:56:41Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- updateDataNonExisting -->
-        <test-method status="PASS" signature="getData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getData" duration-ms="115" started-at="2012-11-23T09:34:37Z" depends-on-methods="tests.HibernateModelTests.updateDataNonExisting" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="getData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getData" duration-ms="346" started-at="2012-11-26T19:56:41Z" depends-on-methods="tests.HibernateModelTests.updateDataNonExisting" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getData -->
-        <test-method status="PASS" signature="getDataErrorRecord()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getDataErrorRecord" duration-ms="2" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.getData" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="getDataErrorRecord()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getDataErrorRecord" duration-ms="3" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.getData" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getDataErrorRecord -->
-        <test-method status="PASS" signature="deleteData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="deleteData" duration-ms="33" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.getDataErrorRecord" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="deleteData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="deleteData" duration-ms="68" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.getDataErrorRecord" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- deleteData -->
-        <test-method status="PASS" signature="deleteDataAlreadyGone()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="deleteDataAlreadyGone" duration-ms="3" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.deleteData" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="deleteDataAlreadyGone()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="deleteDataAlreadyGone" duration-ms="2" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.deleteData" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- deleteDataAlreadyGone -->
-        <test-method status="PASS" signature="insertKeyStore()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="insertKeyStore" duration-ms="70" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.deleteDataAlreadyGone" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="insertKeyStore()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="insertKeyStore" duration-ms="38" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.deleteDataAlreadyGone" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- insertKeyStore -->
-        <test-method status="PASS" signature="getDataByGuid()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getDataByGuid" duration-ms="11" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.insertKeyStore" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="getDataByGuid()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getDataByGuid" duration-ms="23" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.insertKeyStore" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getDataByGuid -->
-        <test-method status="PASS" signature="getDataByGuidAndUserId()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getDataByGuidAndUserId" duration-ms="12" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.getDataByGuid" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="getDataByGuidAndUserId()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getDataByGuidAndUserId" duration-ms="8" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.getDataByGuid" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getDataByGuidAndUserId -->
-        <test-method status="PASS" signature="getFieldsAndMarkAsUsed()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getFieldsAndMarkAsUsed" duration-ms="4" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.getDataByGuid" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="getFieldsAndMarkAsUsed()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getFieldsAndMarkAsUsed" duration-ms="3" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.getDataByGuid" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getFieldsAndMarkAsUsed -->
-        <test-method status="PASS" signature="updateKeyStatus()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="updateKeyStatus" duration-ms="72" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.getFieldsAndMarkAsUsed" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="updateKeyStatus()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="updateKeyStatus" duration-ms="82" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.getFieldsAndMarkAsUsed" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- updateKeyStatus -->
-        <test-method status="PASS" signature="checkIfMarked()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="checkIfMarked" duration-ms="6" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.updateKeyStatus" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="checkIfMarked()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="checkIfMarked" duration-ms="7" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.updateKeyStatus" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- checkIfMarked -->
-        <test-method status="PASS" signature="insertFieldData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="insertFieldData" duration-ms="36" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.checkIfMarked" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="insertFieldData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="insertFieldData" duration-ms="52" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.checkIfMarked" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- insertFieldData -->
-        <test-method status="PASS" signature="updateFieldValue()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="updateFieldValue" duration-ms="32" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.insertFieldData" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="updateFieldValue()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="updateFieldValue" duration-ms="32" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.insertFieldData" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- updateFieldValue -->
-        <test-method status="PASS" signature="getFieldValue()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getFieldValue" duration-ms="7" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.updateFieldValue" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="getFieldValue()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getFieldValue" duration-ms="7" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.updateFieldValue" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getFieldValue -->
-        <test-method status="PASS" signature="getListOfIds()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getListOfIds" duration-ms="83" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.getFieldValue" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="getListOfIds()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getListOfIds" duration-ms="110" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.getFieldValue" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getListOfIds -->
-        <test-method status="PASS" signature="deleteByCaseId()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="deleteByCaseId" duration-ms="38" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.getListOfIds" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="deleteByCaseId()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="deleteByCaseId" duration-ms="53" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.getListOfIds" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- deleteByCaseId -->
-        <test-method status="PASS" signature="insertGlobalData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="insertGlobalData" duration-ms="316" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.deleteByCaseId" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="insertGlobalData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="insertGlobalData" duration-ms="32" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.deleteByCaseId" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- insertGlobalData -->
-        <test-method status="PASS" signature="updateGlobalData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="updateGlobalData" duration-ms="138" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.insertGlobalData" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="updateGlobalData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="updateGlobalData" duration-ms="48" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.insertGlobalData" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- updateGlobalData -->
-        <test-method status="PASS" signature="getGlobalData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getGlobalData" duration-ms="9" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.updateGlobalData" finished-at="2012-11-23T09:34:38Z">
+        <test-method status="PASS" signature="getGlobalData()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getGlobalData" duration-ms="9" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.updateGlobalData" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getGlobalData -->
-        <test-method status="PASS" signature="getGlobalDataByIds()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getGlobalDataByIds" duration-ms="209" started-at="2012-11-23T09:34:38Z" depends-on-methods="tests.HibernateModelTests.getGlobalData" finished-at="2012-11-23T09:34:39Z">
+        <test-method status="PASS" signature="getGlobalDataByIds()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="getGlobalDataByIds" duration-ms="91" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.getGlobalData" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getGlobalDataByIds -->
-        <test-method status="PASS" signature="deleteGlobalRecords()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="deleteGlobalRecords" duration-ms="107" started-at="2012-11-23T09:34:39Z" depends-on-methods="tests.HibernateModelTests.getGlobalDataByIds" finished-at="2012-11-23T09:34:39Z">
+        <test-method status="PASS" signature="deleteGlobalRecords()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="deleteGlobalRecords" duration-ms="113" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.getGlobalDataByIds" finished-at="2012-11-26T19:56:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- deleteGlobalRecords -->
-        <test-method status="PASS" signature="deleteByGuid()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="deleteByGuid" duration-ms="32" started-at="2012-11-23T09:34:39Z" depends-on-methods="tests.HibernateModelTests.deleteGlobalRecords" finished-at="2012-11-23T09:34:39Z">
+        <test-method status="PASS" signature="deleteByGuid()[pri:0, instance:tests.HibernateModelTests@2d58f9d3]" name="deleteByGuid" duration-ms="49" started-at="2012-11-26T19:56:42Z" depends-on-methods="tests.HibernateModelTests.deleteGlobalRecords" finished-at="2012-11-26T19:56:43Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- deleteByGuid -->

@@ -13,13 +13,13 @@ import com.bpmlite.api.ProcessArtifactDocument;
 
 @Path("/DeployOrgModel")
 public class DeployOrgModel {
-	
+/*	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public ReturnModel deployOrgModel(@QueryParam("user") String user,@QueryParam("password") String pass, ProcessArtifactDocument processArtifactDoc)
 	{
 		return null;
-	}
+	}*/
 
 }

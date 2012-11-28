@@ -31,15 +31,23 @@ public class GetFormData {
 		//Check if the guid is valid.
 		if (WorkItemRequestWorker.isValidFormGuid(requestId, userId))
 		{
-			//WE have a valid guid, with a valid user key.
-			data = WorkItemRequestWorker.getAllData(requestId);
-			data.setValid(true);
-			data.setUserId(userId);
-			data.setRequestId(requestId);
-			
-			//Mark the form as taken now
-			BpmGuardDAO.instance.getKeyStoreDAO().updateKeyStoreStatus(userId, requestId, GUID_KEY_MODE.TAKEN);
-
+			boolean keyTaken = BpmGuardDAO.instance.getKeyStoreDAO().isKeyTaken(requestId);
+			if (keyTaken)
+			{
+				data.setKeyTaken(true);
+			}
+			else
+			{
+				data.setValid(true);
+				//WE have a valid guid, with a valid user key.
+				data = WorkItemRequestWorker.getAllData(requestId);
+				data.setValid(true);
+				data.setUserId(userId);
+				data.setRequestId(requestId);
+				
+				//Mark the form as taken now
+				BpmGuardDAO.instance.getKeyStoreDAO().updateKeyStoreStatus(userId, requestId, GUID_KEY_MODE.TAKEN);
+			}
 		}
 		
 		return data;

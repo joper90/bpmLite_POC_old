@@ -5,11 +5,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import commonModels.deployment.PAField;
-import commonModels.deployment.PAProcessArtifact;
-import commonModels.deployment.PAProcessData;
-import commonModels.deployment.PAStep;
-
 @Path("/hello")
 public class Hello {
 
@@ -36,7 +31,7 @@ public class Hello {
 				+ "<body><h1>" + "Hello from BpmLite" + "</body></h1>" + "</html> ";
 	}
 	
-	@GET
+/*	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public PAProcessArtifact sayJsonHello() {
 		
@@ -104,5 +99,5 @@ public class Hello {
 		pa.setProcessData(process);
 		
 		return pa;
-	}
+	}*/
 }

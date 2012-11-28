@@ -7,10 +7,8 @@ import org.hibernate.Transaction;
 
 import config.Statics;
 import config.Statics.GUID_KEY_MODE;
-
 import database.HibernateUtil;
 import database.KeyStoreModel;
-import database.ServerInfoModel;
 
 public class KeyStoreDAO {
 
@@ -47,7 +45,7 @@ private boolean errorCreated = false;
 		return true;
 	}
 	
-	public KeyStoreModel findDataByGuid(String guid)
+	public KeyStoreModel findDataByGuid(String requestId)
 	{
 		this.errorCreated =false;
 		KeyStoreModel keyInfo = null;
@@ -55,7 +53,8 @@ private boolean errorCreated = false;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			trns = session.beginTransaction();
-			List<KeyStoreModel> sInfoList = session.createQuery("from KeyStoreModel where userGuid = :value").setString("value", guid).list();
+			@SuppressWarnings("unchecked")
+			List<KeyStoreModel> sInfoList = session.createQuery("from KeyStoreModel where userGuid = :value").setString("value", requestId).list();
 			
 			if (sInfoList.size() == 1)
 			{
@@ -85,6 +84,7 @@ private boolean errorCreated = false;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			trns = session.beginTransaction();
+			@SuppressWarnings("unchecked")
 			List<KeyStoreModel> sInfoList = session.createQuery("from KeyStoreModel where userGuid = :value and userId = :userid").setString("value", requestId).setString("userid", userId).list();
 			
 			if (sInfoList.size() == 1)
@@ -116,6 +116,7 @@ private boolean errorCreated = false;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			trns = session.beginTransaction();
+			@SuppressWarnings("unchecked")
 			List<KeyStoreModel> sInfoList = session.createQuery("from KeyStoreModel where userGuid = :userguid and userId = :userid").setString("userguid", requestId).setString("userid", userId).list();
 			
 			if (sInfoList.size() == 1)
@@ -149,6 +150,7 @@ private boolean errorCreated = false;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			trns = session.beginTransaction();
+			@SuppressWarnings("unchecked")
 			List<KeyStoreModel> sInfoList = session.createQuery("from KeyStoreModel where userGuid = :guid").setString("guid", guid).list();
 			
 			if (sInfoList.size() == 1)
@@ -175,7 +177,7 @@ private boolean errorCreated = false;
 		return ret;
 	}
 	
-	public Statics.GUID_KEY_MODE getKeyState(String guid)
+	public Statics.GUID_KEY_MODE getKeyState(String requestId)
 	{
 		KeyStoreModel sInfo = null;
 		GUID_KEY_MODE gMode = null;
@@ -183,7 +185,8 @@ private boolean errorCreated = false;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			trns = session.beginTransaction();
-			List<KeyStoreModel> sInfoList = session.createQuery("from KeyStoreModel where userGuid = :guid").setString("guid", guid).list();
+			@SuppressWarnings("unchecked")
+			List<KeyStoreModel> sInfoList = session.createQuery("from KeyStoreModel where userGuid = :guid").setString("guid", requestId).list();
 			
 			if (sInfoList.size() == 1)
 			{
@@ -221,6 +224,7 @@ private boolean errorCreated = false;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			trns = session.beginTransaction();
+			@SuppressWarnings("unchecked")
 			List<KeyStoreModel> sInfoList = session.createQuery("from KeyStoreModel where userGuid = :guid").setString("guid", guid).list();
 			
 			if (sInfoList.size() == 1)

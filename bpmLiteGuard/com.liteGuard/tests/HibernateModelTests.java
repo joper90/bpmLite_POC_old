@@ -309,9 +309,6 @@ public class HibernateModelTests {
 	@Test (dependsOnMethods = {"updateGlobalData"})
 	public void getGlobalData()
 	{
-		KeyStoreDAO db = new KeyStoreDAO();
-		KeyStoreModel kStore = db.findDataByGuidAndUserId("ABC123","123User");
-		
 		GlobalDataDAO dbg = new GlobalDataDAO();
 		GlobalData g = dbg.getGlobalFieldById(123);
 		Assert.assertNotNull(g);

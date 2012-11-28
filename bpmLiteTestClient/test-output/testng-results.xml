@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="2" passed="2">
+<testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="484" started-at="2012-11-21T15:34:17Z" finished-at="2012-11-21T15:34:17Z">
+  <suite name="Default suite" duration-ms="15637" started-at="2012-11-27T12:00:34Z" finished-at="2012-11-27T12:00:49Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="484" started-at="2012-11-21T15:34:17Z" finished-at="2012-11-21T15:34:17Z">
-      <class name="com.bpmlite.testclient.EmsTests">
-        <test-method status="PASS" signature="test()[pri:0, instance:com.bpmlite.testclient.EmsTests@73901437]" name="test" duration-ms="435" started-at="2012-11-21T15:34:17Z" finished-at="2012-11-21T15:34:17Z">
+    <test name="Default test" duration-ms="15637" started-at="2012-11-27T12:00:34Z" finished-at="2012-11-27T12:00:49Z">
+      <class name="com.bpmlite.testclient.BpmLiteServerTest">
+        <test-method status="PASS" signature="quickTest()[pri:0, instance:com.bpmlite.testclient.BpmLiteServerTest@2e1551b0]" name="quickTest" duration-ms="15623" started-at="2012-11-27T12:00:34Z" finished-at="2012-11-27T12:00:49Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- test -->
-        <test-method status="PASS" signature="testWorkItemKeyDetails()[pri:0, instance:com.bpmlite.testclient.EmsTests@73901437]" name="testWorkItemKeyDetails" duration-ms="33" started-at="2012-11-21T15:34:17Z" finished-at="2012-11-21T15:34:17Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testWorkItemKeyDetails -->
-      </class> <!-- com.bpmlite.testclient.EmsTests -->
+        </test-method> <!-- quickTest -->
+      </class> <!-- com.bpmlite.testclient.BpmLiteServerTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

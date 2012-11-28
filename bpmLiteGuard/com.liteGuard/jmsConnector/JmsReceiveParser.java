@@ -75,7 +75,7 @@ public class JmsReceiveParser {
 			
 			e.printStackTrace();
 		} catch (XmlException e) {
-			// TODO Correctly handle and error when xml fails to parse.
+			System.out.println("[JMS] -- Xml Parsing error thown..");
 			e.printStackTrace();
 		}
 		

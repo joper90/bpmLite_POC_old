@@ -43,7 +43,7 @@ public class QueueJMSMessageSender
 				sendMessage(queueName, messageToSend);
 				return true;
 			} catch (NamingException e) {
-				// TODO Correctly handle the error.. i.e log out
+				System.out.println("[JMS] -- SendMessageCheck() NamingException thown..");
 				e.printStackTrace();
 			}
 			return false;

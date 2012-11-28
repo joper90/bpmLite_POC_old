@@ -3,14 +3,14 @@ package workers;
 import model.ReturnModel;
 
 import com.bpmlite.api.ProcessArtifactDocument;
-import commonModels.deployment.PAProcessArtifact;
 
 public class DeployProcessWorker {
 
-	public static ReturnModel deployProcess(String user, String password, PAProcessArtifact processToDeloy)
+	public static ReturnModel deployProcess(String user, String password, ProcessArtifactDocument processToDeloy)
 	{
+		ReturnModel ret = new ReturnModel();
 		//Convert first to a doc element.
-		return null;
+		return ret;
 	}
 
 

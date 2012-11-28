@@ -12,6 +12,8 @@ public class FormData {
 	private String fieldData = "";
 	private FIELD_TYPE fieldType = FIELD_TYPE.STRING;
 	private FIELD_MODE fieldMode = FIELD_MODE.EDIT;
+	private boolean isGlobal;
+	private int fieldId;
 	
 	public FormData()
 	{
@@ -48,6 +50,22 @@ public class FormData {
 
 	public void setFieldMode(FIELD_MODE fieldMode) {
 		this.fieldMode = fieldMode;
+	}
+
+	public boolean isGlobal() {
+		return isGlobal;
+	}
+
+	public void setGlobal(boolean isGlobal) {
+		this.isGlobal = isGlobal;
+	}
+
+	public int getFieldId() {
+		return fieldId;
+	}
+
+	public void setFieldId(int fieldId) {
+		this.fieldId = fieldId;
 	}
 	
 	
