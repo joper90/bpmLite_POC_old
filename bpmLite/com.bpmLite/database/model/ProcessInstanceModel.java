@@ -1,16 +1,10 @@
 package database.model;
 
-public class ProcessInstanceModel {
+public class ProcessInstanceModel extends BaseModel{
 
-	private Integer id;
 	private String processId;
 	private String currentStepId;
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+
 
 	public String getProcessId() {
 		return processId;

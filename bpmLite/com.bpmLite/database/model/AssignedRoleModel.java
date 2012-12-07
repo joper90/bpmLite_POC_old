@@ -1,18 +1,13 @@
 package database.model;
 
-public class AssignedRoleModel {
+public class AssignedRoleModel extends BaseModel{
 
-	private Integer id;
+
 	private Integer user;
 	private String role;
 	private String groupMembership;
 	private String userSkills;
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+
 	public Integer getUser() {
 		return user;
 	}

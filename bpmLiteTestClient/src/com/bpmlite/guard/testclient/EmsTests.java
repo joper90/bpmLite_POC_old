@@ -2,6 +2,8 @@ package com.bpmlite.guard.testclient;
 
 import javax.naming.NamingException;
 
+import jms.QueueJMSMessageSender;
+
 import org.testng.annotations.Test;
 
 import com.bpmlite.api.FieldModeType;

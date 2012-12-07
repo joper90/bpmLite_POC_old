@@ -83,7 +83,8 @@ CREATE  TABLE IF NOT EXISTS `bpmLite`.`process_instance` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `process_id` VARCHAR(45) NULL ,
   `current_step_id` VARCHAR(45) NULL ,
-  PRIMARY KEY (`id`) )
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `process_id_UNIQUE` (`process_id` ASC) )
 ENGINE = InnoDB;
 
 
@@ -95,7 +96,7 @@ DROP TABLE IF EXISTS `bpmLite`.`user_skills` ;
 CREATE  TABLE IF NOT EXISTS `bpmLite`.`user_skills` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
-  `description` VARCHAR(45) NULL ,
+  `value` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
 ENGINE = InnoDB;
@@ -107,7 +108,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `bpmLite`.`user_groups` ;
 
 CREATE  TABLE IF NOT EXISTS `bpmLite`.`user_groups` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
   `description` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) ,
@@ -138,7 +139,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `bpmLite`.`assigned_role` ;
 
 CREATE  TABLE IF NOT EXISTS `bpmLite`.`assigned_role` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `user` INT NOT NULL ,
   `role` VARCHAR(45) NULL ,
   `group_membership` VARCHAR(45) NULL ,
@@ -157,11 +158,25 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `bpmLite`.`roles` ;
 
 CREATE  TABLE IF NOT EXISTS `bpmLite`.`roles` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NOT NULL ,
   `description` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `id_UNIQUE` (`id` ASC) ,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `bpmLite`.`server_info`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bpmLite`.`server_info` ;
+
+CREATE  TABLE IF NOT EXISTS `bpmLite`.`server_info` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(45) NOT NULL ,
+  `value` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`id`) ,
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
 ENGINE = InnoDB;
 

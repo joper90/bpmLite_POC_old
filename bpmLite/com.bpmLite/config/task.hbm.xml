@@ -5,7 +5,7 @@
 
 <hibernate-mapping>
 
-	<class name="database.AssignedRoleModel" table="assigned_role">
+	<class name="database.model.AssignedRoleModel" table="assigned_role">
 		<id name="id" type="int" column="id">
 			<generator class="native" />
 		</id>
@@ -24,7 +24,7 @@
 		</property>
 	</class>
 
-	<class name="database.AuditModel" table="audit">
+	<class name="database.model.AuditModel" table="audit">
 		<id name="id" type="int" column="id">
 			<generator class="native" />
 		</id>
@@ -38,9 +38,6 @@
 		<property name="stepId">
 			<column name="step_id" />
 		</property>
-		<property name="stepId">
-			<column name="step_id" />
-		</property>
 		<property name="startTime">
 			<column name="start_time" />
 		</property>
@@ -50,7 +47,7 @@
 	</class>
 
 
-	<class name="database.JoinStatusModel" table="join_status">
+	<class name="database.model.JoinStatusModel" table="join_status">
 		<id name="id" type="int" column="id">
 			<generator class="native" />
 		</id>
@@ -72,20 +69,20 @@
 		</property>
 	</class>
 	
-	<class name="database.ProcessInstanceModel" table="process_instance">
+	<class name="database.model.ProcessInstanceModel" table="process_instance">
 		<id name="id" type="int" column="id">
 			<generator class="native" />
 		</id>
 
-		<property name="process">
-			<column name="process" />
+		<property name="processId">
+			<column name="process_id" />
 		</property>
-		<property name="currentStep">
-			<column name="current_step" />
+		<property name="currentStepId">
+			<column name="current_step_id" />
 		</property>
 	</class>
 	
-	<class name="database.ProcessModel" table="process">
+	<class name="database.model.ProcessModel" table="process">
 		<id name="id" type="int" column="id">
 			<generator class="native" />
 		</id>
@@ -107,7 +104,7 @@
 		</property>
 	</class>	
 	
-	<class name="database.StepDataModel" table="step_data">
+	<class name="database.model.StepDataModel" table="step_data">
 		<id name="id" type="int" column="id">
 			<generator class="native" />
 		</id>
@@ -115,7 +112,7 @@
 		<property name="stepId">
 			<column name="step_id" />
 		</property>
-		<property name="procesId">
+		<property name="processId">
 			<column name="process_id" />
 		</property>
 		<property name="stepType">
@@ -141,7 +138,7 @@
 		</property>
 	</class>	
 	
-	<class name="database.UserGroupsModel" table="user_groups">
+	<class name="database.model.UserGroupsModel" table="user_groups">
 		<id name="id" type="int" column="id">
 			<generator class="native" />
 		</id>
@@ -154,26 +151,7 @@
 		</property>
 	</class>
 
-	<class name="database.UserModel" table="user">
-		<id name="id" type="int" column="id">
-			<generator class="native" />
-		</id>
-
-		<property name="name">
-			<column name="name" />
-		</property>
-		<property name="description">
-			<column name="description" />
-		</property>
-		<property name="uniqueKey">
-			<column name="unique_key" />
-		</property>
-		<property name="startTime">
-			<column name="description" />
-		</property>
-	</class>
-	
-	<class name="database.UserSkillsModel" table="user_skills">
+	<class name="database.model.UserModel" table="user">
 		<id name="id" type="int" column="id">
 			<generator class="native" />
 		</id>
@@ -189,6 +167,36 @@
 		</property>
 		<property name="startTime">
 			<column name="start_time" />
+		</property>
+		<property name="tibbrAddress">
+			<column name="tibbr_address" />
+		</property>
+	</class>
+	
+	<class name="database.model.UserSkillsModel" table="user_skills">
+		<id name="id" type="int" column="id">
+			<generator class="native" />
+		</id>
+
+		<property name="name">
+			<column name="name" />
+		</property>
+		<property name="description">
+			<column name="description" />
+		</property>
+	</class>
+	
+	
+	<class name="database.model.ServerInfoModel" table="server_info">
+		<id name="id" type="int" column="id">
+			<generator class="native" />
+		</id>
+
+		<property name="name">
+			<column name="name" />
+		</property>
+		<property name="value">
+			<column name="value" />
 		</property>
 	</class>
 

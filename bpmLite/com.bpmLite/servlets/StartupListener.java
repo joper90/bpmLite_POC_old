@@ -4,7 +4,11 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import jmsConnector.JmsConnector;
+
+
 import config.Statics;
+import database.DAO.BpmLiteDAO;
+import database.model.ServerInfoModel;
 
 public class StartupListener  implements ServletContextListener{
 
@@ -29,6 +33,17 @@ public class StartupListener  implements ServletContextListener{
 		
 		//Init the Hiberate System.
 		System.out.println("====>Starting Hibernate System...");
+		
+		System.out.println("====>Injecting root user System...");
+
+		ServerInfoModel rootInfo = new ServerInfoModel();
+		rootInfo.setName("rootUser");
+		rootInfo.setValue(Statics.ADMIN);
+		BpmLiteDAO.instance.getServerInfoDAO().insertData(rootInfo);
+		
+		rootInfo.setName("rootPass");
+		rootInfo.setValue(Statics.ADMIN_KEY);
+		BpmLiteDAO.instance.getServerInfoDAO().insertData(rootInfo);
 		
 		/*ServerInfoModel sStatus = new ServerInfoModel();
 		sStatus = BpmGuardDAO.instance.getServerInfoDAO().findDataByValue("StartTime");

@@ -1,19 +1,13 @@
 package database.model;
 
-public class AuditModel {
+public class AuditModel extends BaseModel {
 
-	private Integer id;
 	private String action;
 	private String user;
 	private String stepId;
 	private String startTime;
-	private String competeTime;
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	private String completeTime;
+
 	public String getAction() {
 		return action;
 	}
@@ -38,12 +32,13 @@ public class AuditModel {
 	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
-	public String getCompeteTime() {
-		return competeTime;
+	public String getCompleteTime() {
+		return completeTime;
 	}
-	public void setCompeteTime(String competeTime) {
-		this.competeTime = competeTime;
+	public void setCompleteTime(String completeTime) {
+		this.completeTime = completeTime;
 	}
+
 	
 	
 }

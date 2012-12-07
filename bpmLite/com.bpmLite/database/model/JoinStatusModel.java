@@ -1,19 +1,13 @@
 package database.model;
 
-public class JoinStatusModel {
+public class JoinStatusModel extends BaseModel{
 
-	private Integer id;
 	private String stepId;
 	private String stepOne;
 	private String stepTwo;
 	private String stepThree;
 	private Integer stepCountRequired;
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+
 	public String getStepId() {
 		return stepId;
 	}

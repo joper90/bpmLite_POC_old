@@ -1,71 +1,17 @@
 package database.DAO;
 
-import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+public class AssignedRoleDAO extends StandardDAO{
 
-import database.model.AssignedRoleModel;
-import engine.HibernateUtil;
-
-public class AssignedRoleDAO {
-
-private boolean errorCreated = false;
 	
 	public AssignedRoleDAO()
 	{
+		super();
 		System.out.println("--> [DAO] init AssignedRoleDAO...");
 	}
 	
-	public boolean insertRoleModelData(AssignedRoleModel assignedRoleModel)
-	{
-		this.errorCreated =false;
-		Transaction trns = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		try {
-			trns = session.beginTransaction();
-			
-			session.save(assignedRoleModel);
-			session.getTransaction().commit();
-		} catch (RuntimeException e) {
-			if (trns != null) {
-				trns.rollback();
-			}
-			System.out.println("--> [HIB] " + e.getLocalizedMessage());
-			this.errorCreated = true;
-			return false;
-		} finally {
-			if (!errorCreated) session.flush();
-			session.close();
-		}		
-		return true;
-	}
 	
-	public boolean updateRoleModel(AssignedRoleModel assignedRoleModel) {
-		this.errorCreated =false;
-		Transaction trns = null;
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		try {
-			trns = session.beginTransaction();
-
-			session.update(assignedRoleModel);
-
-			session.getTransaction().commit();
-		} catch (RuntimeException e) {
-			if (trns != null) {
-				trns.rollback();
-			}
-			this.errorCreated = true;
-			System.out.println("--> [HIB] "+e.getLocalizedMessage());
-			return false;
-		} finally {
-			if (!errorCreated) session.flush();
-			session.close();
-		}
-		return true;
-	}
-	
-	public boolean deleteRoleModelFromSkill(String name,  int skillId)
+/*	public boolean deleteRoleModelFromSkill(String name,  String skillId)
 	{
 	this.errorCreated =false;
 	Transaction trns = null;
@@ -79,33 +25,37 @@ private boolean errorCreated = false;
 		{
 			for (AssignedRoleModel f : sInfoList)
 			{
-				String[] skillArray = f.getUserSkills().split(",");
-				for (String s : skillArray)
+				ArrayList<String> skillArray = (ArrayList<String>) Arrays.asList(f.getUserSkills().split(","));
+				boolean remove = skillArray.remove(skillId);
+				if (remove) //found and removed
 				{
-					if (skillId == Integer.parseInt(s))
+					//Build new list and then remove..
+					String newSkillsString = "";
+					for (String sInternal : skillArray)
 					{
-						//Convert to a new string..
-						
+						newSkillsString = newSkillsString + sInternal + ",";
 					}
-						
+					f.setUserSkills(newSkillsString);
+					session.update(f);
+					session.getTransaction();
 				}
-				
-				
-				//session.delete(f);
 			}
 		}
-		trns.commit();
-	} catch (RuntimeException e) {
-		if (trns != null) {
-			trns.rollback();
+			trns.commit();
+		} catch (RuntimeException e) {
+			if (trns != null) {
+				trns.rollback();
+			}
+			System.out.println("--> [HIB] "+ e.getLocalizedMessage());
+			this.errorCreated = true;
+			return false;
+		} finally {
+			if (!errorCreated) session.flush();
+			session.close();
 		}
-		System.out.println("--> [HIB] "+ e.getLocalizedMessage());
-		this.errorCreated = true;
-		return false;
-	} finally {
-		if (!errorCreated) session.flush();
-		session.close();
-	}
-	return true;
-}
+		return true;
+	}*/
+	
+	
+	
 }

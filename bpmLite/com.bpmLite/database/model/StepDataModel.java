@@ -1,8 +1,7 @@
 package database.model;
 
-public class StepDataModel {
+public class StepDataModel extends BaseModel{
 
-	private Integer id;
 	private String stepId;
 	private String processId;
 	private String stepType;
@@ -13,12 +12,7 @@ public class StepDataModel {
 	private String fieldData;
 	private String globalData;
 	private String stepDataCol;
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+
 	public String getStepId() {
 		return stepId;
 	}

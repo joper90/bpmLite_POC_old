@@ -2,8 +2,11 @@ package com.bpmlite.testclient;
 
 import java.net.URI;
 
+import javax.naming.NamingException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
+
+import jms.QueueJMSMessageSender;
 
 import org.testng.annotations.Test;
 
@@ -18,6 +21,13 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 public class BpmLiteServerTest {
 
 	@Test
+	public void quickEms() throws NamingException
+	{
+		QueueJMSMessageSender q = new QueueJMSMessageSender();
+		q.sendMessage("BpmLiteQueue", "TestData");
+	}
+	
+	
 	public void quickTest() {
 		ClientConfig config = new DefaultClientConfig();
 		Client client = Client.create(config);

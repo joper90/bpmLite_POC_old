@@ -2,19 +2,13 @@ package database.model;
 
 import java.util.Date;
 
-public class UserModel {
-	private Integer id;
+public class UserModel extends BaseModel{
 	private String name;
 	private String description;
 	private String uniqueKey;
-	private Date   startDate; // hibernate mapping of timestamp //TODO need to check dataTime date perseistence.
+	private Date   startTime; // hibernate mapping of timestamp //TODO need to check dataTime date perseistence.
 	private String tibbrAddress;
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+
 	public String getName() {
 		return name;
 	}
@@ -33,11 +27,12 @@ public class UserModel {
 	public void setUniqueKey(String uniqueKey) {
 		this.uniqueKey = uniqueKey;
 	}
-	public Date getStartDate() {
-		return startDate;
+
+	public Date getStartTime() {
+		return startTime;
 	}
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
 	}
 	public String getTibbrAddress() {
 		return tibbrAddress;

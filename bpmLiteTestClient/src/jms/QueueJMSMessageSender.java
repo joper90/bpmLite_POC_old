@@ -1,4 +1,4 @@
-package com.bpmlite.guard.testclient;
+package jms;
 
 import javax.jms.JMSException;
 import javax.jms.QueueConnection;
