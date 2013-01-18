@@ -80,6 +80,15 @@
 		<property name="currentStepId">
 			<column name="current_step_id" />
 		</property>
+		<property name="caseId">
+			<column name="case_id" />
+		</property>
+		<property name="initialDataSet">
+			<column name="initial_data_set" />
+		</property>
+		<property name="guidCallback">
+			<column name="guid_callback" />
+		</property>
 	</class>
 	
 	<class name="database.model.ProcessModel" table="process">
@@ -197,6 +206,38 @@
 		</property>
 		<property name="value">
 			<column name="value" />
+		</property>
+	</class>
+	
+	<class name="database.model.GlobalMappingsModel" table="global_mappings">
+		<id name="id" type="int" column="id">
+			<generator class="native" />
+		</id>
+
+		<property name="globalGuardId">
+			<column name="global_guard_id" />
+		</property>
+		<property name="globalDeployedId">
+			<column name="global_deployed_id" />
+		</property>
+	</class>
+	
+	<class name="database.model.FieldDataModel" table="field_data">
+		<id name="id" type="int" column="id">
+			<generator class="native" />
+		</id>
+
+		<property name="name">
+			<column name="name" />
+		</property>
+		<property name="type">
+			<column name="type" />
+		</property>
+		<property name="initialData">
+			<column name="initial_data" />
+		</property>
+		<property name="fieldId">
+			<column name="field_id" />
 		</property>
 	</class>
 

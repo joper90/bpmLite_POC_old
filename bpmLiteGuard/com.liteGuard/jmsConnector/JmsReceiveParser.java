@@ -8,6 +8,7 @@ import org.apache.xmlbeans.XmlException;
 import workers.StartCaseRequestWorker;
 import workers.WorkItemRequestWorker;
 
+import com.bpmlite.api.CallBackType;
 import com.bpmlite.api.RequestCallBackDocument;
 import com.bpmlite.api.RequestCallBackDocument.RequestCallBack;
 import com.bpmlite.api.StartCaseDetailsDocument;
@@ -52,7 +53,7 @@ public class JmsReceiveParser {
 				 * / We have a valid set of details do now we can send to update the database
 				 */
 				isSuccess = WorkItemRequestWorker.injectNewKey(wDetailsDoc);
-				postBackResults(isSuccess, wDetailsDoc.getWorkItemKeyDetails().getCallBackGuid());
+				postBackResults(isSuccess, wDetailsDoc.getWorkItemKeyDetails().getCallBackGuid(),CallBackType.INJECTED_KEY);
 				return isSuccess;
 			}
 			else if (textRecived.contains(Statics.START_CASE_DETAILS))
@@ -63,7 +64,10 @@ public class JmsReceiveParser {
 				 * We have a valid start case requets.. so setup inital case details.
 				 */
 				isSuccess = StartCaseRequestWorker.setupInitialDetails(startCaseDoc);
-				postBackResults(isSuccess, startCaseDoc.getStartCaseDetails().getCallbackGuidKey());
+				if (startCaseDoc.getStartCaseDetails().getRequireCallback())
+				{
+					postBackResults(isSuccess, startCaseDoc.getStartCaseDetails().getCallbackGuidKey(), CallBackType.START_CASE);
+				}
 				return isSuccess;
 			}
 			else
@@ -84,24 +88,17 @@ public class JmsReceiveParser {
 	}
 	
 	
-	private void postBackResults(boolean worked, String callbackGuid)
+	private void postBackResults(boolean worked, String callbackGuid, CallBackType.Enum callBackType)
 	{
-		if (!Statics.TEST_MODE)
-		{
-			RequestCallBackDocument rCallback = RequestCallBackDocument.Factory.newInstance();
-			RequestCallBack addNewRequestCallBack = rCallback.addNewRequestCallBack();
-			addNewRequestCallBack.setRequestGuid(callbackGuid);
-			addNewRequestCallBack.setWorked(worked);
+		RequestCallBackDocument rCallback = RequestCallBackDocument.Factory.newInstance();
+		RequestCallBack addNewRequestCallBack = rCallback.addNewRequestCallBack();
+		addNewRequestCallBack.setRequestGuid(callbackGuid);
+		addNewRequestCallBack.setWorked(worked);
+		addNewRequestCallBack.setType(callBackType);
 			
-			QueueJMSMessageSender qSender = new QueueJMSMessageSender();
-			boolean sendWorked = qSender.sendMessageCheck(Statics.JMS_TOPIC_PUSH, rCallback.xmlText());
-			System.out.println("Send to bpmLite results " + sendWorked);
-		}
-		else
-		{
-			System.out.println("---->TEST MODE not sending callback <---");
-		}
-		
+		QueueJMSMessageSender qSender = new QueueJMSMessageSender();
+		boolean sendWorked = qSender.sendMessageCheck(Statics.JMS_TOPIC_PUSH, rCallback.xmlText());
+		System.out.println("Send to bpmLite results " + sendWorked);
 	}
 }
 	

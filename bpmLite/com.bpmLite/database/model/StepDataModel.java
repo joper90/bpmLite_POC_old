@@ -11,7 +11,27 @@ public class StepDataModel extends BaseModel{
 	private String previousId;
 	private String fieldData;
 	private String globalData;
-	private String stepDataCol;
+	
+	public StepDataModel(){};
+	
+	
+
+	public StepDataModel(String stepId, String processId, String stepType,
+			String stepDetails, String userList, String nextId,
+			String previousId, String fieldData, String globalData) {
+		super();
+		this.stepId = stepId;
+		this.processId = processId;
+		this.stepType = stepType;
+		this.stepDetails = stepDetails;
+		this.userList = userList;
+		this.nextId = nextId;
+		this.previousId = previousId;
+		this.fieldData = fieldData;
+		this.globalData = globalData;
+	}
+
+
 
 	public String getStepId() {
 		return stepId;
@@ -67,14 +87,6 @@ public class StepDataModel extends BaseModel{
 	public void setGlobalData(String globalData) {
 		this.globalData = globalData;
 	}
-	public String getStepDataCol() {
-		return stepDataCol;
-	}
-	public void setStepDataCol(String stepDataCol) {
-		this.stepDataCol = stepDataCol;
-	}
-	
-	
 	
 	
 }

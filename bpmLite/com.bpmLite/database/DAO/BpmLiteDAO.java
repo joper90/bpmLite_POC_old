@@ -15,6 +15,8 @@ public class BpmLiteDAO {
 	private UserGroupsDAO userGroupsDAO = new UserGroupsDAO();
 	private UserSkillsDAO userSkillsDAO = new UserSkillsDAO();
 	private ServerInfoDAO serverInfoDAO = new ServerInfoDAO();
+	private FieldDataDAO fieldDataDAO = new FieldDataDAO();
+	private GlobalMappingsDAO globalMappingsDAO = new GlobalMappingsDAO();
 	
 	
 	private BpmLiteDAO()
@@ -83,6 +85,24 @@ public class BpmLiteDAO {
 
 	public void setServerInfoDAO(ServerInfoDAO serverInfoDAO) {
 		this.serverInfoDAO = serverInfoDAO;
+	}
+
+
+
+	public FieldDataDAO getFieldDataDAO() {
+		return fieldDataDAO;
+	}
+
+
+
+	public GlobalMappingsDAO getGlobalMappingsDAO() {
+		return globalMappingsDAO;
+	}
+
+
+
+	public void setGlobalMappingsDAO(GlobalMappingsDAO globalMappingsDAO) {
+		this.globalMappingsDAO = globalMappingsDAO;
 	}
 	
 	

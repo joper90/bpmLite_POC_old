@@ -20,7 +20,7 @@ public class JmsConnector implements  ExceptionListener, MessageListener {
 
 	private String				password	= Statics.JMS_PASSWORD;
 
-	private String				queue		= Statics.JMS_TOPIC_PULL;
+	private String				queue		= Statics.JMS_TOPIC_SERVER;
 
 	private Connection			connection	= null;
 

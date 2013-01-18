@@ -6,7 +6,6 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import database.FieldDataModel;
 import database.GlobalData;
 import database.HibernateUtil;
 import database.KeyStoreModel;

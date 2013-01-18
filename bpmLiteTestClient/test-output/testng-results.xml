@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="147" started-at="2012-12-07T09:23:32Z" finished-at="2012-12-07T09:23:32Z">
+  <suite name="Default suite" duration-ms="108" started-at="2012-12-07T11:57:36Z" finished-at="2012-12-07T11:57:36Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="147" started-at="2012-12-07T09:23:32Z" finished-at="2012-12-07T09:23:32Z">
+    <test name="Default test" duration-ms="108" started-at="2012-12-07T11:57:36Z" finished-at="2012-12-07T11:57:36Z">
       <class name="com.bpmlite.testclient.BpmLiteServerTest">
-        <test-method status="PASS" signature="quickEms()[pri:0, instance:com.bpmlite.testclient.BpmLiteServerTest@2c79a2e7]" name="quickEms" duration-ms="131" started-at="2012-12-07T09:23:32Z" finished-at="2012-12-07T09:23:32Z">
+        <test-method status="PASS" signature="quickEms()[pri:0, instance:com.bpmlite.testclient.BpmLiteServerTest@2d58f9d3]" name="quickEms" duration-ms="95" started-at="2012-12-07T11:57:36Z" finished-at="2012-12-07T11:57:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- quickEms -->

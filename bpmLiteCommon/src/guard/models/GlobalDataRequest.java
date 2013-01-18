@@ -1,27 +1,22 @@
-package database;
+package guard.models;
 
+import javax.xml.bind.annotation.XmlRootElement;
 
+import com.bpmlite.api.FieldModeType;
 
-public class GlobalData {
+@XmlRootElement
+public class GlobalDataRequest {
 
-	private Integer	id;
 	private String name;
 	private String data;
-	private String type;
-	private Integer fieldId;
+	private String type = FieldModeType.STRING.toString();
 	
-	
-	public GlobalData()
+	public GlobalDataRequest()
 	{
 		
 	}
 	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+
 	public String getName() {
 		return name;
 	}
@@ -40,12 +35,8 @@ public class GlobalData {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public Integer getFieldId() {
-		return fieldId;
-	}
-	public void setFieldId(Integer fieldId) {
-		this.fieldId = fieldId;
-	}
+
+	
 	
 	
 }

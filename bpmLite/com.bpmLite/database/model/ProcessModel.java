@@ -8,6 +8,22 @@ public class ProcessModel extends BaseModel{
 	private Integer startStep;
 	private String fieldIds;
 
+	public ProcessModel(){};
+	
+	
+	
+	public ProcessModel(String name, String version, String uniqueGuid,
+			Integer startStep, String fieldIds) {
+		super();
+		this.name = name;
+		this.version = version;
+		this.uniqueGuid = uniqueGuid;
+		this.startStep = startStep;
+		this.fieldIds = fieldIds;
+	}
+
+
+
 	public String getName() {
 		return name;
 	}

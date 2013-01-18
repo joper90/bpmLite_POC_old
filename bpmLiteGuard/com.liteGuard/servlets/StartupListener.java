@@ -59,6 +59,17 @@ public class StartupListener  implements ServletContextListener{
 			sModel.setData(Statics.ADMIN_KEY);
 			BpmGuardDAO.instance.getServerInfoDAO().addServerInfoRecord(sModel);
 		}
+		
+		sStatus = BpmGuardDAO.instance.getServerInfoDAO().findDataByValue(Statics.INITIAL_GLOBAL_COUNT);
+		if (sStatus == null)
+		{
+			ServerInfoModel sModel = new ServerInfoModel();
+			sModel.setValue(Statics.INITIAL_GLOBAL_COUNT);
+			sModel.setData(Statics.INITIAL_GLOBAL_COUNT_START);
+			BpmGuardDAO.instance.getServerInfoDAO().addServerInfoRecord(sModel);
+		}
+		
+		
 		System.out.println("====>[HIB] root key added...");
 				
 		System.out.println("====>Started Hibernate System...");

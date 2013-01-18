@@ -22,7 +22,7 @@ public class GetFormData {
 	
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public CompleteFormData checkServerApp(@QueryParam("userId") String userId, @QueryParam("requestId") String requestId ) {
+	public CompleteFormData getAllFormData(@QueryParam("userId") String userId, @QueryParam("requestId") String requestId ) {
 		
 		CompleteFormData data = new CompleteFormData();
 		//Check if the user key is valid.

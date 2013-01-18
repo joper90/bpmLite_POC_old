@@ -31,7 +31,7 @@ CREATE  TABLE IF NOT EXISTS `bpmLite`.`step_data` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `step_id` VARCHAR(45) NULL ,
   `process_id` VARCHAR(45) NULL ,
-  `step_type` VARCHAR(45) NULL ,
+  `step_type` VARCHAR(255) NULL ,
   `step_details` VARCHAR(45) NULL ,
   `user_list` VARCHAR(45) NULL ,
   `next_id` VARCHAR(45) NULL ,
@@ -81,10 +81,15 @@ DROP TABLE IF EXISTS `bpmLite`.`process_instance` ;
 
 CREATE  TABLE IF NOT EXISTS `bpmLite`.`process_instance` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `process_id` VARCHAR(45) NULL ,
-  `current_step_id` VARCHAR(45) NULL ,
+  `process_id` INT NOT NULL ,
+  `current_step_id` INT NOT NULL ,
+  `case_id` VARCHAR(45) NOT NULL ,
+  `initial_data_set` TINYINT(1) NOT NULL ,
+  `guid_callback` VARCHAR(128) NOT NULL ,
   PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `process_id_UNIQUE` (`process_id` ASC) )
+  UNIQUE INDEX `process_id_UNIQUE` (`process_id` ASC) ,
+  UNIQUE INDEX `case_id_UNIQUE` (`case_id` ASC) ,
+  UNIQUE INDEX `guid_callback_UNIQUE` (`guid_callback` ASC) )
 ENGINE = InnoDB;
 
 
@@ -178,6 +183,36 @@ CREATE  TABLE IF NOT EXISTS `bpmLite`.`server_info` (
   `value` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `bpmLite`.`field_data`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bpmLite`.`field_data` ;
+
+CREATE  TABLE IF NOT EXISTS `bpmLite`.`field_data` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(45) NOT NULL ,
+  `type` VARCHAR(45) NOT NULL ,
+  `initial_data` VARCHAR(255) NULL ,
+  `field_id` INT NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) ,
+  UNIQUE INDEX `field_id_UNIQUE` (`field_id` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `bpmLite`.`global_mappings`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bpmLite`.`global_mappings` ;
+
+CREATE  TABLE IF NOT EXISTS `bpmLite`.`global_mappings` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `global_guard_id` INT NOT NULL ,
+  `global_deployed_id` INT NOT NULL ,
+  PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
 

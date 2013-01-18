@@ -34,7 +34,8 @@ CREATE  TABLE IF NOT EXISTS `bpmguard`.`global_data` (
   `data` VARCHAR(45) NULL ,
   `type` VARCHAR(45) NULL ,
   `field_id` INT NULL ,
-  PRIMARY KEY (`id`) )
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) )
 ENGINE = InnoDB;
 
 

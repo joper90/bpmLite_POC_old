@@ -11,12 +11,16 @@ public class Statics {
 	public final static String ADMIN ="root";
 	public final static String ADMIN_KEY = "12345";
 	
-	public final static String EMS_PUSH_WORKED = "success";
-	public final static String EMS_PUSH_FAILED = "failed";
+	public final static String SUCCESS = "success";
+	public final static String FAILED = "failed";
 	
-	public static enum GUID_KEY_MODE  {INJECTED,TAKEN,ACTIONED};
-	
+	public final static String INITIAL_GLOBAL_COUNT = "gCount";
+	public final static String INITIAL_GLOBAL_COUNT_START = "5000";
+		
 	public static boolean isAlive = false;
+	
+	//Current state of the key in the keystore.
+	public static enum GUID_KEY_MODE  {INJECTED,TAKEN,ACTIONED};
 	
 	// JMS Connection information
 
@@ -29,6 +33,7 @@ public class Statics {
 	//JMS Message Parsing
 	public static String WORK_ITEM_KEY_DETAILS 	= "WorkItemKeyDetails";
 	public static String START_CASE_DETAILS		= "StartCaseDetails";
+	
 	
 	
 	public static void setAlive(boolean b)

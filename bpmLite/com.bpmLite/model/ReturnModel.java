@@ -19,6 +19,13 @@ public class ReturnModel {
 		this.reason = reason;
 		this.worked = worked;
 	}
+	
+	public void setValues(String result, String reason, boolean worked)
+	{
+		this.result = result;
+		this.reason = reason;
+		this.worked = worked;
+	}
 
 	public String getResult() {
 		return result;

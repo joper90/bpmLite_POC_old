@@ -16,9 +16,9 @@ public class StartProcess {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ReturnModel startProcess (String name, String password, String processName, String processId)
+	public ReturnModel startProcess (String name, String password, String processName, String version)
 	{		
-		return StartProcessWorker.startProcess(name, password, processName, processId);
+		return StartProcessWorker.startProcess(name, password, processName, version);
 	}
 
 }

@@ -2,6 +2,7 @@ package database.DAO;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -11,7 +12,7 @@ import engine.HibernateUtil;
 
 public abstract class StandardDAO {
 
-	private boolean errorCreated = false;
+	protected boolean errorCreated = false;
 	
 	public StandardDAO()
 	{
@@ -101,5 +102,5 @@ public abstract class StandardDAO {
 		}
 		return true;
 	}
-	
+		
 }

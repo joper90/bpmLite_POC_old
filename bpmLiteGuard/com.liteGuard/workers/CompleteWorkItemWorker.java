@@ -34,7 +34,7 @@ public class CompleteWorkItemWorker {
 			GUID_KEY_MODE keyState = BpmGuardDAO.instance.getKeyStoreDAO().getKeyState(requestId);
 			if (keyState != GUID_KEY_MODE.TAKEN)
 			{
-				return new ReturnModel(Statics.EMS_PUSH_FAILED,"Incorrect key state", false);
+				return new ReturnModel(Statics.FAILED,"Incorrect key state", false);
 			}
 			
 			//Entry exists and matches.
@@ -70,34 +70,34 @@ public class CompleteWorkItemWorker {
 					
 					if(jmsSender.sendMessageCheck(Statics.JMS_TOPIC_PUSH, comp.xmlText()))
 					{
-						return new ReturnModel(Statics.EMS_PUSH_WORKED,"Step completed sucessfully", false);
+						return new ReturnModel(Statics.SUCCESS,"Step completed sucessfully", false);
 					}
 					else
 					{				
 						if (rollbackData(requestId  , currentData.getFormData()))
 						{
-							return new ReturnModel(Statics.EMS_PUSH_FAILED,"Step not completed.. rolling back", false);
+							return new ReturnModel(Statics.FAILED,"Step not completed.. rolling back", false);
 						}
 						else
 						{
-							return new ReturnModel(Statics.EMS_PUSH_FAILED,"Step not completed.. rolling back FAILED", false);
+							return new ReturnModel(Statics.FAILED,"Step not completed.. rolling back FAILED", false);
 						}
 					}
 					
 				
 				}else
 				{
-					return new ReturnModel(Statics.EMS_PUSH_FAILED,"Update form data failed.", false);
+					return new ReturnModel(Statics.FAILED,"Update form data failed.", false);
 				}
 			}
 			else
 			{
-				return new ReturnModel(Statics.EMS_PUSH_FAILED,"Bpm Server is down..", false);
+				return new ReturnModel(Statics.FAILED,"Bpm Server is down..", false);
 			}
 			
 		}
 		
-		return new ReturnModel(Statics.EMS_PUSH_FAILED,"Unknown User / user did not validate correctly.", false);
+		return new ReturnModel(Statics.FAILED,"Unknown User / user did not validate correctly.", false);
 	}
 	
 	

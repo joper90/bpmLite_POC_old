@@ -74,6 +74,42 @@ public class ServerInfoDAO {
 		return sInfo;
 	}
 	
+	public Integer findDataAsIntAndIncrement(String value)
+	{
+		this.errorCreated =false;
+		ServerInfoModel sInfo = null;
+		Transaction trns = null;
+		int currentValue = 0;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			trns = session.beginTransaction();
+			List<ServerInfoModel> sInfoList = session.createQuery("from ServerInfoModel where value = :value").setString("value", value).list();
+			
+			if (sInfoList.size() == 1)
+			{
+				sInfo = sInfoList.get(0);
+				Integer i = new Integer(sInfo.getData());
+				currentValue = i++;
+				sInfo.setData(i.toString());
+				session.save(sInfo);
+
+			}
+			trns.commit();
+		} catch (RuntimeException e) {
+			if (trns != null) {
+				trns.rollback();
+			}
+			this.errorCreated = true;
+			System.out.println("--> [HIB] "+e.getLocalizedMessage());
+		} finally {
+			if (!errorCreated) session.flush();
+			session.close();
+		}
+		
+		
+		return currentValue;
+	}
+	
 	
 	public boolean updateUser(ServerInfoModel serverInfoModel) {
 		this.errorCreated =false;

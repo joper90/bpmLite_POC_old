@@ -47,6 +47,7 @@
 			<xs:sequence>
 				<xs:element name="requestGuid" type="xs:string"/>
 				<xs:element name="worked" type="xs:boolean"/>
+				<xs:element name="type" type="callBackType"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -70,6 +71,7 @@
 				</xs:element>
 				<xs:element name="callbackGuidKey" type="xs:string"/>
 				<xs:element name="caseId" type="xs:int"/>
+				<xs:element name="requireCallback" type="xs:boolean"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -106,6 +108,7 @@
 							<xs:element name="type" type="fieldModeType"/>
 							<xs:element name="initalData" type="xs:string"/>
 							<xs:element name="fieldId" type="xs:int"/>
+							<xs:element name="global" type="xs:boolean"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
@@ -133,15 +136,10 @@
 												</xs:sequence>
 											</xs:complexType>
 										</xs:element>
-										<xs:element name="fieldData" maxOccurs="unbounded">
-											<xs:complexType>
-												<xs:sequence>
-													<xs:element name="fieldId" type="xs:int"/>
-												</xs:sequence>
-											</xs:complexType>
-										</xs:element>
-										<xs:element name="nextStepId" type="xs:int" maxOccurs="3"/>
-										<xs:element name="previousStepId" type="xs:int" maxOccurs="3"/>
+										<xs:element name="fieldData" type="xs:integer" maxOccurs="unbounded"/>
+										<xs:element name="nextStepId" type="xs:integer" maxOccurs="3"/>
+										<xs:element name="previousStepId" type="xs:integer" maxOccurs="3"/>
+										<xs:element name="globalData" type="xs:integer" maxOccurs="unbounded"/>
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
@@ -176,4 +174,34 @@
 			<xs:documentation>The OrgModel</xs:documentation>
 		</xs:annotation>
 	</xs:element>
+	<xs:simpleType name="callBackType">
+		<xs:annotation>
+			<xs:documentation>Callback Types</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="START_CASE"/>
+			<xs:enumeration value="COMPLETE_CASE"/>
+			<xs:enumeration value="INJECTED_KEY"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="ServerCommand">
+		<xs:annotation>
+			<xs:documentation>Command to the server (start next usertask etc)</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="instruction" type="serverInstruction"/>
+				<xs:element name="caseId" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="serverInstruction">
+		<xs:annotation>
+			<xs:documentation>enum of instructions that the server can process.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NEXT_STEP"/>
+			<xs:enumeration value="END_PROCESS"/>
+		</xs:restriction>
+	</xs:simpleType>
 </xs:schema>
