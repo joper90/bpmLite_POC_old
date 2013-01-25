@@ -11,6 +11,7 @@ public class StepDataModel extends BaseModel{
 	private String previousId;
 	private String fieldData;
 	private String globalData;
+	private String displayOnly;
 	
 	public StepDataModel(){};
 	
@@ -18,7 +19,7 @@ public class StepDataModel extends BaseModel{
 
 	public StepDataModel(String stepId, String processId, String stepType,
 			String stepDetails, String userList, String nextId,
-			String previousId, String fieldData, String globalData) {
+			String previousId, String fieldData, String globalData, String displayOnly) {
 		super();
 		this.stepId = stepId;
 		this.processId = processId;
@@ -29,6 +30,7 @@ public class StepDataModel extends BaseModel{
 		this.previousId = previousId;
 		this.fieldData = fieldData;
 		this.globalData = globalData;
+		this.displayOnly = displayOnly;
 	}
 
 
@@ -86,6 +88,11 @@ public class StepDataModel extends BaseModel{
 	}
 	public void setGlobalData(String globalData) {
 		this.globalData = globalData;
+	}
+	public String getDisplayOnly() {
+		return displayOnly;
+	}	public void setDisplayOnly(String displayOnly) {
+		this.displayOnly = displayOnly;
 	}
 	
 	

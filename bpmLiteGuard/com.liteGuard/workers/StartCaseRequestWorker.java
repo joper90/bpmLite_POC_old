@@ -19,38 +19,21 @@ public class StartCaseRequestWorker {
 		
 		for (FieldDetails f : fieldDetailsArray)
 		{
-			if (f.getIsGlobal())
+
+			FieldDataModel fModel = new FieldDataModel();
+				
+			fModel.setProcessId(processId);
+			fModel.setCaseId(caseId);
+			fModel.setName(f.getName());
+			fModel.setFieldId(f.getFieldId());
+			fModel.setType(f.getFieldType().toString());
+			if (f.isSetInitalValue())
 			{
-				GlobalData gModel = new GlobalData();
-				gModel.setFieldId(f.getFieldId());
-				gModel.setName(f.getName());
-				gModel.setType(f.getFieldType().toString());
-				if (f.isSetInitalValue())
-				{
-					gModel.setData(f.getInitalValue());
-				}
-				
-				//Now commit to the database
-				BpmGuardDAO.instance.getGlobalDataDAO().insertFieldData(gModel);
-				
+				fModel.setData(f.getInitalValue());
 			}
-			else
-			{
-				FieldDataModel fModel = new FieldDataModel();
-				
-				fModel.setProcessId(processId);
-				fModel.setCaseId(caseId);
-				fModel.setName(f.getName());
-				fModel.setFieldId(f.getFieldId());
-				fModel.setType(f.getFieldType().toString());
-				if (f.isSetInitalValue())
-				{
-					fModel.setData(f.getInitalValue());
-				}
-				
-				//Now commit to the database
-				BpmGuardDAO.instance.getFieldDataDAO().insertFieldData(fModel);
-			}
+			
+			//Now commit to the database
+			BpmGuardDAO.instance.getFieldDataDAO().insertFieldData(fModel);
 		}
 		
 		return true;

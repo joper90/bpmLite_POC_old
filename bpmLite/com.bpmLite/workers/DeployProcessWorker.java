@@ -18,8 +18,13 @@ import database.model.ProcessModel;
 import database.model.StepDataModel;
 
 public class DeployProcessWorker {
+	
+	public DeployProcessWorker(){};
+	
+	private String deployedFieldIds = "";
+	private String deployedGlobalFieldIds  = "";
 
-	public static ReturnModel deployProcess(String user, String password, ProcessArtifactDocument processToDeploy)
+	public ReturnModel deployProcess(String user, String password, ProcessArtifactDocument processToDeploy)
 	{
 		ReturnModel ret = new ReturnModel();
 		//Convert first to a doc element.
@@ -51,16 +56,16 @@ public class DeployProcessWorker {
 	}
 
 
-	private static ReturnModel internalDeploy(ProcessArtifactDocument processToDeploy)
+	private ReturnModel internalDeploy(ProcessArtifactDocument processToDeploy)
 	{
 		ReturnModel ret = new ReturnModel();
 		
 		//First deploy the field Ids, to get the list of the actual fild id's
 		//This deploys the fields and the globals.
-		String fieldsDeployed = deployFields(processToDeploy.getProcessArtifact().getFieldsArray());
+		deployFields(processToDeploy.getProcessArtifact().getFieldsArray());
 		
 		//Now inject the  process information, so we can get a processid
-		int deployProcessInformation = deployProcessInformation(processToDeploy.getProcessArtifact(), fieldsDeployed);
+		int deployProcessInformation = deployProcessInformation(processToDeploy.getProcessArtifact());
 		
 		if (deployProcessInformation != Statics.FAILED)
 		{
@@ -84,22 +89,22 @@ public class DeployProcessWorker {
 		return ret;
 	}
 	
-	private static String deployFields(Fields[] fieldArray)
+	private boolean deployFields(Fields[] fieldArray)
 	{
-		String fieldIdList = "";
+
 		for(Fields f : fieldArray)
 		{
 			
 			if (f.getGlobal() == true)
 			{
-				//So with a global we need to send it too the guard to get a unique id back.
+				//So with a global we need to send it (REST) too the guard to get a unique id back.
 				Integer globalRef = RestPostGlobalDataRequest.doPost(f);
 				// Now save the reference away in the look up table.
 				GlobalMappingsModel gMapping = new GlobalMappingsModel();
 				gMapping.setGlobalDeployedId(f.getFieldId());
 				gMapping.setGlobalGuardId(globalRef);
 				BpmLiteDAO.instance.getGlobalMappingsDAO().insertData(gMapping);
-								
+				deployedGlobalFieldIds = deployedGlobalFieldIds + globalRef + ",";				
 			}
 			else
 			{			
@@ -110,30 +115,39 @@ public class DeployProcessWorker {
 													f.getInitalData(), 
 													f.getFieldId())
 										);
-				fieldIdList = fieldIdList + f.getFieldId() + ",";
+				deployedFieldIds = deployedFieldIds + f.getFieldId() + ",";
 			}
 		}
 		
-		if (fieldIdList.length() > 0) 
+		if (deployedFieldIds.length() > 0) 
 		{
-			fieldIdList = fieldIdList.substring(0, fieldIdList.length() -1);
+			deployedFieldIds = deployedFieldIds.substring(0, deployedFieldIds.length() -1);
 		}else
 		{
-			fieldIdList = null;
+			deployedFieldIds = null;
+		}
+		
+		if (deployedGlobalFieldIds.length() > 0) 
+		{
+			deployedGlobalFieldIds = deployedGlobalFieldIds.substring(0, deployedGlobalFieldIds.length() -1);
+		}else
+		{
+			deployedGlobalFieldIds = null;
 		}
 	
-		return fieldIdList;
+		return true;
 	}
 	
 	
-	private static Integer deployProcessInformation(ProcessArtifact pInfo, String fieldsDeployed)
+	private Integer deployProcessInformation(ProcessArtifact pInfo)
 	{
 		//name,version,guid,startStep,fieldIds
 		ProcessModel processModel = new ProcessModel(pInfo.getProcessData().getProcessName(),
 													 pInfo.getProcessData().getVersion(),
 													 pInfo.getUniqueGuid(),
 													 Statics.START_STEP_INITAL_VALUE, //StartStep now known yet!
-													 fieldsDeployed); //common delimited list
+													 deployedFieldIds,
+													 deployedGlobalFieldIds); //common delimited list - Normals and globals.
 													 
 		boolean worked = BpmLiteDAO.instance.getProcessDAO().insertData(processModel);
 		
@@ -145,7 +159,7 @@ public class DeployProcessWorker {
 		return Statics.FAILED;
 	}
 	
-	private static boolean deploySteps(Steps[] stepArray, int processId)
+	private boolean deploySteps(Steps[] stepArray, int processId)
 	{
 		for (Steps s : stepArray)
 		{
@@ -188,7 +202,8 @@ public class DeployProcessWorker {
 										UtilWorker.arrayToString(s.getNextStepIdArray()),
 										UtilWorker.arrayToString(s.getPreviousStepIdArray()),
 										UtilWorker.arrayToString(s.getFieldDataArray()),
-										UtilWorker.arrayToString(s.getGlobalDataArray())
+										UtilWorker.arrayToString(s.getGlobalDataArray()),
+										UtilWorker.arrayToString(s.getDisplayOnlyArray())
 										)	
 										);
 						

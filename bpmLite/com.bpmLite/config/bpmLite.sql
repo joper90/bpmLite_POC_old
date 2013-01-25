@@ -18,6 +18,7 @@ CREATE  TABLE IF NOT EXISTS `bpmLite`.`process` (
   `unique_guid` VARCHAR(45) NULL ,
   `start_step` INT NULL ,
   `field_ids` VARCHAR(255) NULL ,
+  `global_ids` VARCHAR(255) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -38,6 +39,7 @@ CREATE  TABLE IF NOT EXISTS `bpmLite`.`step_data` (
   `previous_id` VARCHAR(45) NULL ,
   `field_data` VARCHAR(45) NULL ,
   `global_data` VARCHAR(255) NULL ,
+  `display_only` VARCHAR(255) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 

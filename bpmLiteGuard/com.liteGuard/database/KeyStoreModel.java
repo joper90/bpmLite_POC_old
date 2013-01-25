@@ -9,7 +9,7 @@ public class KeyStoreModel {
 	private String keyState;
 	private Integer processId;
 	private Integer stepId;
-	private Integer caseId;
+	private String caseId;
 	private String orderList;
 	private String displayOnly;
 	
@@ -55,10 +55,11 @@ public class KeyStoreModel {
 	public void setStepId(Integer stepId) {
 		this.stepId = stepId;
 	}
-	public Integer getCaseId() {
+
+	public String getCaseId() {
 		return caseId;
 	}
-	public void setCaseId(Integer caseId) {
+	public void setCaseId(String caseId) {
 		this.caseId = caseId;
 	}
 	public String getOrderList() {

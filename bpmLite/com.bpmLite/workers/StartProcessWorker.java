@@ -15,6 +15,7 @@ import com.bpmlite.api.StartCaseDetailsDocument.StartCaseDetails.FieldDetails;
 
 import config.Statics;
 import database.DAO.BpmLiteDAO;
+import database.model.FieldDataModel;
 import database.model.ProcessInstanceModel;
 import database.model.ProcessModel;
 
@@ -116,17 +117,23 @@ public class StartProcessWorker {
 		String[] fieldIdArray = fieldIds.split(",");
 		
 		//Fill in the rest of the stuff here.. !
-		
-		//TODO: Add all the field info here!
-		/*
-		 * 		FieldDetails fFour = startCase.addNewFieldDetails();
-		fFour.setName("CompletData");
-		fFour.setFieldId(101);
-		fFour.setFieldType(FieldModeType.STRING);
-		fFour.setInitalValue("End of March");
-		fFour.setIsGlobal(true);
-		 * 
-		 */
+		for (String f : fieldIdArray)
+		{
+			int fInt = new Integer(f);
+			//Get the field information or is it a global.
+			FieldDataModel fData = BpmLiteDAO.instance.getFieldDataDAO().getFieldDataByFieldId(fInt);
+			
+			
+			//get the field data with this item. Ignore globals, as these have already been populated.
+			FieldDetails fDetails = startCase.addNewFieldDetails();
+			
+			//fDetails.setName(arg0)
+			fDetails.setName(fData.getName());
+			fDetails.setFieldId(fData.getFieldId());
+			fDetails.setFieldType(FieldModeType.Enum.forString(fData.getType()));
+			fDetails.setInitalValue(fData.getInitialData());
+			
+		}
 		
 		System.out.println(startCaseDoc.xmlText());
 		

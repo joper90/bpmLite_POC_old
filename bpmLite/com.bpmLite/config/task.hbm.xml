@@ -111,6 +111,9 @@
 		<property name="fieldIds">
 			<column name="field_ids" />
 		</property>
+		<property name="globalIds">
+			<column name="global_ids" />
+		</property>
 	</class>	
 	
 	<class name="database.model.StepDataModel" table="step_data">
@@ -144,6 +147,9 @@
 		</property>
 		<property name="globalData">
 			<column name="global_data" />
+		</property>
+		<property name="displayOnly">
+			<column name="displayOnly" />
 		</property>
 	</class>	
 	

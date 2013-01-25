@@ -15,7 +15,9 @@ import com.bpmlite.api.ServerCommandDocument;
 import com.bpmlite.api.ServerInstruction;
 
 import config.Statics;
+import connector.tibbrConnector.TibbrConnector;
 import database.DAO.BpmLiteDAO;
+import database.model.UserModel;
 
 public class JmsReceiveParser {
 
@@ -46,7 +48,7 @@ public class JmsReceiveParser {
 					isSuccess=true;
 				}
 			}
-			else if (textRecived.contains(Statics.SERVER_COMMAND))
+			else if (textRecived.contains(Statics.SERVER_COMMAND)) // technically from local
 			{
 				//Lets see where to send it
 				ServerCommandDocument serverDoc = ServerCommandDocument.Factory.parse(textRecived);
@@ -102,6 +104,14 @@ public class JmsReceiveParser {
 		}
 		else if (type == CallBackType.INJECTED_KEY)
 		{
+			//Now we need to find out what was sent and post the tibbr message.
+			String guid = callbackDoc.getRequestCallBack().getRequestGuid();
+			String userGuid = callbackDoc.getRequestCallBack().getUserGuid();
+			
+			//So we now have the userGuid and the guid.. lets get the userDetails for posting.
+			UserModel user = BpmLiteDAO.instance.getUserDAO().findModelfromGuid(userGuid);
+			
+			TibbrConnector.postWorkItemMessage(guid, user);
 			
 		}
 		

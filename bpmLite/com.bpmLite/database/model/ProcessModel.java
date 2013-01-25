@@ -7,19 +7,21 @@ public class ProcessModel extends BaseModel{
 	private String uniqueGuid;
 	private Integer startStep;
 	private String fieldIds;
+	private String globalIds;
 
 	public ProcessModel(){};
 	
 	
 	
 	public ProcessModel(String name, String version, String uniqueGuid,
-			Integer startStep, String fieldIds) {
+			Integer startStep, String fieldIds, String globalIds) {
 		super();
 		this.name = name;
 		this.version = version;
 		this.uniqueGuid = uniqueGuid;
 		this.startStep = startStep;
 		this.fieldIds = fieldIds;
+		this.globalIds = globalIds;
 	}
 
 
@@ -53,6 +55,12 @@ public class ProcessModel extends BaseModel{
 	}
 	public void setFieldIds(String fieldIds) {
 		this.fieldIds = fieldIds;
+	}
+	public String getGlobalIds() {
+		return globalIds;
+	}
+	public void setGlobalIds(String globalIds) {
+		this.globalIds = globalIds;
 	}
 	
 	

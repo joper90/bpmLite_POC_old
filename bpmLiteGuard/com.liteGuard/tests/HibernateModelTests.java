@@ -122,7 +122,7 @@ public class HibernateModelTests {
 		kStore.setUserGuid("ABC123");
 		kStore.setProcessId(1);
 		kStore.setStepId(1);
-		kStore.setCaseId(111);
+		kStore.setCaseId("BPM111");
 		
 		
 		kStore.setKeyState(GUID_KEY_MODE.INJECTED.toString());
@@ -225,7 +225,7 @@ public class HibernateModelTests {
 	{
 		FieldDataModel fModel = null;
 		FieldDataDAO d = new FieldDataDAO();
-		fModel = d.getFieldById(1,111,123); //process,case,field
+		fModel = d.getFieldById(1,"BPM111",123); //process,case,field
 		System.out.println("Found fieldId record:" + fModel.getName());
 	}
 	

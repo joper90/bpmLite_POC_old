@@ -28,7 +28,7 @@ public class EmsTests {
 		WorkItemKeyDetails wItem = wItemDoc.addNewWorkItemKeyDetails();
 		wItem.setProcessId(1111);
 		wItem.setStepId(444);
-		wItem.setCaseId(222);
+		wItem.setCaseId("BPM222");
 		wItem.setUniqueFormGuid("Guid1234ABC");
 		wItem.setUserKey("UserKey1234");
 		wItem.setDisplayOnly("1,2");
@@ -77,28 +77,26 @@ public class EmsTests {
 		fOne.setFieldId(1);
 		fOne.setFieldType(FieldModeType.STRING);
 		fOne.setInitalValue("Test Intial Field");
-		fOne.setIsGlobal(false);
 
 		FieldDetails fTwo = startCase.addNewFieldDetails();
 		fTwo.setName("Age");
 		fTwo.setFieldId(2);
 		fTwo.setFieldType(FieldModeType.INT);
 		fTwo.setInitalValue("3");
-		fTwo.setIsGlobal(false);
+
 		
 		FieldDetails fThree = startCase.addNewFieldDetails();
 		fThree.setName("StartData");
 		fThree.setFieldId(3);
 		fThree.setFieldType(FieldModeType.STRING);
 		//No inital data
-		fThree.setIsGlobal(false);
+	
 		
 		FieldDetails fFour = startCase.addNewFieldDetails();
 		fFour.setName("CompletData");
 		fFour.setFieldId(101);
 		fFour.setFieldType(FieldModeType.STRING);
 		fFour.setInitalValue("End of March");
-		fFour.setIsGlobal(true);
 		
 		
 		System.out.println(startCaseDoc.xmlText());

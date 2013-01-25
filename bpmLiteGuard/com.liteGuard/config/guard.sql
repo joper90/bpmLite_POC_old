@@ -52,7 +52,7 @@ CREATE  TABLE IF NOT EXISTS `bpmguard`.`key_store` (
   `key_state` VARCHAR(45) NOT NULL ,
   `process_id` INT NOT NULL ,
   `step_id` INT NOT NULL ,
-  `case_id` INT NOT NULL ,
+  `case_id` VARCHAR(25) NOT NULL ,
   `order_list` VARCHAR(255) NULL ,
   `display_only_ids` VARCHAR(225) NULL ,
   PRIMARY KEY (`id`) ,

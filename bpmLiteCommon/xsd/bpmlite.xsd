@@ -8,7 +8,7 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="processId" type="xs:int"/>
-				<xs:element name="caseId" type="xs:int"/>
+				<xs:element name="caseId" type="xs:string"/>
 				<xs:element name="stepId" type="xs:int"/>
 				<xs:element name="uniqueFormGuid" type="xs:string"/>
 				<xs:element name="userKey" type="xs:string"/>
@@ -48,6 +48,7 @@
 				<xs:element name="requestGuid" type="xs:string"/>
 				<xs:element name="worked" type="xs:boolean"/>
 				<xs:element name="type" type="callBackType"/>
+				<xs:element name="userGuid" type="xs:string" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -62,7 +63,6 @@
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="fieldId" type="xs:int"/>
-							<xs:element name="isGlobal" type="xs:boolean"/>
 							<xs:element name="initalValue" type="xs:string" minOccurs="0"/>
 							<xs:element name="fieldType" type="fieldModeType"/>
 							<xs:element name="name" type="xs:string"/>
@@ -140,6 +140,7 @@
 										<xs:element name="nextStepId" type="xs:integer" maxOccurs="3"/>
 										<xs:element name="previousStepId" type="xs:integer" maxOccurs="3"/>
 										<xs:element name="globalData" type="xs:integer" maxOccurs="unbounded"/>
+										<xs:element name="displayOnly" type="xs:integer" maxOccurs="unbounded"/>
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>

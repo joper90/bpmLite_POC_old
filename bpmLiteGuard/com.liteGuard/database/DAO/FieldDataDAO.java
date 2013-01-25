@@ -67,7 +67,7 @@ public class FieldDataDAO {
 		return true;
 	}
 	
-	public FieldDataModel getFieldById(int processId, int caseId, int fieldId)
+	public FieldDataModel getFieldById(int processId, String caseId, int fieldId)
 	{
 		this.errorCreated =false;
 		FieldDataModel fInfo = null;
@@ -79,7 +79,7 @@ public class FieldDataDAO {
 			List<FieldDataModel> sInfoList = session.createQuery("from FieldDataModel where processId = :processid and caseId = :caseid and fieldId = :value")
 											.setInteger("processid", processId)
 											.setInteger("value", fieldId)
-											.setInteger("caseid", caseId)
+											.setString("caseid", caseId)
 											.list();
 			
 			if (sInfoList.size() == 1)
@@ -111,7 +111,7 @@ public class FieldDataDAO {
 		for (String id : ids)
 		{
 			FieldDataModel fTemp = getFieldById(new Integer(keyStoreModel.getProcessId()), 
-												new Integer(keyStoreModel.getCaseId()), 
+												keyStoreModel.getCaseId(), 
 												new Integer(id));
 			if (fTemp != null)
 			{

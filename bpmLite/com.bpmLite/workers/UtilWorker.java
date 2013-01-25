@@ -3,6 +3,8 @@ package workers;
 import java.util.Arrays;
 import java.util.UUID;
 
+import com.bpmlite.api.FieldModeType;
+
 import config.Statics;
 import database.DAO.BpmLiteDAO;
 import database.model.ServerInfoModel;
@@ -38,4 +40,11 @@ public class UtilWorker {
 	{
 		return UUID.randomUUID().toString();
 	}
+
+	
+	public static FieldModeType.Enum getFieldModeFromString(String enumAsString)
+	{
+		return FieldModeType.Enum.forString(enumAsString);
+	}
+	
 }

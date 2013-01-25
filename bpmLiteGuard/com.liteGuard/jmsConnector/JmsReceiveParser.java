@@ -53,7 +53,7 @@ public class JmsReceiveParser {
 				 * / We have a valid set of details do now we can send to update the database
 				 */
 				isSuccess = WorkItemRequestWorker.injectNewKey(wDetailsDoc);
-				postBackResults(isSuccess, wDetailsDoc.getWorkItemKeyDetails().getCallBackGuid(),CallBackType.INJECTED_KEY);
+				postBackResults(isSuccess, wDetailsDoc.getWorkItemKeyDetails().getCallBackGuid(), wDetailsDoc.getWorkItemKeyDetails().getUserKey(), CallBackType.INJECTED_KEY);
 				return isSuccess;
 			}
 			else if (textRecived.contains(Statics.START_CASE_DETAILS))
@@ -90,11 +90,20 @@ public class JmsReceiveParser {
 	
 	private void postBackResults(boolean worked, String callbackGuid, CallBackType.Enum callBackType)
 	{
+		postBackResults(worked, callbackGuid, null, callBackType);
+	}
+	
+	private void postBackResults(boolean worked, String callbackGuid, String userGuid, CallBackType.Enum callBackType)
+	{
 		RequestCallBackDocument rCallback = RequestCallBackDocument.Factory.newInstance();
 		RequestCallBack addNewRequestCallBack = rCallback.addNewRequestCallBack();
 		addNewRequestCallBack.setRequestGuid(callbackGuid);
 		addNewRequestCallBack.setWorked(worked);
 		addNewRequestCallBack.setType(callBackType);
+		if (userGuid != null)
+		{
+			addNewRequestCallBack.setUserGuid(userGuid);
+		}
 			
 		QueueJMSMessageSender qSender = new QueueJMSMessageSender();
 		boolean sendWorked = qSender.sendMessageCheck(Statics.JMS_TOPIC_PUSH, rCallback.xmlText());

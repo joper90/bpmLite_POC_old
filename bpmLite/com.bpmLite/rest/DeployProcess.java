@@ -40,7 +40,8 @@ public class DeployProcess {
 		
 		if (validDoc)
 		{
-			 ret = DeployProcessWorker.deployProcess(user, pass, paDoc);
+			DeployProcessWorker dWorker = new DeployProcessWorker();
+			ret = dWorker.deployProcess(user, pass, paDoc);
 		}else
 		{
 			ret.setReason("Cannot parse processArtifactDoc");
