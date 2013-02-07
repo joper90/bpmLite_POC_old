@@ -27,7 +27,7 @@ public class StepDataDAO extends StandardDAO{
 			trns = session.beginTransaction();
 
 			@SuppressWarnings("unchecked")
-			List<StepDataModel> sInfoList = session.createQuery("from SteoData where stepID = :value").setString("value", stepId.toString()).list();
+			List<StepDataModel> sInfoList = session.createQuery("from StepDataModel where stepId = :value").setString("value", stepId.toString()).list();
 			if (sInfoList.size() == 1)
 			{
 				ret = sInfoList.get(0);

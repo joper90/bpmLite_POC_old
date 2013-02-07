@@ -3,17 +3,17 @@ package workers;
 import javax.naming.NamingException;
 
 import jmsConnector.QueueJMSMessageSender;
-import model.ReturnModel;
+import lite.models.ReturnModel;
 
 import com.bpmlite.api.FieldModeType;
 import com.bpmlite.api.ServerCommandDocument;
-import com.bpmlite.api.ServerInstruction;
 import com.bpmlite.api.ServerCommandDocument.ServerCommand;
+import com.bpmlite.api.ServerInstruction;
 import com.bpmlite.api.StartCaseDetailsDocument;
 import com.bpmlite.api.StartCaseDetailsDocument.StartCaseDetails;
 import com.bpmlite.api.StartCaseDetailsDocument.StartCaseDetails.FieldDetails;
 
-import config.Statics;
+import config.StaticsCommon;
 import database.DAO.BpmLiteDAO;
 import database.model.FieldDataModel;
 import database.model.ProcessInstanceModel;
@@ -40,7 +40,7 @@ public class StartProcessWorker {
 				
 				QueueJMSMessageSender q = new QueueJMSMessageSender();
 				try {
-					q.sendMessage(Statics.JMS_TOPIC_SERVER, serverCommand.xmlText());
+					q.sendMessage(StaticsCommon.JMS_TOPIC_SERVER, serverCommand.xmlText());
 				} catch (NamingException e) {
 					// TODO Auto-generated catch block
 					retModel.setReason("[Start process] Cannot post next Step message");
@@ -71,6 +71,11 @@ public class StartProcessWorker {
 		{			
 			//First create the local data, then send the field info over the wire..  //possible need thread lock?
 			caseId = UtilWorker.getAndThenIncrementCaseId();
+			
+			if (caseId == StaticsCommon.FAILURE)
+			{
+				return null;
+			}
 			//Inject into process_instace to kick start the whole case start
 			
 			ProcessInstanceModel pInstance = new ProcessInstanceModel();
@@ -91,10 +96,12 @@ public class StartProcessWorker {
 				{
 					return null;
 				}
+				
+
+				//All seemed to work.
+				return caseId;
 			}
 			
-			//All seemed to work.
-			return caseId;
 			
 		}
 	
@@ -109,7 +116,7 @@ public class StartProcessWorker {
 		StartCaseDetails startCase = startCaseDoc.addNewStartCaseDetails();
 		startCase.setProcessId(pModel.getId());
 		startCase.setCallbackGuidKey(pInstance.getGuidCallback());
-		startCase.setCaseId(new Integer(pInstance.getCaseId()));
+		startCase.setCaseId(pInstance.getCaseId());
 		startCase.setRequireCallback(true);
 		
 		//Get the list of field Ids.
@@ -140,7 +147,7 @@ public class StartProcessWorker {
 		
 		QueueJMSMessageSender q = new QueueJMSMessageSender();
 		try {
-			q.sendMessage(Statics.JMS_TOPIC_GUARD, startCaseDoc.xmlText());
+			q.sendMessage(StaticsCommon.JMS_TOPIC_GUARD, startCaseDoc.xmlText());
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

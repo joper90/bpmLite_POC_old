@@ -25,7 +25,7 @@ public class FieldDataDAO extends StandardDAO{
 		try {
 			trns = session.beginTransaction();
 			@SuppressWarnings("unchecked")
-			List<FieldDataModel> sInfoList = session.createQuery("from FieldData where fieldId = :value").setInteger("value", fieldId).list();
+			List<FieldDataModel> sInfoList = session.createQuery("from FieldDataModel where fieldId = :value").setInteger("value", fieldId).list();
 			
 			if (sInfoList.size() == 1)
 			{

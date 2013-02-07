@@ -1,6 +1,6 @@
 package engineConnector;
 
-import config.Statics;
+import config.StaticsCommon;
 
 public class EngineRestConnector {
 
@@ -9,7 +9,7 @@ public class EngineRestConnector {
 		//TODO: add server alive check
 		//Checks if the server is alive and up.
 		//Do a rest call and get the results.
-		if (Statics.TEST_MODE)
+		if (StaticsCommon.TEST_MODE)
 		{
 			return true;
 		}

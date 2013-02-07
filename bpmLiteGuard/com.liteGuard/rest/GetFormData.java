@@ -8,11 +8,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import config.Statics.GUID_KEY_MODE;
-
-import database.DAO.BpmGuardDAO;
-
 import workers.WorkItemRequestWorker;
+import config.StaticsCommon.GUID_KEY_MODE;
+import database.DAO.BpmGuardDAO;
 
 @Path("/getFormData")
 public class GetFormData {

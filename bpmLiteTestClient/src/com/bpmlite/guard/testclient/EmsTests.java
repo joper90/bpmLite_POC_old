@@ -69,7 +69,7 @@ public class EmsTests {
 		StartCaseDetails startCase = startCaseDoc.addNewStartCaseDetails();
 		startCase.setProcessId(11111);
 		startCase.setCallbackGuidKey("12345");
-		startCase.setCaseId(222);
+		startCase.setCaseId("222");
 		startCase.setRequireCallback(false);
 		
 		FieldDetails fOne = startCase.addNewFieldDetails();

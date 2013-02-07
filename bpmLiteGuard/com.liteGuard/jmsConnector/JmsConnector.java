@@ -10,17 +10,17 @@ import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.Session;
 
-import config.Statics;
+import config.StaticsCommon;
 
 public class JmsConnector implements  ExceptionListener, MessageListener {
 
-	private String				serverUrl	= Statics.JMS_SERVER;
+	private String				serverUrl	= StaticsCommon.JMS_SERVER;
 
-	private String				userName	= Statics.JMS_USER;
+	private String				userName	= StaticsCommon.JMS_USER;
 
-	private String				password	= Statics.JMS_PASSWORD;
+	private String				password	= StaticsCommon.JMS_PASSWORD;
 
-	private String				queue		= Statics.JMS_TOPIC_PULL;
+	private String				queue		= StaticsCommon.JMS_TOPIC_GUARD;
 
 	private Connection			connection	= null;
 
@@ -77,7 +77,7 @@ public class JmsConnector implements  ExceptionListener, MessageListener {
 
 	@Override
 	public void onMessage(Message message) {
-		System.out.println("Got a message ... whoot " );
+		System.out.println("[Guard recived a message]" );
 		JmsReceiveParser jmsRe = new JmsReceiveParser();
 		jmsRe.parseData(message);
 	}

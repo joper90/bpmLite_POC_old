@@ -1,7 +1,5 @@
 package rest.client;
 
-import java.net.URI;
-
 import javax.ws.rs.core.UriBuilder;
 
 import com.sun.jersey.api.client.Client;
@@ -9,7 +7,7 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 
-import config.Statics;
+import config.StaticsCommon;
 
 public class RestBase {
 
@@ -18,7 +16,7 @@ public class RestBase {
 	{
 		ClientConfig config = new DefaultClientConfig();
 	    Client client = Client.create(config);
-	    WebResource service = client.resource(UriBuilder.fromUri(Statics.BPM_GUARD_PATH).build());
+	    WebResource service = client.resource(UriBuilder.fromUri(StaticsCommon.BPM_GUARD_PATH).build());
 	    return service;
 	}
 }

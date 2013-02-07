@@ -1,9 +1,10 @@
 package rest.client;
 
 import guard.models.GlobalDataRequest;
-import guard.models.ReturnModel;
 
 import javax.ws.rs.core.MediaType;
+
+import lite.models.ReturnModel;
 
 import com.bpmlite.api.ProcessArtifactDocument.ProcessArtifact.Fields;
 import com.sun.jersey.api.client.WebResource;

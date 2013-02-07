@@ -2,13 +2,13 @@ package database;
 
 public class FieldDataModel extends GlobalData{
 
-	private Integer	caseId;
+	private String	caseId;
 	private Integer processId;
 	
-	public Integer getCaseId() {
+	public String getCaseId() {
 		return caseId;
 	}
-	public void setCaseId(Integer caseId) {
+	public void setCaseId(String caseId) {
 		this.caseId = caseId;
 	}
 		

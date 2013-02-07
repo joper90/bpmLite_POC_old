@@ -3,8 +3,7 @@ package tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import config.Statics.GUID_KEY_MODE;
-
+import config.StaticsCommon.GUID_KEY_MODE;
 import database.FieldDataModel;
 import database.GlobalData;
 import database.KeyStoreModel;
@@ -191,7 +190,7 @@ public class HibernateModelTests {
 	{
 		FieldDataModel fModel = new FieldDataModel();
 		fModel.setProcessId(1);
-		fModel.setCaseId(111);
+		fModel.setCaseId("111");
 		fModel.setFieldId(123);
 		fModel.setName("testField");
 		fModel.setType("STRING");
@@ -208,7 +207,7 @@ public class HibernateModelTests {
 		FieldDataModel fModel = new FieldDataModel();
 		fModel.setId(1);
 		fModel.setProcessId(1);
-		fModel.setCaseId(111);
+		fModel.setCaseId("111");
 		fModel.setFieldId(123);
 		fModel.setName("testFieldUpdated");
 		fModel.setType("STRING");
@@ -235,7 +234,7 @@ public class HibernateModelTests {
 		//First add 2 more 
 		FieldDataModel fModel = new FieldDataModel();
 		fModel.setProcessId(1);
-		fModel.setCaseId(111);
+		fModel.setCaseId("111");
 		fModel.setFieldId(124);
 		fModel.setName("testField2");
 		fModel.setType("STRING");
@@ -247,7 +246,7 @@ public class HibernateModelTests {
 		
 		fModel = new FieldDataModel();
 		fModel.setProcessId(1);
-		fModel.setCaseId(111);
+		fModel.setCaseId("111");
 		fModel.setFieldId(125);
 		fModel.setName("testFieldThree");
 		fModel.setType("INT");

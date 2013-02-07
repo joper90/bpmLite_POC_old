@@ -10,17 +10,17 @@ import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.Session;
 
-import config.Statics;
+import config.StaticsCommon;
 
 public class JmsConnector implements  ExceptionListener, MessageListener {
 
-	private String				serverUrl	= Statics.JMS_SERVER;
+	private String				serverUrl	= StaticsCommon.JMS_SERVER;
 
-	private String				userName	= Statics.JMS_USER;
+	private String				userName	= StaticsCommon.JMS_USER;
 
-	private String				password	= Statics.JMS_PASSWORD;
+	private String				password	= StaticsCommon.JMS_PASSWORD;
 
-	private String				queue		= Statics.JMS_TOPIC_SERVER;
+	private String				queue		= StaticsCommon.JMS_TOPIC_SERVER;
 
 	private Connection			connection	= null;
 

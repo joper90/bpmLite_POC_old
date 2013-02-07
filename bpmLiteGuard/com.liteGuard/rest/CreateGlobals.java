@@ -1,7 +1,6 @@
 package rest;
 
 import guard.models.GlobalDataRequest;
-import guard.models.ReturnModel;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -9,12 +8,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import config.Statics;
-
+import lite.models.ReturnModel;
 import workers.Transformers;
 import workers.ValidationWorker;
+import config.StaticsCommon;
 import database.GlobalData;
 import database.DAO.BpmGuardDAO;
 
@@ -36,7 +34,7 @@ public class CreateGlobals {
 			GlobalData gData = Transformers.requestToGlobalData(globalDataRequest);
 			
 			//Get then next element in the globals.
-			Integer fieldId = BpmGuardDAO.instance.getServerInfoDAO().findDataAsIntAndIncrement(Statics.INITIAL_GLOBAL_COUNT);
+			Integer fieldId = BpmGuardDAO.instance.getServerInfoDAO().findDataAsIntAndIncrement(StaticsCommon.INITIAL_GLOBAL_COUNT);
 			gData.setFieldId(fieldId);
 			
 			//Save off the gData		
@@ -45,7 +43,7 @@ public class CreateGlobals {
 			{
 				ret.setWorked(true);
 				ret.addExtendedDataElement("fieldId", fieldId.toString());
-				ret.setResult(Statics.SUCCESS);
+				ret.setResult(StaticsCommon.SUCCESS);
 			}else
 			{
 				ret.setReason("Cannot save new Data as :" + fieldId );

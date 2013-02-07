@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import config.Statics;
+import config.StaticsCommon;
 import database.model.ProcessModel;
 import engine.HibernateUtil;
 
@@ -20,14 +20,14 @@ public class ProcessDAO extends StandardDAO{
 	public Integer getIdByGuid(String guid)
 	{
 		boolean errorCreated =false;
-		int retValue = Statics.FAILED;
+		int retValue = StaticsCommon.FAILED;
 		Transaction trns = null;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			trns = session.beginTransaction();
 
 			@SuppressWarnings("unchecked")
-			List<ProcessModel> sInfoList = session.createQuery("from ProcessModel where guid = :value").setString("value", guid).list();
+			List<ProcessModel> sInfoList = session.createQuery("from ProcessModel where uniqueGuid = :value").setString("value", guid).list();
 			
 			if (sInfoList != null)
 			{

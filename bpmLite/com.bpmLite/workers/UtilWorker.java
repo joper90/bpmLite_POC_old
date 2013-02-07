@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import com.bpmlite.api.FieldModeType;
 
-import config.Statics;
+import config.StaticsCommon;
 import database.DAO.BpmLiteDAO;
 import database.model.ServerInfoModel;
 
@@ -21,18 +21,19 @@ public class UtilWorker {
 	
 	public static String getAndThenIncrementCaseId() //thread lock for uniqueness??
 	{
-		String currentValue = BpmLiteDAO.instance.getServerInfoDAO().getValueByName(Statics.CASE_ID);
+		ServerInfoModel sInfo = BpmLiteDAO.instance.getServerInfoDAO().getValueByName(StaticsCommon.CASE_ID);
+		String currentValue = sInfo.getValue();
 
+		
 		//Split down
-		int currentCaseIdCount = new Integer(currentValue.substring(currentValue.indexOf(":")));
+		int currentCaseIdCount = new Integer(currentValue.substring(currentValue.indexOf(":")+1));
 
 		String newValue = "bpm:" + String.format("%06d", ++currentCaseIdCount);
-		ServerInfoModel rootInfo = new ServerInfoModel();
-		rootInfo.setName(Statics.CASE_ID);
-		rootInfo.setValue(newValue);
-		BpmLiteDAO.instance.getServerInfoDAO().insertData(rootInfo);
+		
+		sInfo.setValue(newValue);
+		if (BpmLiteDAO.instance.getServerInfoDAO().updateModel(sInfo)) return currentValue;
 				
-		return currentValue;
+		return StaticsCommon.FAILURE;
 		
 	}
 	

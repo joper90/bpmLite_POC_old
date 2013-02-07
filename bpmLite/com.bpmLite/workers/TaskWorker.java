@@ -10,21 +10,21 @@ import com.bpmlite.api.WorkItemKeyDetailsDocument;
 import com.bpmlite.api.WorkItemKeyDetailsDocument.WorkItemKeyDetails;
 import com.bpmlite.api.WorkItemKeyDetailsDocument.WorkItemKeyDetails.KeyFieldDetails;
 
-import config.Statics;
+import config.StaticsCommon;
 import database.DAO.BpmLiteDAO;
 import database.model.ProcessInstanceModel;
 import database.model.StepDataModel;
 
 public class TaskWorker {
 
-	public boolean processUserTask(ProcessInstanceModel pModel, StepDataModel stepData)
+	public boolean processUserTask(ProcessInstanceModel pModel, StepDataModel stepData) throws Exception
 	{
 		//Find out if inital, so we can check the inital data has been correctly set for this.
-		if (new Integer(stepData.getStepId()) == Statics.START_STEP_INITAL_VALUE)
+		if (new Integer(stepData.getStepId()) == StaticsCommon.START_STEP_INITAL_VALUE)
 		{
 			//Need to see if the inital data callback has been completed.
-			boolean isStartedCorrectly = spinLooper(pModel.getCaseId(), Statics.LOOP_SLEEP_TIME, Statics.LOOP_SLEEP_MAX_COUNT);
-			if (!isStartedCorrectly) return false;
+			boolean currentState = BpmLiteDAO.instance.getProcessInstanceDAO().isInitalDataSet(pModel.getCaseId());
+			if (!currentState) throw new Exception("Case not started yet!");
 			
 		}
 		
@@ -47,7 +47,7 @@ public class TaskWorker {
 		
 		QueueJMSMessageSender q = new QueueJMSMessageSender();
 		try {
-			q.sendMessage(Statics.JMS_TOPIC_GUARD, wItemDoc.xmlText());
+			q.sendMessage(StaticsCommon.JMS_TOPIC_GUARD, wItemDoc.xmlText());
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -98,12 +98,21 @@ public class TaskWorker {
 		
 		wItem.setUserKey(userKey);
 		wItem.setDisplayOnly(stepData.getDisplayOnly());
-		wItem.setRootKey(Statics.ADMIN_KEY);
+		wItem.setRootKey(StaticsCommon.ADMIN_KEY);
 		
 		
 		//Get the fields for the step.
-		String[] fieldData = stepData.getFieldData().split(",");
-		String[] globalData = stepData.getGlobalData().split(",");
+		String[] fieldData = null;
+		if (stepData.getFieldData().length() > 0)
+		{
+			fieldData = stepData.getFieldData().split(",");
+		}
+		
+		String[] globalData = null;
+		if (stepData.getGlobalData().length() > 0)
+		{
+			globalData = stepData.getGlobalData().split(",");
+		}
 		
 		ArrayList<KeyFieldDetails> kDetails = new ArrayList<KeyFieldDetails>();
 		
@@ -113,15 +122,18 @@ public class TaskWorker {
 			//Find if a global.
 			boolean isGlobal = false;
 			
-			int fieldAsInt = new Integer(field);
+			int fieldAsInt = new Integer(field.trim());
 			
-			for (String g : globalData)
+			if (globalData != null)
 			{
-				
-				if (new Integer(g) == fieldAsInt)
+				for (String g : globalData)
 				{
-					isGlobal = true;
-					break;
+					
+					if (new Integer(g) == fieldAsInt)
+					{
+						isGlobal = true;
+						break;
+					}
 				}
 			}
 			

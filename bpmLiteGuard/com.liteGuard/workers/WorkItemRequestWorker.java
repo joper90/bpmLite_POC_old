@@ -11,8 +11,8 @@ import com.bpmlite.api.WorkItemKeyDetailsDocument;
 import com.bpmlite.api.WorkItemKeyDetailsDocument.WorkItemKeyDetails;
 import com.bpmlite.api.WorkItemKeyDetailsDocument.WorkItemKeyDetails.KeyFieldDetails;
 
-import config.Statics;
-import config.Statics.GUID_KEY_MODE;
+import config.StaticsCommon;
+import config.StaticsCommon.GUID_KEY_MODE;
 import database.FieldDataModel;
 import database.GlobalData;
 import database.KeyStoreModel;
@@ -27,7 +27,7 @@ public class WorkItemRequestWorker {
 	public static boolean injectNewKey(WorkItemKeyDetailsDocument wItemKeyDetails)
 	{
 		//First check the root key
-		if (!ValidationWorker.isValid(Statics.ADMIN,wItemKeyDetails.getWorkItemKeyDetails().getRootKey()))
+		if (!ValidationWorker.isValid(StaticsCommon.ADMIN,wItemKeyDetails.getWorkItemKeyDetails().getRootKey()))
 		{
 			System.out.println("Incorrect admin key supplied... cannot inject new key");
 			return false;

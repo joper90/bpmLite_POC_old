@@ -16,7 +16,8 @@ public class TibbrConnector {
 	
 	public static boolean postWorkItemMessage(String uniqueGuid, UserModel userModel)
 	{
-		System.out.println("SEnding message to the client.");
+		System.out.println("----------> Sending message to the client. <-------------");
+		System.out.println("Message : guid : " + uniqueGuid + " key:" +userModel.getUniqueKey() + " name:" + userModel.getName());
 		return true;
 	}
 }

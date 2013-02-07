@@ -3,18 +3,16 @@ package com.bpmlite.guard.testclient;
 
 import guard.models.CompleteFormData;
 import guard.models.GlobalDataRequest;
-import guard.models.ReturnModel;
 
 import java.net.URI;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 
+import lite.models.ReturnModel;
+
 import com.bpmlite.api.FieldModeType;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;

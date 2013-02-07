@@ -1,6 +1,6 @@
 package workers;
 
-import model.ReturnModel;
+import lite.models.ReturnModel;
 
 public class DeployOrgModelWorker {
 

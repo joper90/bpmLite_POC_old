@@ -70,7 +70,7 @@
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="callbackGuidKey" type="xs:string"/>
-				<xs:element name="caseId" type="xs:int"/>
+				<xs:element name="caseId" type="xs:string"/>
 				<xs:element name="requireCallback" type="xs:boolean"/>
 			</xs:sequence>
 		</xs:complexType>
@@ -128,7 +128,7 @@
 												</xs:sequence>
 											</xs:complexType>
 										</xs:element>
-										<xs:element name="extendedData" maxOccurs="unbounded">
+										<xs:element name="extendedData" minOccurs="0" maxOccurs="unbounded">
 											<xs:complexType>
 												<xs:sequence>
 													<xs:element name="name" type="xs:string"/>
@@ -136,11 +136,11 @@
 												</xs:sequence>
 											</xs:complexType>
 										</xs:element>
-										<xs:element name="fieldData" type="xs:integer" maxOccurs="unbounded"/>
+										<xs:element name="fieldData" type="xs:integer" minOccurs="0" maxOccurs="unbounded"/>
 										<xs:element name="nextStepId" type="xs:integer" maxOccurs="3"/>
-										<xs:element name="previousStepId" type="xs:integer" maxOccurs="3"/>
-										<xs:element name="globalData" type="xs:integer" maxOccurs="unbounded"/>
-										<xs:element name="displayOnly" type="xs:integer" maxOccurs="unbounded"/>
+										<xs:element name="previousStepId" type="xs:integer" minOccurs="0" maxOccurs="3"/>
+										<xs:element name="globalData" type="xs:integer" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="displayOnly" type="xs:integer" minOccurs="0" maxOccurs="unbounded"/>
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>

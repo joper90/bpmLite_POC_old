@@ -14,7 +14,7 @@ public class StartCaseRequestWorker {
 	{		
 		StartCaseDetails startCaseDetails = startCaseDetailsDoc.getStartCaseDetails();
 		int processId = startCaseDetails.getProcessId();
-		int caseId = startCaseDetails.getCaseId();
+		String caseId = startCaseDetails.getCaseId();
 		FieldDetails[] fieldDetailsArray = startCaseDetails.getFieldDetailsArray();
 		
 		for (FieldDetails f : fieldDetailsArray)

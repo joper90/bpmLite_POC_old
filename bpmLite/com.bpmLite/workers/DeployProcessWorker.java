@@ -1,6 +1,6 @@
 package workers;
 
-import model.ReturnModel;
+import lite.models.ReturnModel;
 import rest.client.RestPostGlobalDataRequest;
 
 import com.bpmlite.api.ProcessArtifactDocument;
@@ -10,7 +10,7 @@ import com.bpmlite.api.ProcessArtifactDocument.ProcessArtifact.ProcessData.Steps
 import com.bpmlite.api.ProcessArtifactDocument.ProcessArtifact.ProcessData.Steps.ExtendedData;
 import com.bpmlite.api.ProcessArtifactDocument.ProcessArtifact.ProcessData.Steps.Participants;
 
-import config.Statics;
+import config.StaticsCommon;
 import database.DAO.BpmLiteDAO;
 import database.model.FieldDataModel;
 import database.model.GlobalMappingsModel;
@@ -30,8 +30,8 @@ public class DeployProcessWorker {
 		//Convert first to a doc element.
 		
 		//Validatae the user.
-		String rootUser = BpmLiteDAO.instance.getServerInfoDAO().getValueByName(Statics.SERVER_INFO_ADMIN_KEY);
-		String rootPass = BpmLiteDAO.instance.getServerInfoDAO().getValueByName(Statics.SERVER_INFO_ADMIN_PASS);
+		String rootUser = BpmLiteDAO.instance.getServerInfoDAO().getValueByName(StaticsCommon.SERVER_INFO_ADMIN_KEY).getValue();
+		String rootPass = BpmLiteDAO.instance.getServerInfoDAO().getValueByName(StaticsCommon.SERVER_INFO_ADMIN_PASS).getValue();
 		
 		if (rootUser != null && rootPass != null)
 		{
@@ -67,7 +67,7 @@ public class DeployProcessWorker {
 		//Now inject the  process information, so we can get a processid
 		int deployProcessInformation = deployProcessInformation(processToDeploy.getProcessArtifact());
 		
-		if (deployProcessInformation != Statics.FAILED)
+		if (deployProcessInformation != StaticsCommon.FAILED)
 		{
 			//Deploy the steps now.
 			boolean stepDeployed = deploySteps(processToDeploy.getProcessArtifact().getProcessData().getStepsArray(), 
@@ -145,7 +145,7 @@ public class DeployProcessWorker {
 		ProcessModel processModel = new ProcessModel(pInfo.getProcessData().getProcessName(),
 													 pInfo.getProcessData().getVersion(),
 													 pInfo.getUniqueGuid(),
-													 Statics.START_STEP_INITAL_VALUE, //StartStep now known yet!
+													 StaticsCommon.START_STEP_INITAL_VALUE, //StartStep now known yet!
 													 deployedFieldIds,
 													 deployedGlobalFieldIds); //common delimited list - Normals and globals.
 													 
@@ -156,7 +156,7 @@ public class DeployProcessWorker {
 			//Worked so lets get the id.
 			return BpmLiteDAO.instance.getProcessDAO().getIdByGuid(pInfo.getUniqueGuid());
 		}
-		return Statics.FAILED;
+		return StaticsCommon.FAILED;
 	}
 	
 	private boolean deploySteps(Steps[] stepArray, int processId)
@@ -165,9 +165,12 @@ public class DeployProcessWorker {
 		{
 			//Get pairs of data.
 			String extendedData = "";
-			ExtendedData[] extendedDataArray = s.getExtendedDataArray();
-			if (extendedDataArray.length != 0)
+			
+			ExtendedData[] extendedDataArray = null;
+			
+			if (s.getExtendedDataArray().length > 0)
 			{
+				extendedDataArray = s.getExtendedDataArray();
 				for (ExtendedData e : extendedDataArray)
 				{
 					extendedData = extendedData + e.getName() + ":" + e.getValue() + ",";
@@ -177,9 +180,11 @@ public class DeployProcessWorker {
 			}
 			
 			String partipantsList = "";
-			Participants[] participantsArray = s.getParticipantsArray();
-			if (participantsArray.length != 0)
+			Participants[] participantsArray = null;
+			
+			if (s.getParticipantsArray().length > 0)
 			{
+				participantsArray = s.getParticipantsArray();
 				for (Participants p : participantsArray)
 				{
 					partipantsList = partipantsList + p.getUserGuid() + ":";

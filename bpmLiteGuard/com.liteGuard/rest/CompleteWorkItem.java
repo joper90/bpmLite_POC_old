@@ -1,7 +1,6 @@
 package rest;
 
 import guard.models.CompleteFormData;
-import guard.models.ReturnModel;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -10,6 +9,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import lite.models.ReturnModel;
 
 import workers.CompleteWorkItemWorker;
 

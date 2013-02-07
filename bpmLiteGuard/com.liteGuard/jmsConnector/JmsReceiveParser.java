@@ -14,7 +14,7 @@ import com.bpmlite.api.RequestCallBackDocument.RequestCallBack;
 import com.bpmlite.api.StartCaseDetailsDocument;
 import com.bpmlite.api.WorkItemKeyDetailsDocument;
 
-import config.Statics;
+import config.StaticsCommon;
 
 public class JmsReceiveParser {
 
@@ -44,7 +44,7 @@ public class JmsReceiveParser {
 		try {
 			textRecived = ((com.tibco.tibjms.TibjmsTextMessage) tibMsg).getText();
 			//Do we need to process this...
-			if (textRecived.contains(Statics.WORK_ITEM_KEY_DETAILS))
+			if (textRecived.contains(StaticsCommon.WORK_ITEM_KEY_DETAILS))
 			{
 				WorkItemKeyDetailsDocument wDetailsDoc = WorkItemKeyDetailsDocument.Factory.parse(textRecived);
 				System.out.println("--> [JMS] Valid WorkItemKeyDetails JMS arrived..");
@@ -53,10 +53,10 @@ public class JmsReceiveParser {
 				 * / We have a valid set of details do now we can send to update the database
 				 */
 				isSuccess = WorkItemRequestWorker.injectNewKey(wDetailsDoc);
-				postBackResults(isSuccess, wDetailsDoc.getWorkItemKeyDetails().getCallBackGuid(), wDetailsDoc.getWorkItemKeyDetails().getUserKey(), CallBackType.INJECTED_KEY);
+				postBackResults(isSuccess, wDetailsDoc.getWorkItemKeyDetails().getUniqueFormGuid(), wDetailsDoc.getWorkItemKeyDetails().getUserKey(), CallBackType.INJECTED_KEY);
 				return isSuccess;
 			}
-			else if (textRecived.contains(Statics.START_CASE_DETAILS))
+			else if (textRecived.contains(StaticsCommon.START_CASE_DETAILS))
 			{
 				StartCaseDetailsDocument startCaseDoc = StartCaseDetailsDocument.Factory.parse(textRecived);
 				System.out.println("--> [JMS] Valid StartCaseDetails JMS arrived..");
@@ -106,7 +106,7 @@ public class JmsReceiveParser {
 		}
 			
 		QueueJMSMessageSender qSender = new QueueJMSMessageSender();
-		boolean sendWorked = qSender.sendMessageCheck(Statics.JMS_TOPIC_PUSH, rCallback.xmlText());
+		boolean sendWorked = qSender.sendMessageCheck(StaticsCommon.JMS_TOPIC_SERVER, rCallback.xmlText());
 		System.out.println("Send to bpmLite results " + sendWorked);
 	}
 }

@@ -5,9 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import config.Statics;
 import database.model.ProcessInstanceModel;
-import database.model.ProcessModel;
 import engine.HibernateUtil;
 
 
@@ -29,7 +27,7 @@ public class ProcessInstanceDAO extends StandardDAO{
 			trns = session.beginTransaction();
 
 			@SuppressWarnings("unchecked")
-			List<ProcessInstanceModel> sInfoList = session.createQuery("from ProcessInstance where caseId = :value").setString("value", caseId).list();
+			List<ProcessInstanceModel> sInfoList = session.createQuery("from ProcessInstanceModel where caseId = :value").setString("value", caseId).list();
 			if (sInfoList.size() == 1)
 			{
 				ret = sInfoList.get(0);
@@ -58,7 +56,7 @@ public class ProcessInstanceDAO extends StandardDAO{
 			trns = session.beginTransaction();
 
 			@SuppressWarnings("unchecked")
-			List<ProcessInstanceModel> sInfoList = session.createQuery("from ProcessInstance where guidCallback = :value").setString("value", guid).list();
+			List<ProcessInstanceModel> sInfoList = session.createQuery("from ProcessInstanceModel where guidCallback = :value").setString("value", guid).list();
 			if (sInfoList.size() == 1)
 			{
 				ret = sInfoList.get(0);
@@ -89,7 +87,7 @@ public class ProcessInstanceDAO extends StandardDAO{
 			trns = session.beginTransaction();
 
 			@SuppressWarnings("unchecked")
-			List<ProcessInstanceModel> sInfoList = session.createQuery("from ProcessInstance where caseId = :value").setString("value", caseId).list();
+			List<ProcessInstanceModel> sInfoList = session.createQuery("from ProcessInstanceModel where caseId = :value").setString("value", caseId).list();
 			if (sInfoList.size() == 1)
 			{
 				ret = sInfoList.get(0);

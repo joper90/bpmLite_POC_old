@@ -7,7 +7,7 @@ import javax.jms.QueueSender;
 import javax.jms.QueueSession;
 import javax.naming.NamingException;
 
-import config.Statics;
+import config.StaticsCommon;
 
 public class QueueJMSMessageSender
 {
@@ -33,7 +33,7 @@ public class QueueJMSMessageSender
 	 */
 	public boolean sendMessageCheck(String queueName, String messageToSend)
 	{
-		if (Statics.TEST_MODE)
+		if (StaticsCommon.TEST_MODE)
 		{
 			return true;
 		}

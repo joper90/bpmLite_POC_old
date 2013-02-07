@@ -20,12 +20,12 @@ public class ServerInfoDAO extends StandardDAO{
 	}
 	
 	
-	public String getValueByName(String name)
+	public ServerInfoModel getValueByName(String name)
 	{
 		this.errorCreated =false;
 		Transaction trns = null;
 		
-		String ret = null;
+		ServerInfoModel ret = null;
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
@@ -36,7 +36,7 @@ public class ServerInfoDAO extends StandardDAO{
 			
 			if (sInfoList.size() == 1)
 			{
-				ret = sInfoList.get(0).getValue();
+				ret = sInfoList.get(0);
 			}
 			
 			trns.commit();

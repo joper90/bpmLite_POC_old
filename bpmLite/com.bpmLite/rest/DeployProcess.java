@@ -10,14 +10,14 @@ import javax.ws.rs.core.Response;
 
 import org.apache.xmlbeans.XmlException;
 
-import model.ReturnModel;
+import lite.models.ReturnModel;
 
 import workers.DeployProcessWorker;
 
 import com.bpmlite.api.ProcessArtifactDocument;
 
 
-@Path("/DeployProcess")
+@Path("/deployProcess")
 public class DeployProcess {
 
 	@POST

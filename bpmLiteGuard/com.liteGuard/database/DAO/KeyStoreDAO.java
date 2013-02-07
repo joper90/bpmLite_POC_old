@@ -5,8 +5,8 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import config.Statics;
-import config.Statics.GUID_KEY_MODE;
+import config.StaticsCommon;
+import config.StaticsCommon.GUID_KEY_MODE;
 import database.HibernateUtil;
 import database.KeyStoreModel;
 
@@ -108,7 +108,7 @@ private boolean errorCreated = false;
 		return keyInfo;
 	}
 	
-	public KeyStoreModel updateKeyStoreStatus(String requestId, String userId, Statics.GUID_KEY_MODE newMode)
+	public KeyStoreModel updateKeyStoreStatus(String requestId, String userId, StaticsCommon.GUID_KEY_MODE newMode)
 	{
 		this.errorCreated =false;
 		KeyStoreModel keyInfo = null;
@@ -157,7 +157,7 @@ private boolean errorCreated = false;
 			{
 				sInfo = sInfoList.get(0);
 
-				if (Statics.GUID_KEY_MODE.INJECTED.toString().equalsIgnoreCase(sInfo.getKeyState()))
+				if (StaticsCommon.GUID_KEY_MODE.INJECTED.toString().equalsIgnoreCase(sInfo.getKeyState()))
 				{
 					ret = false;
 				}
@@ -177,7 +177,7 @@ private boolean errorCreated = false;
 		return ret;
 	}
 	
-	public Statics.GUID_KEY_MODE getKeyState(String requestId)
+	public StaticsCommon.GUID_KEY_MODE getKeyState(String requestId)
 	{
 		KeyStoreModel sInfo = null;
 		GUID_KEY_MODE gMode = null;

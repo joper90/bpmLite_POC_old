@@ -9,7 +9,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import workers.ValidationWorker;
-import config.Statics;
+import config.StaticsCommon;
 
 @Path("/validateGuardServer")
 public class ValidateServer {
@@ -30,8 +30,8 @@ public class ValidateServer {
 
 		// Check for validation and return
 		Validation v = new Validation();
-		v.setVersion(Statics.VERSION);
-		v.setAlive(Statics.isAlive);
+		v.setVersion(StaticsCommon.VERSION);
+		v.setAlive(StaticsCommon.guardIsAlive);
 
 		// Checking the key:
 		System.out.println("key passed : " + key);

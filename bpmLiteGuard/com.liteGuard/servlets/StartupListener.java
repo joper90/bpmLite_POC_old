@@ -6,7 +6,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import jmsConnector.JmsConnector;
-import config.Statics;
+import config.StaticsCommon;
 import database.ServerInfoModel;
 import database.DAO.BpmGuardDAO;
 
@@ -23,7 +23,7 @@ public class StartupListener  implements ServletContextListener{
 	public void contextInitialized(ServletContextEvent arg0) {
 
 		System.out.println("\n\n====>Starting to init the system...");
-		Statics.setAlive(true);
+		StaticsCommon.setGuardAlive(true);
 		
 		System.out.println("====>Starting JMS...");
 		jmsConnector = new JmsConnector();
@@ -51,21 +51,21 @@ public class StartupListener  implements ServletContextListener{
 		}
 		System.out.println("====>[HIB] Start time added...");
 		
-		sStatus = BpmGuardDAO.instance.getServerInfoDAO().findDataByValue(Statics.ADMIN);
+		sStatus = BpmGuardDAO.instance.getServerInfoDAO().findDataByValue(StaticsCommon.ADMIN);
 		if (sStatus == null)
 		{
 			ServerInfoModel sModel = new ServerInfoModel();
-			sModel.setValue(Statics.ADMIN);
-			sModel.setData(Statics.ADMIN_KEY);
+			sModel.setValue(StaticsCommon.ADMIN);
+			sModel.setData(StaticsCommon.ADMIN_KEY);
 			BpmGuardDAO.instance.getServerInfoDAO().addServerInfoRecord(sModel);
 		}
 		
-		sStatus = BpmGuardDAO.instance.getServerInfoDAO().findDataByValue(Statics.INITIAL_GLOBAL_COUNT);
+		sStatus = BpmGuardDAO.instance.getServerInfoDAO().findDataByValue(StaticsCommon.INITIAL_GLOBAL_COUNT);
 		if (sStatus == null)
 		{
 			ServerInfoModel sModel = new ServerInfoModel();
-			sModel.setValue(Statics.INITIAL_GLOBAL_COUNT);
-			sModel.setData(Statics.INITIAL_GLOBAL_COUNT_START);
+			sModel.setValue(StaticsCommon.INITIAL_GLOBAL_COUNT);
+			sModel.setData(StaticsCommon.INITIAL_GLOBAL_COUNT_START);
 			BpmGuardDAO.instance.getServerInfoDAO().addServerInfoRecord(sModel);
 		}
 		

@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS `bpmguard`.`field_data` ;
 
 CREATE  TABLE IF NOT EXISTS `bpmguard`.`field_data` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `case_id` INT NOT NULL ,
+  `case_id` VARCHAR(45) NOT NULL ,
   `process_id` INT NOT NULL ,
   `name` VARCHAR(45) NOT NULL ,
   `data` VARCHAR(45) NULL ,

@@ -3,18 +3,18 @@ package workers;
 import guard.models.CompleteFormData;
 import guard.models.FormData;
 import guard.models.FormData.FIELD_TYPE;
-import guard.models.ReturnModel;
 
 import java.util.ArrayList;
 
 import jmsConnector.QueueJMSMessageSender;
+import lite.models.ReturnModel;
 
 import com.bpmlite.api.ActionModeType;
 import com.bpmlite.api.CompleteWorkItemRequestDocument.CompleteWorkItemRequest;
 import com.bpmlite.api.WorkItemKeyDetailsDocument.WorkItemKeyDetails;
 
-import config.Statics;
-import config.Statics.GUID_KEY_MODE;
+import config.StaticsCommon;
+import config.StaticsCommon.GUID_KEY_MODE;
 import database.FieldDataModel;
 import database.GlobalData;
 import database.KeyStoreModel;
@@ -34,7 +34,7 @@ public class CompleteWorkItemWorker {
 			GUID_KEY_MODE keyState = BpmGuardDAO.instance.getKeyStoreDAO().getKeyState(requestId);
 			if (keyState != GUID_KEY_MODE.TAKEN)
 			{
-				return new ReturnModel(Statics.FAILED,"Incorrect key state", false);
+				return new ReturnModel(StaticsCommon.FAILURE,"Incorrect key state", false);
 			}
 			
 			//Entry exists and matches.
@@ -68,36 +68,36 @@ public class CompleteWorkItemWorker {
 					
 					QueueJMSMessageSender jmsSender = new QueueJMSMessageSender();
 					
-					if(jmsSender.sendMessageCheck(Statics.JMS_TOPIC_PUSH, comp.xmlText()))
+					if(jmsSender.sendMessageCheck(StaticsCommon.JMS_TOPIC_SERVER, comp.xmlText()))
 					{
-						return new ReturnModel(Statics.SUCCESS,"Step completed sucessfully", false);
+						return new ReturnModel(StaticsCommon.SUCCESS,"Step completed sucessfully", false);
 					}
 					else
 					{				
 						if (rollbackData(requestId  , currentData.getFormData()))
 						{
-							return new ReturnModel(Statics.FAILED,"Step not completed.. rolling back", false);
+							return new ReturnModel(StaticsCommon.FAILURE,"Step not completed.. rolling back", false);
 						}
 						else
 						{
-							return new ReturnModel(Statics.FAILED,"Step not completed.. rolling back FAILED", false);
+							return new ReturnModel(StaticsCommon.FAILURE,"Step not completed.. rolling back FAILED", false);
 						}
 					}
 					
 				
 				}else
 				{
-					return new ReturnModel(Statics.FAILED,"Update form data failed.", false);
+					return new ReturnModel(StaticsCommon.FAILURE,"Update form data failed.", false);
 				}
 			}
 			else
 			{
-				return new ReturnModel(Statics.FAILED,"Bpm Server is down..", false);
+				return new ReturnModel(StaticsCommon.FAILURE,"Bpm Server is down..", false);
 			}
 			
 		}
 		
-		return new ReturnModel(Statics.FAILED,"Unknown User / user did not validate correctly.", false);
+		return new ReturnModel(StaticsCommon.FAILURE,"Unknown User / user did not validate correctly.", false);
 	}
 	
 	
