@@ -53,6 +53,9 @@
     <property name="displayOnly">
    <column name="display_only"/>
   </property>
+      <property name="globalIds">
+   <column name="global_ids"/>
+  </property>
  </class>
  
  <class name="database.FieldDataModel" table="field_data" >

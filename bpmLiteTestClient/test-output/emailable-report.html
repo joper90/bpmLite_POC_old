@@ -31,23 +31,32 @@ div.shootout {padding:2em;border:3px #4854A8 solid}
 <body>
 <table cellspacing="0" cellpadding="0" class="result">
 <tr><th>Test</th><th class="numi">Methods<br/>Passed</th><th class="numi">Scenarios<br/>Passed</th><th class="numi"># skipped</th><th class="numi"># failed</th><th class="numi">Total<br/>Time</th><th class="numi">Included<br/>Groups</th><th class="numi">Excluded<br/>Groups</th></tr>
-<tr><td style="text-align:left;padding-right:2em">Default test</td><td class="numi">0</td><td class="numi">0</td><td class="numi">0</td><td class="numi_attn">1</td><td class="numi">0.8 seconds</td><td class="numi"></td><td class="numi"></td></tr>
+<tr><td style="text-align:left;padding-right:2em">Default test</td><td class="numi">2</td><td class="numi">2</td><td class="numi_attn">1</td><td class="numi_attn">1</td><td class="numi">1,548.5 seconds</td><td class="numi"></td><td class="numi"></td></tr>
 </table>
 <table cellspacing="0" cellpadding="0" class="passed" id="summary">
 <tr><th>Class</th><th>Method</th><th># of<br/>Scenarios</th><th>Start</th><th>Time<br/>(ms)</th></tr>
 <tr><th colspan="4">Default test &#8212; failed</th></tr>
-<tr class="failedodd"><td rowspan="1">com.bpmlite.testclient.StartProcessTest</td><td><a href="#m1"><b>testDeploy</b>  </a></td><td class="numi">1</td><td>1360239347041</td><td class="numi">831</td></tr>
+<tr class="failedodd"><td rowspan="1">com.bpmlite.testclient.CompleteDeploy_Start_Open</td><td><a href="#m1"><b>TestGetFormData</b>  </a></td><td class="numi">1</td><td>1361126538126</td><td class="numi">253</td></tr>
+<tr><th colspan="4">Default test &#8212; skipped</th></tr>
+<tr class="skippedodd"><td rowspan="1">com.bpmlite.testclient.CompleteDeploy_Start_Open</td><td><a href="#m2"><b>PostDataToServerCompleteWorkItem</b>  </a></td><td class="numi">1</td><td>1361126538383</td><td class="numi">1</td></tr>
+<tr><th colspan="4">Default test &#8212; passed</th></tr>
+<tr class="passedodd"><td rowspan="2">com.bpmlite.testclient.CompleteDeploy_Start_Open</td><td><a href="#m3"><b>testDeploy</b>  </a></td><td class="numi">1</td><td>1361124989937</td><td class="numi">1654</td></tr><tr class="passedodd"><td><a href="#m4"><b>startProcess</b>  </a></td><td class="numi">1</td><td>1361124991595</td><td class="numi">1546530</td></tr>
 </table>
 <h1>Default test</h1>
-<h2 id="m1">com.bpmlite.testclient.StartProcessTest:testDeploy</h2>
+<h2 id="m1">com.bpmlite.testclient.CompleteDeploy_Start_Open:TestGetFormData</h2>
 <div style="padding-left:3em">
-<p>expected [true[ but found ]true]</p>
-org.testng.Assert.fail(Assert.java:94)
-<br/>at org.testng.Assert.failNotEquals(Assert.java:494)
-<br/>at org.testng.Assert.assertEquals(Assert.java:123)
-<br/>at org.testng.Assert.assertEquals(Assert.java:165)
-<br/>at com.bpmlite.testclient.StartProcessTest.testDeploy(StartProcessTest.java:50)
+<p>GET http://localhost:8188/bpmLite/rest/getFormData?userId=12345&amp;requestId=691d481f-58ed-4b1b-a0ab-bc1fcb1b1a89 returned a response status of 404</p>
+com.sun.jersey.api.client.WebResource.handle(WebResource.java:562)
+<br/>at com.sun.jersey.api.client.WebResource.access$200(WebResource.java:69)
+<br/>at com.sun.jersey.api.client.WebResource$Builder.get(WebResource.java:451)
+<br/>at com.bpmlite.testclient.CompleteDeploy_Start_Open.TestGetFormData(CompleteDeploy_Start_Open.java:102)
 <br/>25 lines not shown
 </div>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m2">com.bpmlite.testclient.CompleteDeploy_Start_Open:PostDataToServerCompleteWorkItem</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m3">com.bpmlite.testclient.CompleteDeploy_Start_Open:startProcess</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<h2 id="m4">com.bpmlite.testclient.CompleteDeploy_Start_Open:testDeploy</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
 </body></html>

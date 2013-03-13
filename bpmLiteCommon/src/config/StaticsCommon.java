@@ -1,7 +1,7 @@
 package config;
 
 public class StaticsCommon {
-public final static boolean TEST_MODE = false;
+	public final static boolean TEST_MODE = false;
 	
 	public final static String BPM_GUARD_PATH = "http://localhost:8088/bpmGuard";
 	public final static String BPM_SERVER_PATH = "http://localhost:8088/bpmLite";
@@ -54,8 +54,10 @@ public final static boolean TEST_MODE = false;
 	public static String START_CASE_DETAILS		= "StartCaseDetails";
 	public static String CALL_BACK_DETAILS		= "CallBack";
 	public static String SERVER_COMMAND			= "ServerCommand";
+	public static String COMPLETE_COMMAND		= "CompleteWorkItem";
 
-	
+	//Process stuff
+	public static int PROCESS_ENDED	= -1;
 	
 	public static void setGuardAlive(boolean b)
 	{

@@ -15,7 +15,7 @@ public class ProcessStepWorker {
 		if (pModel != null)
 		{
 			//Get the current (inital?) .. push inital details out???  - done in start case.
-			StepDataModel stepDataModel = BpmLiteDAO.instance.getStepDataDAO().getStepByStepId(pModel.getCurrentStepId());
+			StepDataModel stepDataModel = BpmLiteDAO.instance.getStepDataDAO().getStepByStepId(pModel.getCurrentStepId(), pModel.getProcessId());
 			if (stepDataModel != null)
 			{	
 				//What kind of task is it? USER, AMXBPM, DB, EMAIL, POJO, TIBBR

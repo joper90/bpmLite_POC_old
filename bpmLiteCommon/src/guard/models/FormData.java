@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class FormData {
 
-	public enum FIELD_TYPE { STRING,INTEGER,DECIMAL,BOOLEAN};
+	public enum FIELD_TYPE { STRING,INT,DECIMAL,BOOLEAN};
 	public enum FIELD_MODE { EDIT,DISPLAY};
 	
 	private String fieldName = "";

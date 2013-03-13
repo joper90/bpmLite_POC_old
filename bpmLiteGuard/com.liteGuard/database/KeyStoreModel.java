@@ -12,6 +12,7 @@ public class KeyStoreModel {
 	private String caseId;
 	private String orderList;
 	private String displayOnly;
+	private String globalIds;
 	
 	public Integer getId() {
 		return id;
@@ -73,6 +74,12 @@ public class KeyStoreModel {
 	}
 	public void setDisplayOnly(String displayOnly) {
 		this.displayOnly = displayOnly;
+	}
+	public String getGlobalIds() {
+		return globalIds;
+	}
+	public void setGlobalIds(String globalIds) {
+		this.globalIds = globalIds;
 	}
 	
 	

@@ -26,6 +26,18 @@ public class CompleteFormData {
 		
 	}
 
+	public FormData getByName(String name)
+	{
+		for (FormData f : formData)
+		{
+			if (f.getFieldName().equalsIgnoreCase(name))
+			{
+				return f;
+			}
+		}
+		return null;
+	}
+	
 	public ArrayList<FormData> getFormData() {
 		return formData;
 	}

@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Default test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>2/1/1</td>
 </tr><tr>
-<td>Started on:</td><td>Thu Feb 07 12:15:47 GMT 2013</td>
+<td>Started on:</td><td>Sun Feb 17 18:16:29 GMT 2013</td>
 </tr>
-<tr><td>Total time:</td><td>0 seconds (850 ms)</td>
+<tr><td>Total time:</td><td>1548 seconds (1548460 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -75,13 +75,12 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='com.bpmlite.testclient.StartProcessTest.testDeploy()'><b>testDeploy</b><br>Test class: com.bpmlite.testclient.StartProcessTest</td>
-<td><div><pre>java.lang.AssertionError: expected [true[ but found ]true]
-	at org.testng.Assert.fail(Assert.java:94)
-	at org.testng.Assert.failNotEquals(Assert.java:494)
-	at org.testng.Assert.assertEquals(Assert.java:123)
-	at org.testng.Assert.assertEquals(Assert.java:165)
-	at com.bpmlite.testclient.StartProcessTest.testDeploy(StartProcessTest.java:50)
+<td title='com.bpmlite.testclient.CompleteDeploy_Start_Open.TestGetFormData()'><b>TestGetFormData</b><br>Test class: com.bpmlite.testclient.CompleteDeploy_Start_Open</td>
+<td><div><pre>com.sun.jersey.api.client.UniformInterfaceException: GET http://localhost:8188/bpmLite/rest/getFormData?userId=12345&amp;requestId=691d481f-58ed-4b1b-a0ab-bc1fcb1b1a89 returned a response status of 404
+	at com.sun.jersey.api.client.WebResource.handle(WebResource.java:562)
+	at com.sun.jersey.api.client.WebResource.access$200(WebResource.java:69)
+	at com.sun.jersey.api.client.WebResource$Builder.get(WebResource.java:451)
+	at com.bpmlite.testclient.CompleteDeploy_Start_Open.TestGetFormData(CompleteDeploy_Start_Open.java:102)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -106,13 +105,12 @@ function toggleAllBoxes() {
 	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
-</pre></div><a href='#' onClick='toggleBox("stack-trace956951190", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace956951190'><pre>java.lang.AssertionError: expected [true[ but found ]true]
-	at org.testng.Assert.fail(Assert.java:94)
-	at org.testng.Assert.failNotEquals(Assert.java:494)
-	at org.testng.Assert.assertEquals(Assert.java:123)
-	at org.testng.Assert.assertEquals(Assert.java:165)
-	at com.bpmlite.testclient.StartProcessTest.testDeploy(StartProcessTest.java:50)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1972618086", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1972618086'><pre>com.sun.jersey.api.client.UniformInterfaceException: GET http://localhost:8188/bpmLite/rest/getFormData?userId=12345&amp;requestId=691d481f-58ed-4b1b-a0ab-bc1fcb1b1a89 returned a response status of 404
+	at com.sun.jersey.api.client.WebResource.handle(WebResource.java:562)
+	at com.sun.jersey.api.client.WebResource.access$200(WebResource.java:69)
+	at com.sun.jersey.api.client.WebResource$Builder.get(WebResource.java:451)
+	at com.bpmlite.testclient.CompleteDeploy_Start_Open.TestGetFormData(CompleteDeploy_Start_Open.java:102)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -139,7 +137,38 @@ function toggleAllBoxes() {
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
 </pre></div></td>
 <td>0</td>
-<td>com.bpmlite.testclient.StartProcessTest@2d58f9d3</td></tr>
+<td>com.bpmlite.testclient.CompleteDeploy_Start_Open@2e1551b0</td></tr>
+</table><p>
+<table width='100%' border='1' class='invocation-passed'>
+<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='com.bpmlite.testclient.CompleteDeploy_Start_Open.startProcess()'><b>startProcess</b><br>Test class: com.bpmlite.testclient.CompleteDeploy_Start_Open</td>
+<td></td>
+<td>1546</td>
+<td>com.bpmlite.testclient.CompleteDeploy_Start_Open@2e1551b0</td></tr>
+<tr>
+<td title='com.bpmlite.testclient.CompleteDeploy_Start_Open.testDeploy()'><b>testDeploy</b><br>Test class: com.bpmlite.testclient.CompleteDeploy_Start_Open</td>
+<td></td>
+<td>1</td>
+<td>com.bpmlite.testclient.CompleteDeploy_Start_Open@2e1551b0</td></tr>
+</table><p>
+<table width='100%' border='1' class='invocation-skipped'>
+<tr><td colspan='4' align='center'><b>SKIPPED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='com.bpmlite.testclient.CompleteDeploy_Start_Open.PostDataToServerCompleteWorkItem()'><b>PostDataToServerCompleteWorkItem</b><br>Test class: com.bpmlite.testclient.CompleteDeploy_Start_Open</td>
+<td></td>
+<td>0</td>
+<td>null</td></tr>
 </table><p>
 </body>
 </html>

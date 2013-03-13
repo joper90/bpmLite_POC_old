@@ -10,6 +10,7 @@ import jmsConnector.QueueJMSMessageSender;
 import lite.models.ReturnModel;
 
 import com.bpmlite.api.ActionModeType;
+import com.bpmlite.api.CompleteWorkItemRequestDocument;
 import com.bpmlite.api.CompleteWorkItemRequestDocument.CompleteWorkItemRequest;
 import com.bpmlite.api.WorkItemKeyDetailsDocument.WorkItemKeyDetails;
 
@@ -52,10 +53,11 @@ public class CompleteWorkItemWorker {
 				formData.getFormData().toArray(fDataArray);
 				if (updateFormDataInDatabase(requestId, fDataArray))
 				{
-					
-					CompleteWorkItemRequest comp = CompleteWorkItemRequest.Factory.newInstance();
+					CompleteWorkItemRequestDocument compDoc = CompleteWorkItemRequestDocument.Factory.newInstance();
+					CompleteWorkItemRequest comp = compDoc.addNewCompleteWorkItemRequest();
 					comp.setProcessId(wItemDetails.getProcessId());
 					comp.setStepId(wItemDetails.getStepId());
+					comp.setCaseId(wItemDetails.getCaseId());
 			
 					if (action.equalsIgnoreCase("SUBMIT"))
 					{
@@ -68,7 +70,7 @@ public class CompleteWorkItemWorker {
 					
 					QueueJMSMessageSender jmsSender = new QueueJMSMessageSender();
 					
-					if(jmsSender.sendMessageCheck(StaticsCommon.JMS_TOPIC_SERVER, comp.xmlText()))
+					if(jmsSender.sendMessageCheck(StaticsCommon.JMS_TOPIC_SERVER, compDoc.xmlText()))
 					{
 						return new ReturnModel(StaticsCommon.SUCCESS,"Step completed sucessfully", false);
 					}
@@ -107,16 +109,22 @@ public class CompleteWorkItemWorker {
 		
 		String[] fIds = keyStore.getFieldIds().split(",");
 		ArrayList<Integer> fIdsInt = new ArrayList<Integer>();
-		for (String f : fIds)
+		if (fIds.length > 1)
 		{
-			fIdsInt.add(new Integer(f));
+			for (String f : fIds)
+			{
+				fIdsInt.add(new Integer(f));
+			}
 		}
 		
 		String[] displayOnly = keyStore.getDisplayOnly().split(",");
 		ArrayList<Integer> dInt = new ArrayList<Integer>();
-		for (String d : displayOnly)
+		if (displayOnly.length > 1)
 		{
-			dInt.add(new Integer(d));
+			for (String d : displayOnly)
+			{
+				dInt.add(new Integer(d));
+			}
 		}
 		
 		
@@ -135,13 +143,13 @@ public class CompleteWorkItemWorker {
 					if (f.isGlobal())
 					{
 						//Get a copy of the current data.
-						GlobalData globalFieldById = BpmGuardDAO.instance.getGlobalDataDAO().getGlobalFieldById(f.getFieldId());
+						GlobalData globalModelCurrentlyStored = BpmGuardDAO.instance.getGlobalDataDAO().getGlobalFieldById(f.getFieldId());
 						
 						//Check for type is correct.
-						if (isTypeCorrect(globalFieldById.getData(), globalFieldById.getType(), globalFieldById.getFieldId()))
+						if (isTypeCorrect(f.getFieldData(), f.getFieldType(), globalModelCurrentlyStored.getType()))
 						{
-							globalFieldById.setData(f.getFieldData());
-							BpmGuardDAO.instance.getGlobalDataDAO().updateField(globalFieldById);
+							globalModelCurrentlyStored.setData(f.getFieldData());
+							BpmGuardDAO.instance.getGlobalDataDAO().updateField(globalModelCurrentlyStored);
 							System.out.println("[COMPLETE] --> GLOBAL UPDATED :" +f.getFieldId());
 						}
 						else
@@ -152,17 +160,17 @@ public class CompleteWorkItemWorker {
 					}
 					else
 					{
-						//Get current fieldId
-						FieldDataModel fieldById = BpmGuardDAO.instance.getFieldDataDAO().getFieldById(keyStore.getProcessId(),
+						//Get current fieldId - what is it at the moment, before update.
+						FieldDataModel fieldModelCurrentlyStored = BpmGuardDAO.instance.getFieldDataDAO().getFieldById(keyStore.getProcessId(),
 																										keyStore.getCaseId(), 
 																										f.getFieldId());
 						
 						//Check the type is correct
 						
-						if (isTypeCorrect(fieldById.getData(), fieldById.getType(), fieldById.getFieldId()))
+						if (isTypeCorrect(f.getFieldData(), f.getFieldType(), fieldModelCurrentlyStored.getType()))
 						{
-							fieldById.setData(f.getFieldData());
-							BpmGuardDAO.instance.getFieldDataDAO().updateField(fieldById);
+							fieldModelCurrentlyStored.setData(f.getFieldData());
+							BpmGuardDAO.instance.getFieldDataDAO().updateField(fieldModelCurrentlyStored);
 							System.out.println("[COMPLETE] --> FIELD UPDATED :" +f.getFieldId());
 						}
 						else
@@ -195,71 +203,80 @@ public class CompleteWorkItemWorker {
 		return rollbackData(requestId, fDataArray);
 	}
 	
-	private static boolean isTypeCorrect(String fieldValue, String type, Integer fieldId)
+	private static boolean isTypeCorrect(String fieldValueFromClient, FIELD_TYPE typeFromClient, String typeExpected)
 	{
+
+		//Get the field information.
+		
 		//Convert type to the enum.
-		FIELD_TYPE fType;
-		for (FIELD_TYPE f : FIELD_TYPE.values())
+		
+		//First lets see if the typed (expected even match up.)
+		if (typeFromClient.toString().equalsIgnoreCase(typeExpected))
 		{
-			if (f.toString().equalsIgnoreCase(type))
+			
+			FIELD_TYPE fType;
+			for (FIELD_TYPE f : FIELD_TYPE.values())
 			{
-				fType = f;
-				
-				switch (fType)
+				if (f == typeFromClient)
 				{
-				case STRING:
-							//Bound to be correct.. as we get passed in a string.
-							break;
-				case INTEGER:
-							//First check for a . to check its not a decimal
-							if (fieldValue.contains("."))
-							{
-								//prob a decimal.. but falut as rounding will take place.
-								return false;
-							}
-							else
-							{
+					fType = f;
+					
+					switch (fType)
+					{
+					case STRING:
+								//Bound to be correct.. as we get passed in a string.
+								return true;
+					case INT:
+								//First check for a . to check its not a decimal
+								if (fieldValueFromClient.contains("."))
+								{
+									//prob a decimal.. but falut as rounding will take place.
+									return false;
+								}
+								else
+								{
+									try
+									{
+										Integer.parseInt(fieldValueFromClient);
+										return true;
+									}catch (Exception e)
+									{
+										return false;
+									}
+								}
+								
+	
+					case DECIMAL:
+								//Try and convert to a float.
 								try
 								{
-									Integer.parseInt(fieldValue);
+									Float.parseFloat(fieldValueFromClient);
+									return true;
 								}catch (Exception e)
 								{
 									return false;
 								}
-							}
-							break;
-
-				case DECIMAL:
-							//Try and convert to a float.
-							try
-							{
-								Float.parseFloat(fieldValue);
-							}catch (Exception e)
-							{
-								return false;
-							}
-							break;
-				case BOOLEAN:
-							//check for a true/false;
-							if (fieldValue.equalsIgnoreCase("true") || fieldValue.equalsIgnoreCase("false"))
-							{
-								//ok..but change this.. or adding logging
-							}else
-							{
-								if (fieldValue.equalsIgnoreCase("0") || fieldValue.equalsIgnoreCase("1"))
+					case BOOLEAN:
+								//check for a true/false;
+								if (fieldValueFromClient.equalsIgnoreCase("true") || fieldValueFromClient.equalsIgnoreCase("false"))
 								{
-									//also valid
+									return true;
 								}else
 								{
-									return false;
+									if (fieldValueFromClient.equalsIgnoreCase("0") || fieldValueFromClient.equalsIgnoreCase("1"))
+									{
+										return true;
+									}else
+									{
+										return false;
+									}
 								}
-							}
-							break;
+					}
+					
 				}
-				
 			}
 		}
-		System.out.println("[COMPLETE] --> INCORRECT Type for :" + fieldId + " " +fieldValue+" " +type);
+		System.out.println("[COMPLETE] --> INCORRECT Type for :" + fieldValueFromClient + " " +typeExpected+" " +typeFromClient);
 		return false;
 	}
 			

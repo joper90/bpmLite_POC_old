@@ -47,14 +47,15 @@ DROP TABLE IF EXISTS `bpmguard`.`key_store` ;
 CREATE  TABLE IF NOT EXISTS `bpmguard`.`key_store` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `user_id` VARCHAR(45) NOT NULL ,
-  `field_ids` VARCHAR(255) NOT NULL ,
   `user_guid` VARCHAR(45) NOT NULL ,
   `key_state` VARCHAR(45) NOT NULL ,
   `process_id` INT NOT NULL ,
   `step_id` INT NOT NULL ,
   `case_id` VARCHAR(25) NOT NULL ,
+  `field_ids` VARCHAR(255) NULL ,
+  `global_ids` VARCHAR(225) NULL ,
   `order_list` VARCHAR(255) NULL ,
-  `display_only_ids` VARCHAR(225) NULL ,
+  `display_ids` VARCHAR(255) NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `user_guid_UNIQUE` (`user_guid` ASC) )
 ENGINE = InnoDB;

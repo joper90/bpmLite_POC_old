@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="1" total="1" passed="0">
+<testng-results skipped="1" failed="1" total="4" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="850" started-at="2013-02-07T12:15:47Z" finished-at="2013-02-07T12:15:47Z">
+  <suite name="Default suite" duration-ms="1548460" started-at="2013-02-17T18:16:29Z" finished-at="2013-02-17T18:42:18Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="850" started-at="2013-02-07T12:15:47Z" finished-at="2013-02-07T12:15:47Z">
-      <class name="com.bpmlite.testclient.StartProcessTest">
-        <test-method status="FAIL" signature="testDeploy()[pri:0, instance:com.bpmlite.testclient.StartProcessTest@2d58f9d3]" name="testDeploy" duration-ms="831" started-at="2013-02-07T12:15:47Z" finished-at="2013-02-07T12:15:47Z">
-          <exception class="java.lang.AssertionError">
+    <test name="Default test" duration-ms="1548460" started-at="2013-02-17T18:16:29Z" finished-at="2013-02-17T18:42:18Z">
+      <class name="com.bpmlite.testclient.CompleteDeploy_Start_Open">
+        <test-method status="PASS" signature="testDeploy()[pri:0, instance:com.bpmlite.testclient.CompleteDeploy_Start_Open@2e1551b0]" name="testDeploy" duration-ms="1654" started-at="2013-02-17T18:16:29Z" finished-at="2013-02-17T18:16:31Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testDeploy -->
+        <test-method status="PASS" signature="startProcess()[pri:0, instance:com.bpmlite.testclient.CompleteDeploy_Start_Open@2e1551b0]" name="startProcess" duration-ms="1546530" started-at="2013-02-17T18:16:31Z" depends-on-methods="com.bpmlite.testclient.CompleteDeploy_Start_Open.testDeploy" finished-at="2013-02-17T18:42:18Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- startProcess -->
+        <test-method status="FAIL" signature="TestGetFormData()[pri:0, instance:com.bpmlite.testclient.CompleteDeploy_Start_Open@2e1551b0]" name="TestGetFormData" duration-ms="253" started-at="2013-02-17T18:42:18Z" depends-on-methods="com.bpmlite.testclient.CompleteDeploy_Start_Open.startProcess" finished-at="2013-02-17T18:42:18Z">
+          <exception class="com.sun.jersey.api.client.UniformInterfaceException">
             <message>
-              <![CDATA[expected [true[ but found ]true]]]>
+              <![CDATA[GET http://localhost:8188/bpmLite/rest/getFormData?userId=12345&requestId=691d481f-58ed-4b1b-a0ab-bc1fcb1b1a89 returned a response status of 404]]>
             </message>
             <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: expected [true[ but found ]true]
-	at org.testng.Assert.fail(Assert.java:94)
-	at org.testng.Assert.failNotEquals(Assert.java:494)
-	at org.testng.Assert.assertEquals(Assert.java:123)
-	at org.testng.Assert.assertEquals(Assert.java:165)
-	at com.bpmlite.testclient.StartProcessTest.testDeploy(StartProcessTest.java:50)
+              <![CDATA[com.sun.jersey.api.client.UniformInterfaceException: GET http://localhost:8188/bpmLite/rest/getFormData?userId=12345&requestId=691d481f-58ed-4b1b-a0ab-bc1fcb1b1a89 returned a response status of 404
+	at com.sun.jersey.api.client.WebResource.handle(WebResource.java:562)
+	at com.sun.jersey.api.client.WebResource.access$200(WebResource.java:69)
+	at com.sun.jersey.api.client.WebResource$Builder.get(WebResource.java:451)
+	at com.bpmlite.testclient.CompleteDeploy_Start_Open.TestGetFormData(CompleteDeploy_Start_Open.java:102)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -45,11 +52,15 @@
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
 ]]>
             </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
+          </exception> <!-- com.sun.jersey.api.client.UniformInterfaceException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testDeploy -->
-      </class> <!-- com.bpmlite.testclient.StartProcessTest -->
+        </test-method> <!-- TestGetFormData -->
+        <test-method status="SKIP" signature="PostDataToServerCompleteWorkItem()[pri:0, instance:com.bpmlite.testclient.CompleteDeploy_Start_Open@2e1551b0]" name="PostDataToServerCompleteWorkItem" duration-ms="1" started-at="2013-02-17T18:42:18Z" depends-on-methods="com.bpmlite.testclient.CompleteDeploy_Start_Open.TestGetFormData" finished-at="2013-02-17T18:42:18Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- PostDataToServerCompleteWorkItem -->
+      </class> <!-- com.bpmlite.testclient.CompleteDeploy_Start_Open -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

@@ -3,11 +3,14 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.bpmlite.testclient.StartProcessTest">
+      <class name="com.bpmlite.testclient.CompleteDeploy_Start_Open">
         <methods>
           <include name="testDeploy"/>
+          <include name="startProcess"/>
+          <include name="TestGetFormData"/>
+          <include name="PostDataToServerCompleteWorkItem"/>
         </methods>
-      </class> <!-- com.bpmlite.testclient.StartProcessTest -->
+      </class> <!-- com.bpmlite.testclient.CompleteDeploy_Start_Open -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

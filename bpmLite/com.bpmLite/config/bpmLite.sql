@@ -89,9 +89,9 @@ CREATE  TABLE IF NOT EXISTS `bpmLite`.`process_instance` (
   `initial_data_set` TINYINT(1) NOT NULL ,
   `guid_callback` VARCHAR(128) NOT NULL ,
   PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `process_id_UNIQUE` (`process_id` ASC) ,
   UNIQUE INDEX `case_id_UNIQUE` (`case_id` ASC) ,
-  UNIQUE INDEX `guid_callback_UNIQUE` (`guid_callback` ASC) )
+  UNIQUE INDEX `guid_callback_UNIQUE` (`guid_callback` ASC) ,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) )
 ENGINE = InnoDB;
 
 

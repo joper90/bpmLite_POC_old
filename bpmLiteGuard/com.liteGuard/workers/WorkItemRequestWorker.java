@@ -54,12 +54,28 @@ public class WorkItemRequestWorker {
 		//Get field list
 		KeyFieldDetails[] fieldDetailsArray = wItemKeyDetails.getWorkItemKeyDetails().getKeyFieldDetailsArray();
 		StringBuffer fieldIdList = new StringBuffer();
+		StringBuffer globalIdList = new StringBuffer();
 		for (KeyFieldDetails fDetails : fieldDetailsArray)
 		{
-			fieldIdList.append(fDetails.getFieldId());
-			fieldIdList.append(",");
+			if (fDetails.getIsGlobal())
+			{
+				globalIdList.append(fDetails.getFieldId());
+				globalIdList.append(",");
+			}
+			else
+			{
+				fieldIdList.append(fDetails.getFieldId());
+				fieldIdList.append(",");
+			}
 		}
-		keyStore.setFieldIds(fieldIdList.toString()); // , Still has the last , added on.. 
+		
+		
+		//strip and cleanup
+		if (globalIdList.length() > 0) globalIdList = globalIdList.deleteCharAt(globalIdList.length() -1);
+		if (fieldIdList.length() > 0) fieldIdList = fieldIdList.deleteCharAt(fieldIdList.length() -1);
+		
+		keyStore.setFieldIds(fieldIdList.toString());  
+		keyStore.setGlobalIds(globalIdList.toString());
 			
 		
 		return BpmGuardDAO.instance.getKeyStoreDAO().addKeyStoreRecord(keyStore);
@@ -183,17 +199,20 @@ public class WorkItemRequestWorker {
 	
 	private static FormData.FIELD_MODE getFieldMode(int idCheck, String listOfDisplayOnly)
 	{
-		String[] displayIds = listOfDisplayOnly.split(",");
-
-		for (String s : displayIds)
+		
+		if (listOfDisplayOnly.length() > 0)
 		{
-			int checkMe = new Integer(s);
-			if (checkMe == idCheck)
+			String[] displayIds = listOfDisplayOnly.split(",");
+	
+			for (String s : displayIds)
 			{
-				return FIELD_MODE.DISPLAY;
+				int checkMe = new Integer(s);
+				if (checkMe == idCheck)
+				{
+					return FIELD_MODE.DISPLAY;
+				}
 			}
 		}
-		
 		return FIELD_MODE.EDIT;
 	}
 }

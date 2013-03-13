@@ -17,7 +17,7 @@ public class StepDataDAO extends StandardDAO{
 		System.out.println("--> [DAO] init StepDataDAO...");
 	}
 
-	public StepDataModel getStepByStepId(Integer stepId)
+	public StepDataModel getStepByStepId(Integer stepId, Integer processId)
 	{
 		boolean errorCreated =false;
 		StepDataModel ret = null;
@@ -27,7 +27,10 @@ public class StepDataDAO extends StandardDAO{
 			trns = session.beginTransaction();
 
 			@SuppressWarnings("unchecked")
-			List<StepDataModel> sInfoList = session.createQuery("from StepDataModel where stepId = :value").setString("value", stepId.toString()).list();
+			List<StepDataModel> sInfoList = session.createQuery("from StepDataModel where stepId = :value and processId = :valueProcessId")
+													.setString("value", stepId.toString())
+													.setString("valueProcessId",processId.toString())
+													.list();
 			if (sInfoList.size() == 1)
 			{
 				ret = sInfoList.get(0);

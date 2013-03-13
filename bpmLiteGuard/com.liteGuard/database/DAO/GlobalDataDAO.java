@@ -103,17 +103,21 @@ public class GlobalDataDAO {
 	{
 		ArrayList<GlobalData> dModelList = new ArrayList<GlobalData>();
 		//First get a list of ids.
-		String[] ids = keyStoreModel.getFieldIds().split(",");
-		for (String id : ids)
+		String[] ids = keyStoreModel.getGlobalIds().split(",");
+
+		if (ids.length > 1)
 		{
-			GlobalData fTemp = getGlobalFieldById(new Integer(id));
-			if (fTemp != null)
+			for (String id : ids)
 			{
-				dModelList.add(fTemp);
-			}
-			else
-			{
-				System.out.println("--> [HIB] fieldDataModel not found id: " + id);
+				GlobalData fTemp = getGlobalFieldById(new Integer(id));
+				if (fTemp != null)
+				{
+					dModelList.add(fTemp);
+				}
+				else
+				{
+					System.out.println("--> [HIB] fieldDataModel not found id: " + id);
+				}
 			}
 		}
 		

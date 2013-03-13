@@ -36,6 +36,7 @@
 				<xs:element name="processId" type="xs:int"/>
 				<xs:element name="stepId" type="xs:int"/>
 				<xs:element name="action" type="actionModeType"/>
+				<xs:element name="caseId" type="xs:string"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

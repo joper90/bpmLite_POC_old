@@ -108,7 +108,7 @@ private boolean errorCreated = false;
 		return keyInfo;
 	}
 	
-	public KeyStoreModel updateKeyStoreStatus(String requestId, String userId, StaticsCommon.GUID_KEY_MODE newMode)
+	public KeyStoreModel updateKeyStoreStatus(String userId, String guid, StaticsCommon.GUID_KEY_MODE newMode)
 	{
 		this.errorCreated =false;
 		KeyStoreModel keyInfo = null;
@@ -117,7 +117,7 @@ private boolean errorCreated = false;
 		try {
 			trns = session.beginTransaction();
 			@SuppressWarnings("unchecked")
-			List<KeyStoreModel> sInfoList = session.createQuery("from KeyStoreModel where userGuid = :userguid and userId = :userid").setString("userguid", requestId).setString("userid", userId).list();
+			List<KeyStoreModel> sInfoList = session.createQuery("from KeyStoreModel where userGuid = :userguid and userId = :userid").setString("userguid", guid).setString("userid", userId).list();
 			
 			if (sInfoList.size() == 1)
 			{

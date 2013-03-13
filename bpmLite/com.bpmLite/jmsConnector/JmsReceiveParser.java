@@ -10,14 +10,19 @@ import workers.ProcessStepWorker;
 
 import com.bpmlite.api.CallBackType;
 import com.bpmlite.api.CallBackType.Enum;
+import com.bpmlite.api.CompleteWorkItemRequestDocument;
+import com.bpmlite.api.CompleteWorkItemRequestDocument.CompleteWorkItemRequest;
 import com.bpmlite.api.RequestCallBackDocument;
 import com.bpmlite.api.RequestCallBackDocument.RequestCallBack;
+import com.bpmlite.api.ServerCommandDocument.ServerCommand;
 import com.bpmlite.api.ServerCommandDocument;
 import com.bpmlite.api.ServerInstruction;
 
 import config.StaticsCommon;
 import connector.tibbrConnector.TibbrConnector;
 import database.DAO.BpmLiteDAO;
+import database.model.ProcessInstanceModel;
+import database.model.StepDataModel;
 import database.model.UserModel;
 
 public class JmsReceiveParser {
@@ -74,6 +79,55 @@ public class JmsReceiveParser {
 				{
 					//Blah
 				}
+			}else if (textRecived.contains(StaticsCommon.COMPLETE_COMMAND))
+			{
+				//Complete command from the guard, so we can move to the next step.
+				CompleteWorkItemRequestDocument comp = CompleteWorkItemRequestDocument.Factory.parse(textRecived);
+				int processId = comp.getCompleteWorkItemRequest().getProcessId();
+				int stepId = comp.getCompleteWorkItemRequest().getStepId();
+				String caseId = comp.getCompleteWorkItemRequest().getCaseId();
+				
+				//So we know the guard has the updated values, we need to move onto the next step now.
+				//1) get the current step, where we are.
+				StepDataModel stepByStepId = BpmLiteDAO.instance.getStepDataDAO().getStepByStepId(stepId, processId);
+				String nextId = stepByStepId.getNextId();
+				
+				//Update the processId to the now current step that we are on.
+				ProcessInstanceModel byCaseId = BpmLiteDAO.instance.getProcessInstanceDAO().getByCaseId(caseId);
+				byCaseId.setCurrentStepId(new Integer(nextId));
+				
+				boolean updateModel = BpmLiteDAO.instance.getProcessInstanceDAO().updateModel(byCaseId);
+				
+				if (updateModel) //updated the new 
+				{
+					ServerCommandDocument serverCommand = ServerCommandDocument.Factory.newInstance();
+					ServerCommand c = serverCommand.addNewServerCommand();
+					c.setCaseId(caseId);
+					
+					//Now need to see if we have ended the process? i.e, is the nex step a -1 type.
+					if (new Integer(nextId) == StaticsCommon.PROCESS_ENDED)
+					{
+						c.setInstruction(ServerInstruction.END_PROCESS);
+					}else
+					{
+						//Now updated. so we need to call the Server to setnd out the next item.
+						c.setInstruction(ServerInstruction.NEXT_STEP);
+					}
+
+					QueueJMSMessageSender q = new QueueJMSMessageSender();
+					try {
+						q.sendMessage(StaticsCommon.JMS_TOPIC_SERVER, serverCommand.xmlText());
+					} catch (NamingException e) {
+						// TODO Auto-generated catch block
+						System.out.println("[completed workItem] Cannot post next Step message");
+						return false;
+					}
+				}
+				else
+				{
+					//log out an error.. 
+				}
+				
 			}
 				
 			
